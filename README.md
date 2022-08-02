@@ -1,24 +1,33 @@
-# README
+## サイト名
+planT-to(仮)
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+## サイト概要
+・植物/園芸好きが集まるSNSアプリです。
 
-Things you may want to cover:
+### サイトテーマ
+・お庭観賞×SNS
 
-* Ruby version
+### テーマを選んだ理由
+・家での時間が増え、園芸を始める人が増えている。しかし植物を育てるにあたり嬉しいことや困ったことなど
+共有すること自体は少ない。そこで園芸初心者や植物好きが気軽にコミュニケーションを取れたら面白いのではないかと考えた。
 
-* System dependencies
+### ターゲットユーザ
+・園芸初心者/園芸や植物が好きな人
 
-* Configuration
+### 主な利用シーン
+・家の植物の成長を見せたい
+・植物の調子が悪い時に相談する
 
-* Database creation
+## 設計書
+<...>
 
-* Database initialization
+## 開発環境
+- OS：Linux(CentOS)
+- 言語：HTML,CSS,JavaScript,Ruby,SQL
+- フレームワーク：Ruby on Rails
+- JSライブラリ：jQuery
+- IDE：Cloud9
 
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+## 使用素材
+- 外部サービスの画像素材・音声素材を使用した場合は、必ずサービス名とURLを明記してください。
+- 使用しない場合は、使用素材の項目をREADMEから削除してください。
