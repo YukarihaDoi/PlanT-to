@@ -1,3 +1,26 @@
 Rails.application.routes.draw do
-  # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
+
+  # 管理者用devise
+  devise_for :admin,skip: [:passwords], controllers: {
+  registrations: "admin/registrations",
+  sessions: "admin/sessions"
+  }
+
+  # ユーザー用devise
+  devise_for :users,skip: [:passwords], controllers: {
+  registrations: "public/registrations",
+  sessions: 'public/sessions'
+  }
+
+  # 管理者
+  namespace :admin do
+    get '/' => 'homes#top'
+  end
+
+  # ユーザー(ファイル構成違うため、module)
+  scope module: :public do
+    root to: 'homes#top'
+    get '/about' => 'homes#about' , as: 'about'
+  end
+
 end
