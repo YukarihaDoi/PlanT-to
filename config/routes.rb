@@ -22,6 +22,7 @@ Rails.application.routes.draw do
     root to: 'homes#top'
     get '/about' => 'homes#about' , as: 'about'
     resources :users, only: [:show, :index, :edit, :update]
+    resources :post_images, only: [:show, :index, :edit, :update]
   end
 
 end
