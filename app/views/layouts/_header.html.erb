@@ -17,12 +17,27 @@
             ログアウト
             <% end %>
           </li>
+          <li>
+            <%= link_to users_path, class: 'nav-link text-light' do %>
+            ユーザー一覧
+            <% end %>
+          </li>
+          <li>
+            <%= link_to user_path(current_user), class: 'nav-link text-light' do %>
+            マイページ
+            <% end %>
+          </li>
 
           <!--サインイン前-->
           <% else %>
           <li>
             <%= link_to about_path, class: 'nav-link text-light' do %>
             アバウト
+            <% end %>
+          </li>
+          <li>
+            <%= link_to users_path, class: 'nav-link text-light' do %>
+            ユーザー一覧
             <% end %>
           </li>
           <li>
