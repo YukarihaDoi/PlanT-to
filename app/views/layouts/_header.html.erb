@@ -1,0 +1,59 @@
+<header>
+  <nav>
+    <div class="container">
+      <!--右-->
+      <a class="navbar-brand" href="/"><span>Plan<i class="fa-solid fa-seedling"></i>-to</span></a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+    　<!--左-->
+      <div class="collapse navbar-collapse" id="navbarNavDropdown">
+        <ul class="navbar-nav ml-auto">
+          <!--サインイン後-->
+          <% if user_signed_in? %>
+          <li>
+            <%= link_to destroy_user_session_path, method: :delete, class: 'nav-link text-light' do %>
+            ログアウト
+            <% end %>
+          </li>
+          <li>
+            <%= link_to users_path, class: 'nav-link text-light' do %>
+            ユーザー一覧
+            <% end %>
+          </li>
+          <li>
+            <%= link_to user_path(current_user), class: 'nav-link text-light' do %>
+            マイページ
+            <% end %>
+          </li>
+
+          <!--サインイン前-->
+          <% else %>
+          <li>
+            <%= link_to about_path, class: 'nav-link text-light' do %>
+            アバウト
+            <% end %>
+          </li>
+          <li>
+            <%= link_to users_path, class: 'nav-link text-light' do %>
+            ユーザー一覧
+            <% end %>
+          </li>
+          <li>
+            <%= link_to new_user_registration_path, class: 'nav-link text-light' do %>
+            新規登録
+            <% end %>
+          </li>
+          <li>
+            <%= link_to new_user_session_path, class: 'nav-link text-light' do %>
+            ログイン
+            <% end %>
+          </li>
+          <% end %>
+        </ul>
+      </div>
+
+    </div>
+  </nav>
+</header>
