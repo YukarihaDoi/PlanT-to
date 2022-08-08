@@ -22,8 +22,7 @@
 - 花を見て癒されたい時
 
 ### ER図
-![ER図_PlanT-to]
-(https://user-images.githubusercontent.com/104881559/183317194-90cff248-2c45-4fa6-a08a-0c5b09f22534.jpg)
+![ER図_PlanT-to](https://user-images.githubusercontent.com/104881559/183317194-90cff248-2c45-4fa6-a08a-0c5b09f22534.jpg)
 
 ## 開発環境
 - OS：Linux(CentOS)
