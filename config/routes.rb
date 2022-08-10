@@ -25,7 +25,7 @@ Rails.application.routes.draw do
 
   # ユーザー(ファイル構成違うため、module)
   scope module: :public do
-    root to: 'homes#top'
+    root to: 'post_images#index'
     get '/about' => 'homes#about' , as: 'about'
     resources :users, only: [:show, :index, :edit, :update]
     resources :post_images, only: [:show, :index, :edit, :update]
