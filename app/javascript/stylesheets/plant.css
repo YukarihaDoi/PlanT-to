@@ -1,0 +1,9 @@
+.background {
+ background-color: #24a28f;
+ width: auto;
+ height: 500px;
+ /*水玉*/
+ /*background-image:radial-gradient(#ffffff 30%, transparent 30%);*/
+ /*水玉の大きさ*/
+ /*background-size: 10px 10px;*/
+}
