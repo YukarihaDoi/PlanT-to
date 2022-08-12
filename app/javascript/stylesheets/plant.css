@@ -1,0 +1,13 @@
+.background {
+ background-color: #24a28f;
+ width: auto;
+ height: 100vh;
+ /*水玉*/
+ /*background-image:radial-gradient(#ffffff 30%, transparent 30%);*/
+ /*水玉の大きさ*/
+ /*background-size: 10px 10px;*/
+}
+.plant-color{
+ background-color: #24a28f;
+ width: 100vw;
+}

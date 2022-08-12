@@ -16,6 +16,7 @@ import "../stylesheets/application"
 import '@fortawesome/fontawesome-free/js/all'
 
 // 追加したcssファイルをimport で追加する
+import "../stylesheets/plant.css"
 
 Rails.start()
 Turbolinks.start()

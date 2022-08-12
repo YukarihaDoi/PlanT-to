@@ -1,1 +1,27 @@
-<h1>ここはトップページ</h1>
+<div class="background">
+
+<div class="container">
+
+  <div class="row">
+    <div class='mx-auto col-10 col-sm-10 col-lg-8 col-xl-6 mt-5'>
+      <h1><strong>PlanT-to</strong></h1>
+      <br>
+      <div class="btn-wrapper col-10 mx-auto">
+        <div class="row">
+          <%= link_to 'ログイン',new_user_session_path, class: "btn btn-light btn-sm btn-block mb-3 ログイン" %>
+        </div>
+        <div class="row">
+          <%= link_to '新規登録',new_user_registration_path, class: "btn btn-light btn-sm btn-block mb-3 新規登録" %>
+        </div>
+        <div class="row">
+          <%= link_to 'ゲストログイン',new_user_session_path, class: "btn btn-light btn-sm btn-block  ゲストログイン" %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!--フッター-->
+<%= render 'layouts/footer' %>
+
+</div>
