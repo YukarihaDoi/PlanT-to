@@ -6,11 +6,11 @@ class User < ApplicationRecord
   # 会員名
   validates :name, presence: true, length: { minimum: 2, maximum: 20 }, uniqueness: true
 
-　##アソシエーション
-　has_many :post_images, dependent: :destroy
-　has_many :questions, dependent: :destroy
-　has_many :comments, dependent: :destroy
-　has_many :favorites, dependent: :destroy
+##アソシエーション
+  has_many :post_images, dependent: :destroy
+  has_many :questions, dependent: :destroy
+  has_many :comments, dependent: :destroy
+  has_many :favorites, dependent: :destroy
 
   has_many :follower, class_name: "Relationship", foreign_key: "follower_id", dependent: :destroy
   has_many :following_user, through: :follower, source: :followed
@@ -20,13 +20,14 @@ class User < ApplicationRecord
   ##画像
   has_one_attached :profile_image
   # 画像確認/サイズ
-  def get_profile_image
-    unless profile_image.attached?
-      file_path = Rails.root.join('app/assets/images/sample-author1.jpg')
-      profile_image.attach(io: File.open(file_path), filename: 'default-image.jpg', content_type: 'image/jpeg')
-    end
-    profile_image.variant(resize_to_limit: [100, 100]).processed
-  end
+  
+  # def get_profile_image
+  #   unless profile_image.attached?
+  #     file_path = Rails.root.join('app/assets/images/sample-author1.jpg')
+  #     profile_image.attach(io: File.open(file_path), filename: 'default-image.jpg', content_type: 'image/jpeg')
+  #   end
+  #   profile_image.variant(resize_to_limit: [100, 100]).processed
+  # end
 
   ##フォロー/フォロワー
   # フォローする

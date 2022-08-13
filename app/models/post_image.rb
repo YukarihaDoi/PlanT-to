@@ -19,9 +19,9 @@ class PostImage < ApplicationRecord
   def favorited_by?(user)
     favorites.exists?(user_id: user.id)
   end
-　
-　# バリテーション 
-　validates :title, presence: true
+  
+  # バリテーション 
+  validates :title, presence: true
   validates :body, presence: true
   validates :image, presence: true
 

@@ -8,6 +8,7 @@ gem 'rails', '~> 6.1.6'
 # Use sqlite3 as the database for Active Record
 gem 'sqlite3', '~> 1.4'
 # Use Puma as the app server
+
 # 開発環境構築のため修正
 # gem 'puma', '~> 5.0'
 gem 'puma', '~> 3.11'
@@ -25,7 +26,9 @@ gem 'jbuilder', '~> 2.7'
 # gem 'bcrypt', '~> 3.1.7'
 
 # Use Active Storage variant
-# gem 'image_processing', '~> 1.2'
+
+# 画像サイズ変更ファイル
+gem 'image_processing', '~> 1.2'
 
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.4.4', require: false

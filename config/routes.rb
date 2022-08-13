@@ -1,11 +1,5 @@
 Rails.application.routes.draw do
 
-  namespace :public do
-    get 'question_post_images/show'
-    get 'question_post_images/index'
-    get 'question_post_images/create'
-    get 'question_post_images/destroy'
-  end
   # 管理者用devise
   devise_for :admin,skip: [:passwords], controllers: {
   registrations: "admin/registrations",
@@ -25,10 +19,27 @@ Rails.application.routes.draw do
 
   # ユーザー(ファイル構成違うため、module)
   scope module: :public do
-    root to: 'post_images#index'
+    root to: 'homes#top'
     get '/about' => 'homes#about' , as: 'about'
-    resources :users, only: [:show, :index, :edit, :update]
-    resources :post_images, only: [:show, :index, :edit, :update]
+    get 'relationships/followings'
+    get 'relationships/followers'
+    get "users/:id/following" => "users#following" ,as:"following"
+    get "users/:id/follower" => "users#follower" ,as:"follower"
+
+    resources :users, only: [:show, :index, :edit, :update] do
+      post 'follow/:id' => 'relation#create', as: 'follow'
+      post 'unfollow/:id' => 'relation#destroy', as: 'unfollow'
+    end
+
+    resources :post_images, only: [:new, :create, :show, :index, :edit, :update] do
+      resources :comments, only: [:create,:destroy]
+      resource :favorites, only: [:create, :destroy]
+    end
+
+    resources :questions, only: [:show, :index, :edit, :update] do
+      resources :comments, only: [:create,:destroy]
+      resource :favorites, only: [:create, :destroy]
+    end
   end
 
 end
