@@ -12,12 +12,14 @@
 <p>説明：<%= @question.question_body %></p>
 <p>♡</p>
 
-<%= link_to edit_question_path(@question) do %>
-編集
-<% end %>
+<% if @question.user == current_user %>
+  <%= link_to edit_question_path(@question) do %>
+  編集
+  <% end %>
 
-<%= link_to question_path(@question), method: :delete do %>
-<p>削除</p>
+  <%= link_to question_path(@question), method: :delete do %>
+  <p>削除</p>
+  <% end %>
 <% end %>
 <!--サインいんしてればできる-->
 <p>コメント</p>

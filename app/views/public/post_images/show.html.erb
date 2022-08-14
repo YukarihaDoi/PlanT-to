@@ -13,14 +13,32 @@
 <p>説明：<%= @post_image.body %></p>
 <p>♡</p>
 
-<%= link_to edit_post_image_path(@post_image) do %>
-編集
+<% if @post_image.user == current_user %>
+  <%= link_to edit_post_image_path(@post_image) do %>
+  編集
+  <% end %>
+  <%= link_to post_image_path(@post_image), method: :delete, data: { confirm: '本当に消しますか？' } do%>
+  削除
+  <% end %>
 <% end %>
 
-<%= link_to post_image_path(@post_image), method: :delete, data: { confirm: '本当に消しますか？' } do%>
-削除
-<% end %>
-<p>コメント</p>
+<div>
+  <p>コメント件数：<%= @post_image.comments.count %></p>
+  <% @post_image.comments.each do |comment| %>
+    <p><%= image_tag comment.user.get_profile_image(100,100) %></p>
+    <%= comment.user.name %>
+    <%= comment.created_at.strftime('%Y/%m/%d') %><%= comment.comment %>
+    <% if comment.user == current_user %>
+      <%= link_to "削除", post_image_comment_path(comment.post_image, comment), method: :delete %>
+    <% end %>
+  <% end %>
+</div>
+<div>
+  <%= form_with model: [@post_image, @comment] do |f| %>
+    <%= f.text_area :comment, rows: '5', placeholder: "コメントをここに" %>
+    <%= f.submit "送信する" %>
+  <% end %>
+</div>
 
 
 

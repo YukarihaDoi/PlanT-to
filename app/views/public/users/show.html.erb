@@ -3,7 +3,7 @@
 <h5>ユーザーページ</h5>
 <!-- ユーザーの詳細 -->
 <div>
-  <%= image_tag @user.profile_image, size:'100x100' %>
+  <%= image_tag @user.get_profile_image(100,100) %>
   <%= @user.name %>
   <%= @user.introduction %>
 
@@ -24,7 +24,7 @@
   <% end %>
   <%= post_image.body %>
   <p>♡</p>
-  <p>コメントの数</p>
+  <p><%= link_to "#{post_image.comments.count} コメント", post_image_path(post_image.id) %></p>
   <br>
   <% end %>
 

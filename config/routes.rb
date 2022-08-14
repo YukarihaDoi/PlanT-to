@@ -32,7 +32,7 @@ Rails.application.routes.draw do
     end
 
     resources :post_images, only: [:new, :create, :show, :index, :edit, :update, :destroy] do
-      resources :comments, only: [:create,:destroy]
+      resources :comments, only: [:create, :destroy]
       resource :favorites, only: [:create, :destroy]
     end
 
