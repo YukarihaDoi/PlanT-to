@@ -1,11 +1,38 @@
 <!--ヘッター-->
 <%= render 'layouts/header' %>
-<h1>ユーザーマイページ</h1>
+<h5>ユーザーページ</h5>
 <!-- ユーザーの詳細 -->
 <div>
   <h3><%= @user.name %></h3>
   <!--%= image_tag @user.get_profile_image(100,100) %>-->
   <% if @user == current_user %>
   <p><%= link_to "プロフィール編集", edit_user_path(@user) %></p>
+  <% end %>
+
+  <h5>投稿一覧</h5>
+  <% @post_images.each do |post_image| %>
+  <%= link_to post_image_path(post_image.id) do %>
+  <%= image_tag post_image.get_image %>
+  <% end %>
+  <%= link_to(post_image_path(post_image.id), class:"text-dark") do %>
+  <p><%= post_image.title %></p>
+  <% end %>
+  <%= post_image.body %>
+  <p>♡</p>
+  <p>コメントの数</p>
+  <br>
+  <% end %>
+
+  <h5>質問一覧</h5>
+  <% @questions.each do |question| %>
+  <%= link_to question_path(question.id) do %>
+  <%= image_tag question.get_question_image %>
+  <% end %>
+  <%= link_to(question_path(question.id), class:"text-dark") do %>
+  <p><%= question.question_title %></p>
+  <% end %>
+  <%= question.question_body %>
+  <p>回答の数</p>
+  <br>
   <% end %>
 </div>

@@ -1,2 +1,28 @@
-<h1>Public::QuestionPostImages#show</h1>
-<p>Find me in app/views/public/question_post_images/show.html.erb</p>
+<!--ヘッター-->
+<%= render 'layouts/header' %>
+
+<h5>投稿詳細画面</h5>
+<%= image_tag @question.get_question_image %>
+
+<%= link_to user_path(@question.user) do %>
+<%= @question.user.name %>
+<% end %>
+<p><%= @question.question_title %></p>
+<!--投稿文章-->
+<p>説明：<%= @question.question_body %></p>
+<p>♡</p>
+
+<%= link_to edit_question_path(@question) do %>
+編集
+<% end %>
+
+<%= link_to question_path(@question), method: :delete do %>
+<p>削除</p>
+<% end %>
+<!--サインいんしてればできる-->
+<p>コメント</p>
+
+
+
+<!--フッター-->
+<%= render 'layouts/footer' %>

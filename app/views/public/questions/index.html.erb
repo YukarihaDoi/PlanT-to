@@ -1,2 +1,23 @@
-<h1>Public::QuestionPostImages#index</h1>
-<p>Find me in app/views/public/question_post_images/index.html.erb</p>
+<!--ヘッター-->
+<%= render 'layouts/header' %>
+
+<h5>質問一覧</h5>
+<% @questions.each do |question| %>
+<%= link_to question_path(question.id) do %>
+<%= image_tag question.get_question_image %>
+<% end %>
+
+<%= link_to user_path(question.user) do %>
+<%= question.user.name %>
+<% end %>
+
+<%= link_to(question_path(question.id), class:"text-dark") do %>
+<p><%= question.question_title %></p>
+<% end %>
+<%= question.question_body %>
+<p>回答の数</p>
+<br>
+<% end %>
+
+<!--フッター-->
+<%= render 'layouts/footer' %>

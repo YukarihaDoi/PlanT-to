@@ -31,12 +31,12 @@ Rails.application.routes.draw do
       post 'unfollow/:id' => 'relation#destroy', as: 'unfollow'
     end
 
-    resources :post_images, only: [:new, :create, :show, :index, :edit, :update] do
+    resources :post_images, only: [:new, :create, :show, :index, :edit, :update, :destroy] do
       resources :comments, only: [:create,:destroy]
       resource :favorites, only: [:create, :destroy]
     end
 
-    resources :questions, only: [:show, :index, :edit, :update] do
+    resources :questions, only: [:new, :create, :show, :index, :edit, :update, :destroy] do
       resources :comments, only: [:create,:destroy]
       resource :favorites, only: [:create, :destroy]
     end

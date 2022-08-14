@@ -1,13 +1,28 @@
 <!--ヘッター-->
 <%= render 'layouts/header' %>
 
-    <%= link_to post_image_path(@post_image.id) do %>
-      <%= image_tag @post_image.get_image, class:"card-img-top"; %>
-    <% end %>
-        
-        
-    <%= link_to(post_image_path(@post_image.id), class:"text-dark") do %>
-    <strong><i class="far fa-flag"></i><span> <%= @post_image.title %></span></strong>
-    <% end %>
-          
-    <p class="card-text">説明：<%= @post_image.body %></p>
+<h5>投稿詳細画面</h5>
+<%= image_tag @post_image.get_image %>
+
+<%= link_to user_path(@post_image.user) do %>
+<%= @post_image.user.name %>
+<% end %>
+
+<p><%= @post_image.title %></p>
+<!--投稿文章-->
+<p>説明：<%= @post_image.body %></p>
+<p>♡</p>
+
+<%= link_to edit_post_image_path(@post_image) do %>
+編集
+<% end %>
+
+<%= link_to post_image_path(@post_image), method: :delete, data: { confirm: '本当に消しますか？' } do%>
+削除
+<% end %>
+<p>コメント</p>
+
+
+
+<!--フッター-->
+<%= render 'layouts/footer' %>

@@ -41,11 +41,8 @@ class Public::PostImagesController < ApplicationController
   # 投稿更新
   def update
     @post_image = PostImage.find(params[:id])
-    if @post_image.update
+    @post_image.update(post_image_params)
      redirect_to post_images_path
-    else
-     render :edit
-    end
   end
 
   # 投稿削除

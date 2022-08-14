@@ -1,8 +1,11 @@
 class Public::UsersController < ApplicationController
 before_action :ensure_currect_user, only: [:edit,:update]
 before_action :authenticate_user!, only: [:show]
+
   def show
     @user = User.find(params[:id])
+    @post_images = @user.post_images
+    @questions = @user.questions
   end
 
   def index

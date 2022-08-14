@@ -2,7 +2,6 @@ class PostImage < ApplicationRecord
   # アソシエーション
   belongs_to :user
   has_many :comments, dependent: :destroy
-  has_many :favorites, dependent: :destroy
   # 画像
   has_one_attached :image
 
@@ -14,13 +13,13 @@ class PostImage < ApplicationRecord
     end
     image.variant(resize_to_limit: [100, 100]).processed
   end
-  
+
   # いいねしているユーザーがいるかどうか
   def favorited_by?(user)
     favorites.exists?(user_id: user.id)
   end
-  
-  # バリテーション 
+
+  # バリテーション
   validates :title, presence: true
   validates :body, presence: true
   validates :image, presence: true

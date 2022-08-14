@@ -1,8 +1,6 @@
 <!--ヘッター-->
 <%= render 'layouts/header' %>
-
-<h5>画像投稿フォーム</h5>
-
+<h5>質問投稿</h5>
 <%= link_to new_post_image_path do %>
 記事を投稿
 <% end %>
@@ -11,15 +9,13 @@
 質問を投稿
 <% end %>
 <!--フォーム-->
-<%= form_with model: @post_image do |f| %>
+<%= form_with model: @question do |f| %>
 
-<%= f.file_field :image, accept: "image/*", class: "w-100" %>
-<%= f.text_field :title, class:"form-control", placeholder:"タイトル" %>
-<%= f.text_area :body, class:"form-control", rows:"3", placeholder:"記事" %>
+<%= f.file_field :question_image, accept: "image/*", class: "w-100" %>
+<%= f.text_field :question_title, class:"form-control", placeholder:"タイトル" %>
+<%= f.text_area :question_body, class:"form-control", rows:"3", placeholder:"記事" %>
 <%= f.submit '投稿', class:"btn btn-lg btn-block btn-info mt-4" %>
 
 <% end %>
-
-
 <!--フッター-->
 <%= render 'layouts/footer' %>
