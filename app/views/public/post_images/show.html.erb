@@ -1,3 +1,13 @@
 <!--ヘッター-->
 <%= render 'layouts/header' %>
-<h1>投稿詳細</h1>
+
+    <%= link_to post_image_path(@post_image.id) do %>
+      <%= image_tag @post_image.get_image, class:"card-img-top"; %>
+    <% end %>
+        
+        
+    <%= link_to(post_image_path(@post_image.id), class:"text-dark") do %>
+    <strong><i class="far fa-flag"></i><span> <%= @post_image.title %></span></strong>
+    <% end %>
+          
+    <p class="card-text">説明：<%= @post_image.body %></p>
