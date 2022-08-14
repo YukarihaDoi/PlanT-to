@@ -37,7 +37,8 @@ Rails.application.routes.draw do
     end
 
     resources :questions, only: [:new, :create, :show, :index, :edit, :update, :destroy] do
-      resources :comments, only: [:create,:destroy]
+      resources :comments, only: [:destroy]
+      post 'comments' => 'comments#answer'
       resource :favorites, only: [:create, :destroy]
     end
   end

@@ -15,7 +15,7 @@
 <p><%= question.question_title %></p>
 <% end %>
 <%= question.question_body %>
-<p>回答の数</p>
+<p><%= link_to "#{question.comments.count} 回答", question_path(question.id) %></p>
 <br>
 <% end %>
 

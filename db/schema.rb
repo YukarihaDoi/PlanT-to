@@ -56,6 +56,7 @@ ActiveRecord::Schema.define(version: 2022_08_12_010826) do
     t.text "comment", null: false
     t.integer "user_id"
     t.integer "post_image_id"
+    t.integer "question_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
