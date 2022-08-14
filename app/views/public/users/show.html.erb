@@ -3,10 +3,15 @@
 <h5>ユーザーページ</h5>
 <!-- ユーザーの詳細 -->
 <div>
-  <h3><%= @user.name %></h3>
+  <%= image_tag @user.profile_image, size:'100x100' %>
+  <%= @user.name %>
+  <%= @user.introduction %>
+
   <!--%= image_tag @user.get_profile_image(100,100) %>-->
   <% if @user == current_user %>
   <p><%= link_to "プロフィール編集", edit_user_path(@user) %></p>
+  <% else %>
+  <p><%= link_to "フォローする" %></p>
   <% end %>
 
   <h5>投稿一覧</h5>
