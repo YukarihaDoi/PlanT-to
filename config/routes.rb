@@ -27,8 +27,8 @@ Rails.application.routes.draw do
     get "users/:id/follower" => "users#follower" ,as:"follower"
 
     resources :users, only: [:show, :index, :edit, :update] do
-      post 'follow/:id' => 'relation#create', as: 'follow'
-      post 'unfollow/:id' => 'relation#destroy', as: 'unfollow'
+      post 'follow/:id' => 'relations#create', as: 'follow'
+      post 'unfollow/:id' => 'relations#destroy', as: 'unfollow'
     end
 
     resources :post_images, only: [:new, :create, :show, :index, :edit, :update, :destroy] do

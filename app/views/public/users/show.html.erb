@@ -7,11 +7,17 @@
   <%= @user.name %>
   <%= @user.introduction %>
 
-  <!--%= image_tag @user.get_profile_image(100,100) %>-->
   <% if @user == current_user %>
-  <p><%= link_to "プロフィール編集", edit_user_path(@user) %></p>
+    
+    <%= link_to "プロフィール編集", edit_user_path(@user) %>
+  
   <% else %>
-  <p><%= link_to "フォローする" %></p>
+  <!--フォローする-->
+    <% if current_user.following?(@user) %>
+    <%= link_to 'フォロー中', user_unfollow_path(current_user, @user), method: :POST %>
+    <% else %>
+    <%= link_to 'フォローする', user_follow_path(current_user, @user), method: :POST %>
+    <% end %>
   <% end %>
 
   <h5>投稿一覧</h5>
