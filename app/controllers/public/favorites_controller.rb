@@ -2,17 +2,17 @@ class Public::FavoritesController < ApplicationController
 
 # いいね
   def create
-    @book = Book.find(params[:book_id])
-    favorite = current_user.favorites.new(book_id: @book.id)
+    @post_image = PostImage.find(params[:post_image_id])
+    favorite = current_user.favorites.new(post_image_id: @post_image.id)
     favorite.save
-    # redirect_back(fallback_location: root_path)　→非同期化
+    redirect_back(fallback_location: root_path)
   end
 
 # いいねを外す
   def destroy
-    @book = Book.find(params[:book_id])
-    favorite = current_user.favorites.find_by(book_id: @book.id)
+    @post_image = PostImage.find(params[:post_image_id])
+    favorite = current_user.favorites.find_by(post_image_id: @post_image.id)
     favorite.destroy
-    # redirect_back(fallback_location: root_path) →非同期化
+    redirect_back(fallback_location: root_path)
   end
 end

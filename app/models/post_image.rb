@@ -2,6 +2,7 @@ class PostImage < ApplicationRecord
   # アソシエーション
   belongs_to :user
   has_many :comments, dependent: :destroy
+  has_many :favorites, dependent: :destroy
   # 画像
   has_one_attached :image
 
