@@ -1,0 +1,7 @@
+<h1>検索結果一覧</h1>
+<% @post_images.each do |image| %>
+<%= link_to post_image_path(image.id) do %>
+<%= image_tag image.get_image(200,200) %></br>
+<% end %><br>
+<%= image.name %>
+<% end %>
