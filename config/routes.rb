@@ -21,6 +21,7 @@ Rails.application.routes.draw do
   end
   # 検索
   get "search" => "searches#search"
+
   # ユーザー(ファイル構成違うため、module)
   scope module: :public do
     root to: 'homes#top'
