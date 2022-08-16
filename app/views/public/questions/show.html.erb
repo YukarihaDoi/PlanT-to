@@ -32,8 +32,9 @@
     <% end %>
   <% end %>
 </div>
+
 <div>
-  <%= form_with model: [@question, @comment], method: :post  do |f| %>
+  <%= form_with model: [@question, @comment],url: question_comments_path(@question), method: :post  do |f| %>
     <%= f.text_area :comment, rows: '5', placeholder: "回答をここに" %>
     <%= f.submit "送信する" %>
   <% end %>
