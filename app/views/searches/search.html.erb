@@ -1,9 +1,23 @@
-<h1>検索結果一覧</h1>
-
+<!--ヘッター-->
+<%= render 'layouts/header' %>
+<h5>検索結果一覧</h5>
+<br>
+<p>画像</p>
 <% @post_images.each do |image| %>
-  <%= link_to post_image_path(image.id) do %>
-  <%= image.title %>
+  <%= link_to user_path(image.id) do %>
+  <%= image_tag image.user.get_profile_image(100,100) %>
   <%= image.user.name %>
-  <%= image_tag image.get_image %></br>
+  <% end %>
+  <%= link_to post_image_path(image.id) do %>
+   <%= image_tag image.get_image %>
+  <%= image.title %>
+  <% end %>
+<% end %>
+<br>
+<p>ユーザー</p>
+<% @users.each do |u| %>
+  <%= link_to user_path(u.id) do %>
+  <%= u.name %>
+  <%= image_tag u.get_profile_image(100,100) %></br>
   <% end %>
 <% end %>
