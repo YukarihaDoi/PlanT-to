@@ -68,21 +68,28 @@ ActiveRecord::Schema.define(version: 2022_08_12_010826) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  create_table "hashtags", force: :cascade do |t|
+    t.string "hashname"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["hashname"], name: "index_hashtags_on_hashname", unique: true
+  end
+
+  create_table "post_image_hashtag_relations", force: :cascade do |t|
+    t.integer "post_image_id"
+    t.integer "hashtag_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["hashtag_id"], name: "index_post_image_hashtag_relations_on_hashtag_id"
+    t.index ["post_image_id"], name: "index_post_image_hashtag_relations_on_post_image_id"
+  end
+
   create_table "post_images", force: :cascade do |t|
     t.string "title", null: false
     t.text "body", null: false
     t.integer "user_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-  end
-
-  create_table "postimage_tag_relations", force: :cascade do |t|
-    t.integer "Postimage_id", null: false
-    t.integer "tag_id", null: false
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.index ["Postimage_id"], name: "index_postimage_tag_relations_on_Postimage_id"
-    t.index ["tag_id"], name: "index_postimage_tag_relations_on_tag_id"
   end
 
   create_table "questions", force: :cascade do |t|
@@ -96,12 +103,6 @@ ActiveRecord::Schema.define(version: 2022_08_12_010826) do
   create_table "relations", force: :cascade do |t|
     t.integer "follower_id"
     t.integer "followed_id"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-  end
-
-  create_table "tags", force: :cascade do |t|
-    t.string "tag_name"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
@@ -123,6 +124,6 @@ ActiveRecord::Schema.define(version: 2022_08_12_010826) do
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
-  add_foreign_key "postimage_tag_relations", "Postimages"
-  add_foreign_key "postimage_tag_relations", "tags"
+  add_foreign_key "post_image_hashtag_relations", "hashtags"
+  add_foreign_key "post_image_hashtag_relations", "post_images"
 end

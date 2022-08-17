@@ -11,6 +11,7 @@
 <p><%= @post_image.title %></p>
 <!--投稿文章-->
 <p>説明：<%= @post_image.body %></p>
+<%= render_with_hashtags(@post_image.body) %>
 
 <!--いいね-->
 <% if @post_image.favorited_by?(current_user) %>

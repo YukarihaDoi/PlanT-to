@@ -3,6 +3,8 @@ class PostImage < ApplicationRecord
   belongs_to :user
   has_many :comments, dependent: :destroy
   has_many :favorites, dependent: :destroy
+  has_many :hashtags, through: :postimage_hashtag_relations
+
   # 画像
   has_one_attached :image
 
@@ -19,6 +21,29 @@ class PostImage < ApplicationRecord
   def favorited_by?(user)
     favorites.exists?(user_id: user.id)
   end
+
+  #DBへのコミット直前に実施する
+  after_create do
+    post_image = PostImage.find_by(id: self.id)
+    hashtags  = self.body.scan(/[#＃][\w\p{Han}ぁ-ヶｦ-ﾟー]+/)
+    post_image.hashtags = []
+    hashtags.uniq.map do |hashtag|
+      #ハッシュタグは先頭の'#'を外した上で保存
+      tag = Hashtag.find_or_create_by(hashname: hashtag.downcase.delete('#'))
+      post_image.hashtags << tag
+    end
+  end
+
+  before_update do
+    post_image = PostImage.find_by(id: self.id)
+    post_image.hashtags.clear
+    hashtags = self.body.scan(/[#＃][\w\p{Han}ぁ-ヶｦ-ﾟー]+/)
+    hashtags.uniq.map do |hashtag|
+      tag = Hashtag.find_or_create_by(hashname: hashtag.downcase.delete('#'))
+      post_image.hashtags << tag
+    end
+  end
+
 
   # バリテーション
   validates :title, presence: true

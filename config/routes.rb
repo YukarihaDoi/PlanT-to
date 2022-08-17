@@ -22,6 +22,9 @@ Rails.application.routes.draw do
   # 検索
   get "search" => "searches#search"
 
+  # ハッシュ
+  get '/post_image/hashtag/:name', to: "post_image#hashtag"
+
   # ユーザー(ファイル構成違うため、module)
   scope module: :public do
     root to: 'homes#top'
