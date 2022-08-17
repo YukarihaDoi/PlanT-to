@@ -1,6 +1,5 @@
 <!--ヘッター-->
 <%= render 'layouts/header' %>
-
 <h5>投稿一覧</h5>
 <% @post_images.each do |post_image| %>
 <%= link_to post_image_path(post_image.id) do %>
@@ -13,6 +12,7 @@
 <p><%= post_image.title %></p>
 <% end %>
 <%= post_image.body %>
+<%= render_with_hashtags(post_image.hashbody) %>
 <!--いいね-->
 <% if post_image.favorited_by?(current_user) %>
     <p>

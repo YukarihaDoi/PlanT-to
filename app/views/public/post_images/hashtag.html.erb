@@ -1,10 +1,1 @@
-<h2>ハッシュタグ #<%= @tag.hashname %></h2>
-  <ul>
-    <% @post_images.each do |tagimage| %>
-      <li>
-        <%= link_to post_image_path(tagimage.id) do %>
-          <%= image_tag tagimage.image.variant(gravity: :center, resize:"640x640^", crop:"640x640+0+0"), if tagimage.image.attached? %>
-        <% end %>
-      </li>
-    <% end %>
-  </ul>
+<h1>タグ結果</h1>

@@ -55,14 +55,19 @@ class Public::PostImagesController < ApplicationController
   # ハッシュ
   def hashtag
     @user = current_user
-    @tag = Hashtag.find_by(hashname: params[:name])
-    @post_images = @tag.post_images
+    if params[:name].nil?
+      @hashtags = Hashtag.all.to_a.group_by{ |hashtag| hashtag.post_images.count}
+    else
+      @hashtag = Hashtag.find_by(hashname: params[:name])
+      @post_image = @hashtag.post_images.page(params[:page]).per(20).reverse_order
+      @hashtags = Hashtag.all.to_a.group_by{ |hashtag| hashtag.post_images.count}
+    end
   end
 
   private
 
   def post_image_params
-    params.require(:post_image).permit(:title, :image, :body)
+    params.require(:post_image).permit(:title, :image, :body, :hashbody, :user_id)
   end
 
 end

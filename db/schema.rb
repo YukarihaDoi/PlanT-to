@@ -77,7 +77,7 @@ ActiveRecord::Schema.define(version: 2022_08_12_010826) do
 
   create_table "post_image_hashtag_relations", force: :cascade do |t|
     t.integer "post_image_id"
-    t.integer "hashtag_id", null: false
+    t.integer "hashtag_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["hashtag_id"], name: "index_post_image_hashtag_relations_on_hashtag_id"
@@ -87,6 +87,7 @@ ActiveRecord::Schema.define(version: 2022_08_12_010826) do
   create_table "post_images", force: :cascade do |t|
     t.string "title", null: false
     t.text "body", null: false
+    t.text "hashbody"
     t.integer "user_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
