@@ -7,6 +7,11 @@
   <%= @user.name %>
   <%= @user.introduction %>
 
+  <%= link_to "#{@user.follower.count}フォロー", following_path(current_user, @user) %>
+  <%= link_to "#{@user.followed.count}フォロワー", follower_path(current_user, @user)%>
+
+  <p>いいね一覧</p>
+
 <% if @user.name != "guestuser" %>
 <!--ゲスト以外 -->
   <% if @user == current_user && @user.name != "guestuser" %>
@@ -20,7 +25,7 @@
     <%= link_to 'フォローする', user_follow_path(current_user, @user), method: :POST %>
     <% end %>
   <% end %>
-  
+
 <% else %>
 <!--ゲストがマイページに入った場合-->
 

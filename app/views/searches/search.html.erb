@@ -4,6 +4,6 @@
   <%= link_to post_image_path(image.id) do %>
   <%= image.title %>
   <%= image.user.name %>
-  <!--%= image_tag image.get_image(100,100) %></br>-->
+  <%= image_tag image.get_image %></br>
   <% end %>
 <% end %>

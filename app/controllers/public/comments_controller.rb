@@ -1,5 +1,5 @@
 class Public::CommentsController < ApplicationController
-  
+
   def create
     post_image = PostImage.find(params[:post_image_id])
     comment = current_user.comments.new(comment_params)
