@@ -1,7 +1,8 @@
 class Question < ApplicationRecord
   # アソシエーション
   belongs_to :user
-  has_many :comments, dependent: :destroy
+  belongs_to :question_category
+  has_many :answers, dependent: :destroy
   # 画像
   has_one_attached :question_image
 

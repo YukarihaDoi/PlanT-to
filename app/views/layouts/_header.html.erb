@@ -14,7 +14,7 @@
 
           <!--サインイン後-->
           <% if user_signed_in? %>
-          <h3>こんにちは,<%= current_user.name %>さん</h3>
+          <h5>こんにちは,<%= current_user.name %>さん</h5>
           <li>
             <%= link_to post_images_path, class: 'nav-link text-dark' do %>
             投稿一覧
@@ -45,6 +45,16 @@
             <%= link_to users_path, class: 'nav-link text-dark' do %>
             ユーザー一覧
             <% end %>
+          </li>
+          <li>
+          <%= link_to admin_post_categories_path, class: 'nav-link text-dark' do %>
+            カテゴリー（投稿）
+          <% end %>
+          </li>
+          <li>
+          <%= link_to admin_question_categories_path, class: 'nav-link text-dark' do %>
+            カテゴリー（質問）
+          <% end %>
           </li>
           <li>
             <%= link_to destroy_admin_session_path, method: :delete, class: 'nav-link text-dark' do %>

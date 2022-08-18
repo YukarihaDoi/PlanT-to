@@ -1,6 +1,10 @@
 <!--ヘッター-->
 <%= render 'layouts/header' %>
+
+
+
 <h5>投稿一覧</h5>
+<p>カテゴリ一覧</p>
 <% @post_images.each do |post_image| %>
 <%= link_to post_image_path(post_image.id) do %>
 <%= image_tag post_image.get_image %>

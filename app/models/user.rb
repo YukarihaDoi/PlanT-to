@@ -10,6 +10,7 @@ class User < ApplicationRecord
   has_many :post_images, dependent: :destroy
   has_many :questions, dependent: :destroy
   has_many :comments, dependent: :destroy
+  has_many :answers, dependent: :destroy
   has_many :favorites, dependent: :destroy
 
   has_many :follower, class_name: "Relation", foreign_key: "follower_id", dependent: :destroy

@@ -19,6 +19,7 @@ class Public::PostImagesController < ApplicationController
   # 投稿一覧
   def index
     @post_images = PostImage.all
+    @hashtags = Hashtag.all.to_a.group_by{ |hashtag| hashtag.post_images.count}
   end
 
   # 投稿詳細

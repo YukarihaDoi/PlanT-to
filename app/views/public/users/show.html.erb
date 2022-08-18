@@ -3,72 +3,76 @@
 <h5>ユーザーページ</h5>
 <!-- ユーザーの詳細 -->
 <div>
-  <%= image_tag @user.get_profile_image(100,100) %>
-  <%= @user.name %>
-  <%= @user.introduction %>
+<%= image_tag @user.get_profile_image(100,100) %>
+<%= @user.name %>
+<%= @user.introduction %>
 
-  <%= link_to "#{@user.follower.count}フォロー", following_path(current_user, @user) %>
-  <%= link_to "#{@user.followed.count}フォロワー", follower_path(current_user, @user)%>
+<%= link_to "#{@user.follower.count}フォロー", following_path(current_user, @user) %>
+<%= link_to "#{@user.followed.count}フォロワー", follower_path(current_user, @user)%>
 
-  <p>いいね一覧</p>
+<p>いいね一覧</p>
 
-<% if @user.name != "guestuser" %>
+<% if current_user.name != "guestuser" %>
 <!--ゲスト以外 -->
-  <% if @user == current_user && @user.name != "guestuser" %>
-　 <!--自分-->
-　 <%= link_to "プロフィール編集", edit_user_path(@user) %>
-  <% else %>
-   <!--他のユーザー-->
-    <% if current_user.following?(@user) %>
-    <%= link_to 'フォロー中', user_unfollow_path(current_user, @user), method: :POST %>
-    <% else %>
-    <%= link_to 'フォローする', user_follow_path(current_user, @user), method: :POST %>
-    <% end %>
-  <% end %>
+<% if @user == current_user %>
+<!--自分-->
+<%= link_to "プロフィール編集", edit_user_path(@user) %>
+<% else %>
+<!--他のユーザー-->
+<% if current_user.following?(@user)  %>
+<%= link_to 'フォロー中', user_unfollow_path(current_user, @user), method: :POST %>
+<% else %>
+<%= link_to 'フォローする', user_follow_path(current_user, @user), method: :POST %>
+<% end %>
+<% end %>
 
 <% else %>
 <!--ゲストがマイページに入った場合-->
+<p>新規登録お願いします！</p>
+<% end %>
+
+<h5>投稿一覧</h5>
+<% @post_images.each do |post_image| %>
+<%= link_to post_image_path(post_image.id) do %>
+<%= image_tag post_image.get_image %>
+<% end %>
+<%= link_to(post_image_path(post_image.id), class:"text-dark") do %>
+<p><%= post_image.title %></p>
+<% end %>
+<%= post_image.body %>
+
+<% if current_user.name != "guestuser" %>
+<!--いいね-->
+<% if post_image.favorited_by?(current_user) %>
+<p>
+<%= link_to post_image_favorites_path(post_image), method: :delete do %>
+♥<%= post_image.favorites.count %> いいね
+<% end %>
+</p>
+<% else %>
+<p>
+<%= link_to post_image_favorites_path(post_image), method: :post do %>
+♡<%= post_image.favorites.count %> いいね
+<% end %>
+</p>
+<% end %>
+<% else %>
 
 <% end %>
-  <h5>投稿一覧</h5>
-  <% @post_images.each do |post_image| %>
-  <%= link_to post_image_path(post_image.id) do %>
-  <%= image_tag post_image.get_image %>
-  <% end %>
-  <%= link_to(post_image_path(post_image.id), class:"text-dark") do %>
-  <p><%= post_image.title %></p>
-  <% end %>
-  <%= post_image.body %>
+<p><%= link_to "#{post_image.comments.count} コメント", post_image_path(post_image.id) %></p>
+<br>
+<% end %>
 
-  <!--いいね-->
-  <% if post_image.favorited_by?(current_user) %>
-      <p>
-        <%= link_to post_image_favorites_path(post_image), method: :delete do %>
-          ♥<%= post_image.favorites.count %> いいね
-        <% end %>
-      </p>
-      <% else %>
-      <p>
-        <%= link_to post_image_favorites_path(post_image), method: :post do %>
-          ♡<%= post_image.favorites.count %> いいね
-        <% end %>
-      </p>
-  <% end %>
-
-  <p><%= link_to "#{post_image.comments.count} コメント", post_image_path(post_image.id) %></p>
-  <br>
-  <% end %>
-
-  <h5>質問一覧</h5>
-  <% @questions.each do |question| %>
-  <%= link_to question_path(question.id) do %>
-  <%= image_tag question.get_question_image %>
-  <% end %>
-  <%= link_to(question_path(question.id), class:"text-dark") do %>
-  <p><%= question.question_title %></p>
-  <% end %>
-  <%= question.question_body %>
-  <p>回答の数</p>
-  <br>
-  <% end %>
+<h5>質問一覧</h5>
+<% @questions.each do |question| %>
+<%= link_to question_path(question.id) do %>
+<%= image_tag question.get_question_image %>
+<% end %>
+<%= link_to(question_path(question.id), class:"text-dark") do %>
+<p><%= question.question_title %></p>
+<% end %>
+<%= question.question_body %>
+<p>回答の数</p>
+<br>
+<% end %>
 </div>

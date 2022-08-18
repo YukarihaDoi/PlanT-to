@@ -1,6 +1,7 @@
 class PostImage < ApplicationRecord
   # アソシエーション
   belongs_to :user
+  belongs_to :post_category
   has_many :comments, dependent: :destroy
   has_many :favorites, dependent: :destroy
   has_many :post_image_hashtag_relations, dependent: :destroy

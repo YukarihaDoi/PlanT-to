@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_08_12_010826) do
+ActiveRecord::Schema.define(version: 2022_08_17_235215) do
 
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
@@ -52,11 +52,18 @@ ActiveRecord::Schema.define(version: 2022_08_12_010826) do
     t.index ["reset_password_token"], name: "index_admins_on_reset_password_token", unique: true
   end
 
+  create_table "answers", force: :cascade do |t|
+    t.text "answer", null: false
+    t.integer "user_id"
+    t.integer "question_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
   create_table "comments", force: :cascade do |t|
     t.text "comment", null: false
     t.integer "user_id"
     t.integer "post_image_id"
-    t.integer "question_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
@@ -73,6 +80,12 @@ ActiveRecord::Schema.define(version: 2022_08_12_010826) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["hashname"], name: "index_hashtags_on_hashname", unique: true
+  end
+
+  create_table "post_categories", force: :cascade do |t|
+    t.string "post_category", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "post_image_hashtag_relations", force: :cascade do |t|
@@ -93,10 +106,8 @@ ActiveRecord::Schema.define(version: 2022_08_12_010826) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
-  create_table "questions", force: :cascade do |t|
-    t.string "question_title", null: false
-    t.text "question_body", null: false
-    t.integer "user_id"
+  create_table "question_categories", force: :cascade do |t|
+    t.string "question_category", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end

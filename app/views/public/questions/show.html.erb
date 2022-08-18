@@ -22,20 +22,20 @@
   <% end %>
 <% end %>
 <div>
-  <p>回答数：<%= @question.comments.count %></p>
-  <% @question.comments.each do |comment| %>
-    <p><%= image_tag comment.user.get_profile_image(100,100) %></p>
-    <%= comment.user.name %>
-    <%= comment.created_at.strftime('%Y/%m/%d') %><%= comment.comment %>
-    <% if comment.user == current_user %>
-      <%= link_to "削除", question_comment_path(comment.question, comment), method: :delete %>
+  <p>回答数：<%= @question.answers.count %></p>
+  <% @question.answers.each do |answer| %>
+    <p><%= image_tag answer.user.get_profile_image(100,100) %></p>
+    <%= answer.user.name %>
+    <%= answer.created_at.strftime('%Y/%m/%d') %><%= answer.answer %>
+    <% if answer.user == current_user %>
+      <%= link_to "削除", question_answer_path(answer.question, answer), method: :delete %>
     <% end %>
   <% end %>
 </div>
 
 <div>
-  <%= form_with model: [@question, @comment],url: question_comments_path(@question), method: :post  do |f| %>
-    <%= f.text_area :comment, rows: '5', placeholder: "回答をここに" %>
+  <%= form_with model: [@question, @answer],url: question_answers_path(@question), method: :post  do |f| %>
+    <%= f.text_area :answer, rows: '5', placeholder: "回答をここに" %>
     <%= f.submit "送信する" %>
   <% end %>
 </div>

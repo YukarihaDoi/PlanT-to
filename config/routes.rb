@@ -1,11 +1,9 @@
 Rails.application.routes.draw do
 
   # 管理者用devise
-  devise_for :admin,skip: [:passwords], controllers: {
-  registrations: "admin/registrations",
+  devise_for :admin,skip: [:registrations,:passwords], controllers: {
   sessions: "admin/sessions"
   }
-
   # ユーザー用devise
   devise_for :users,skip: [:passwords], controllers: {
   registrations: "public/registrations",
@@ -18,6 +16,8 @@ Rails.application.routes.draw do
   # 管理者
   namespace :admin do
     get '/' => 'homes#top'
+    resources :post_categories, only: [:index, :create, :edit, :update]
+    resources :question_categories, only: [:index, :create, :edit, :update]
   end
   # 検索
   get "search" => "searches#search"
@@ -46,9 +46,7 @@ Rails.application.routes.draw do
     end
 
     resources :questions, only: [:new, :create, :show, :index, :edit, :update, :destroy] do
-      resources :comments, only: [:destroy]
-      post 'comments' => 'comments#answer'
-      resource :favorites, only: [:create, :destroy]
+       resources :answers, only: [:create, :destroy]
     end
   end
 
