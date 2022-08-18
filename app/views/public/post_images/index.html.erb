@@ -1,39 +1,57 @@
 <!--ヘッター-->
 <%= render 'layouts/header' %>
+<!--一覧-->
+<p>カテゴリー</p>
+    <% @post_categories.each do |category| %>
+        <%= category.post_category %>
+    <% end %>
 
 
 
-<h5>投稿一覧</h5>
-<p>カテゴリ一覧</p>
+  <div class="col-lg-10">
 <% @post_images.each do |post_image| %>
-<%= link_to post_image_path(post_image.id) do %>
-<%= image_tag post_image.get_image %>
-<% end %>
-<%= link_to user_path(post_image.user) do %>
-<%= post_image.user.name %>
-<% end %>
-<%= link_to(post_image_path(post_image.id), class:"text-dark") do %>
-<p><%= post_image.title %></p>
-<% end %>
-<%= post_image.body %>
-<%= render_with_hashtags(post_image.hashbody) %>
-<!--いいね-->
+<div class="card border-success mb-3" style="max-width: 18rem;">
+  <div class="card-header bg-transparent border-success"><%= image_tag post_image.get_image(200,200)%></div>
+  <div class="card-body text-success">
+    <h5 class="card-title">
+      <%= link_to(post_image_path(post_image.id), class:"text-dark") do %>
+      <%= post_image.title %>
+      <% end %>
+    </h5>
+    <p class="card-text">
+      <%= link_to user_path(post_image.user),class:"text-dark" do %>
+      by<%= post_image.user.name %>
+      <% end %>
+      <%= post_image.body %>
+    </p>
+  </div>
+
+  <div class="card-footer bg-transparent border-success">
+    <%= render_with_hashtags(post_image.body) %>
+    <%= link_to post_image_hashtag_path, class:"text-dark" do %>
+    <%= post_image.body %>
+    <% end %>
+    <!--いいね-->
 <% if post_image.favorited_by?(current_user) %>
     <p>
       <%= link_to post_image_favorites_path(post_image), method: :delete do %>
-        ♥<%= post_image.favorites.count %> いいね
+        ♥<%= post_image.favorites.count %>
       <% end %>
     </p>
     <% else %>
     <p>
       <%= link_to post_image_favorites_path(post_image), method: :post do %>
-        ♡<%= post_image.favorites.count %> いいね
+        ♡<%= post_image.favorites.count %>
       <% end %>
     </p>
   <% end %>
-<p><%= link_to "#{post_image.comments.count} コメント", post_image_path(post_image.id) %></p>
-<br>
-<% end %>
-
+<%= link_to "#{post_image.comments.count} コメント", post_image_path(post_image.id) %>
+  </div>
+</div>
+  <% end %>
+  </div>
+</div>
+</div>
+</div>
 <!--フッター-->
 <%= render 'layouts/footer' %>

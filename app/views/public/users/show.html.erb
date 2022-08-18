@@ -3,7 +3,7 @@
 <h5>ユーザーページ</h5>
 <!-- ユーザーの詳細 -->
 <div>
-<%= image_tag @user.get_profile_image(100,100) %>
+<%= image_tag @user.get_profile_image(100,100),class: "rounded-circle" %>
 <%= @user.name %>
 <%= @user.introduction %>
 
@@ -33,9 +33,11 @@
 
 <h5>投稿一覧</h5>
 <% @post_images.each do |post_image| %>
+<div class="img-container">
 <%= link_to post_image_path(post_image.id) do %>
-<%= image_tag post_image.get_image %>
+<%= image_tag post_image.get_image(100,100) %>
 <% end %>
+</div>
 <%= link_to(post_image_path(post_image.id), class:"text-dark") do %>
 <p><%= post_image.title %></p>
 <% end %>

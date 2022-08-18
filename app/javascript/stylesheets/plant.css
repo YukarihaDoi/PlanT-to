@@ -11,3 +11,6 @@
  background-color: #ECECEC;
  width: 100vw;
 }
+.img-container img {
+  object-fit: cover;
+}

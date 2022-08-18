@@ -1,10 +1,10 @@
 <!--ヘッター-->
 <%= render 'layouts/header' %>
 <h1>ユーザー一覧</h1>
-<% @users.each do |user| %>
-<%= image_tag user.get_profile_image(100,100) %>
-<%= user.name %>
-<p>投稿数</p>
-<p>質問数</p>
-<p></p>
-<% end %>
+
+  <% @users.each do |user| %>
+    <%= image_tag user.get_profile_image(100,100) %>
+    <%= user.name %>
+    <p>投稿数</p>
+    <p>質問数</p>
+  <% end %>

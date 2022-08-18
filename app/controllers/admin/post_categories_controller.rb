@@ -3,7 +3,7 @@ class Admin::PostCategoriesController < ApplicationController
      @p_categories = PostCategory.all
      @p_category = PostCategory.new
     end
-
+    
     def create
      @p_category = PostCategory.new(p_category_params)
       if @p_category.save

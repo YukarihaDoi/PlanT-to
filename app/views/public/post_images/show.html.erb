@@ -1,13 +1,18 @@
 <!--ヘッター-->
 <%= render 'layouts/header' %>
-
-<h5>投稿詳細画面</h5>
-<%= image_tag @post_image.get_image %>
-
+<div class="container mt-5">
+  <h5>投稿詳細画面</h5>
+  <div class="row">
+  <div class="col-md-2">
+    <p>カンテゴリー</p>
+  </div>
+  <div class="col-lg-10">
+    <%= image_tag @post_image.get_image(200,200) %>
+<br>
 <%= link_to user_path(@post_image.user) do %>
-<%= @post_image.user.name %>
+by<%= @post_image.user.name %>
 <% end %>
-
+<%= image_tag @post_image.user.get_profile_image(100,100) %>
 <p><%= @post_image.title %></p>
 <!--投稿文章-->
 <p>説明：<%= @post_image.body %></p>
@@ -56,5 +61,6 @@
   　</div>
 
   <% end %>
+  </div>
 <!--フッター-->
 <%= render 'layouts/footer' %>

@@ -20,6 +20,7 @@ class Public::PostImagesController < ApplicationController
   def index
     @post_images = PostImage.all
     @hashtags = Hashtag.all.to_a.group_by{ |hashtag| hashtag.post_images.count}
+    @post_categories = PostCategory.all
   end
 
   # 投稿詳細
@@ -55,6 +56,7 @@ class Public::PostImagesController < ApplicationController
 
   # ハッシュ
   def hashtag
+    p "hash action"
     @user = current_user
     if params[:name].nil?
       @hashtags = Hashtag.all.to_a.group_by{ |hashtag| hashtag.post_images.count}
@@ -68,7 +70,7 @@ class Public::PostImagesController < ApplicationController
   private
 
   def post_image_params
-    params.require(:post_image).permit(:title, :image, :body, :hashbody, :user_id)
+    params.require(:post_image).permit(:title, :image, :body, :hashbody, :user_id, :post_category_id)
   end
 
 end

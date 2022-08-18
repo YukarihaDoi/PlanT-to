@@ -7,5 +7,18 @@
 #   Character.create(name: 'Luke', movie: movies.first)
 Admin.create!(
   email: 'test@test.com',
-  password: 'test01',
-)
+  password: 'test01')
+PostCategory.create!([{
+  post_category: '野菜'
+},
+{
+  post_category: '観葉植物'
+}
+])
+QuestionCategory.create!([{
+  question_category: '野菜'
+},
+{
+  question_category: '観葉植物'
+}
+])

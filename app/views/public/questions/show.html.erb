@@ -2,7 +2,7 @@
 <%= render 'layouts/header' %>
 
 <h5>投稿詳細画面</h5>
-<%= image_tag @question.get_question_image %>
+<%= image_tag @question.get_question_image(200,200) %>
 
 <%= link_to user_path(@question.user) do %>
 <%= @question.user.name %>

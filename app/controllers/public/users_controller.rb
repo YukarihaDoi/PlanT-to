@@ -10,7 +10,8 @@ before_action :ensure_guest_user, only: [:edit]
   end
 
   def index
-     @users = User.all
+    # ゲストユーザー以外のデータを取得
+    @users = User.where.not(name: 'guestuser')
   end
 
   def edit
