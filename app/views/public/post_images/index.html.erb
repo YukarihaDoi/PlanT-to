@@ -27,10 +27,7 @@
   </div>
 
   <div class="card-footer bg-transparent border-success">
-    <%= render_with_hashtags(post_image.body) %>
-    <%= link_to post_image_hashtag_path, class:"text-dark" do %>
-    <%= post_image.body %>
-    <% end %>
+    <%= render_with_hashtags(post_image.hashbody) %>
     <!--いいね-->
 <% if post_image.favorited_by?(current_user) %>
     <p>

@@ -17,7 +17,7 @@
 <%= f.text_field :title, class:"form-control", placeholder:"タイトル" %>
 <%= f.collection_select :post_category_id, PostCategory.all, :id, :post_category, { prompt: 'カテゴリー選択' } %>
 <%= f.text_area :body, class:"form-control", rows:"3", placeholder:"記事" %>
-<%= f.text_area :body, size:"55x3" %>
+<%= f.text_area :hashbody, size:"55x3" %>
 <%= f.submit '投稿', class:"btn btn-lg btn-block btn-info mt-4" %>
 
 <% end %>

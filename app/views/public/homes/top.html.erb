@@ -1,11 +1,22 @@
+<!--色-->
 <div class="background">
 
-<div class="container">
+ <div class="container">
+　<div class="row justify-content-end">
+    <%= link_to new_admin_session_path do%>
+    管理者ログイン
+    <% end %>
+  </div>
+
+　<p class="text-center">園芸コミュニティサイト</p>
+  <div class="row justify-content-center">
+    <h1><strong>PlanT-to</strong></h1>
+    <div class="col-12">
+    </div>
+  </div>
 
   <div class="row">
     <div class='mx-auto col-10 col-sm-10 col-lg-8 col-xl-6 mt-5'>
-      <h1><strong>PlanT-to</strong></h1>
-      <br>
       <div class="btn-wrapper col-10 mx-auto">
         <div class="row">
           <%= link_to 'ログイン',new_user_session_path, class: "btn btn-light btn-sm btn-block mb-3 ログイン" %>
@@ -16,8 +27,6 @@
         <div class="row">
           <%= link_to 'ゲストログイン（閲覧用）', users_guest_sign_in_path, class: "btn btn-secondary btn-sm btn-block mb-3 sign_in", method: :post %>
         </div>
-
-        <p><%= link_to '管理者ログイン',new_admin_session_path %></p>
       </div>
     </div>
   </div>

@@ -100,6 +100,7 @@ ActiveRecord::Schema.define(version: 2022_08_17_235215) do
   create_table "post_images", force: :cascade do |t|
     t.string "title", null: false
     t.text "body", null: false
+    t.text "hashbody"
     t.integer "user_id"
     t.integer "post_category_id"
     t.datetime "created_at", precision: 6, null: false

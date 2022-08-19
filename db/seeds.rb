@@ -8,6 +8,12 @@
 Admin.create!(
   email: 'test@test.com',
   password: 'test01')
+
+User.create!(
+  email: 'tomato@tomato',
+  password: 'tomato10',
+  name: 'トマト')
+  
 PostCategory.create!([{
   post_category: '野菜'
 },
