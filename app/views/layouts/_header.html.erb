@@ -27,41 +27,37 @@
         PlanT-toとは
         <% end %>
       </li>
-      <li>
-        <%= link_to new_post_image_path, class: 'nav-link text-dark' do %>
-        投稿
-        <% end %>
-      </li>
+          <% if current_user.name != "guestuser" %>
+            <li>
+              <%= link_to new_post_image_path, class: 'nav-link text-dark' do %>
+              投稿
+              <% end %>
+            </li>
+          <% else %>
+             <li>
+              <%= link_to new_user_registration_path, class: 'nav-link text-dark' do %>
+              新規登録
+              <% end %>
+            </li>
+          <% end %>
       <li>
         <%= link_to destroy_user_session_path, method: :delete, class: 'nav-link text-dark' do %>
         ログアウト
         <% end %>
       </li>
+
       <li>
         <%= link_to user_path(current_user), class: 'nav-link text-dark text-left' do %>
       　<%= image_tag current_user.get_profile_image(30,30),class: "rounded-circle" %>
         <% end %>
       </li>
-
-　　<% elsif admin_signed_in? %>
+　　　<% else %>
 　　　<li>
         <%= link_to destroy_admin_session_path, method: :delete, class: 'nav-link text-dark' do %>
         ログアウト
         <% end %>
       </li>
 
-　　　<% else %>
-
-　　　<li>
-        <%= link_to new_user_registration_path, class: 'nav-link text-dark' do %>
-        新規登録
-        <% end %>
-      </li>
-　　　<li>
-        <%= link_to new_user_session_path, class: 'nav-link text-dark' do %>
-        ログイン
-        <% end %>
-      </li>
     <% end %>
 　　</ul>
 　　</div>
@@ -70,6 +66,7 @@
 　<!--下部分-->
   <div class="row mt-2 justify-content-center">
   <div class="col">
+
     <ul class="row d-flex align-items-center list-unstyled">
     <% if user_signed_in? %>
       <li class="col">
@@ -87,37 +84,27 @@
       <strong>マイページ</strong>
       <% end %>
       </li>
-    <% elsif admin_signed_in? %>
-
-    　<li　class="col">
-　　　<%= link_to users_path, class: 'nav-link text-dark' do %>
-　　　<strong>ユーザー</strong>
-　　　<% end %>
-　　　</li>
-　　　<li>
-　　　<%= link_to admin_post_categories_path, class: 'nav-link text-dark' do %>
-　　　<strong>カテゴリー</strong>
-　　　<% end %>
-　　　</li>
-    　<li>
-　　　<%= link_to admin_question_categories_path, class: 'nav-link text-dark' do %>
-　　　カテゴリー（質問）
-　　　<% end %>
-　　　</li>
-
 　　<% else %>
-　　　<li>
-     <%= link_to post_images_path, class: 'nav-link text-dark' do %>
-     ホーム
-     <% end %>
-     </li>
-　　　<li>
-      <%= link_to about_path, class: 'nav-link text-dark' do %>
-      PlanT-toとは
+
+　　  <li class="col">
+　　　<%= link_to post_images_path, class: 'nav-link text-dark text-right' do %>
+      <strong>Home</strong>
       <% end %>
-      </li>
-    <% end %>
-    </ul>
+　　　</li>
+
+　　　<%= link_to users_path, class: 'nav-link text-dark text-center' do %>
+　　　<strong>User</strong>
+　　　<% end %>
+　　　</li>
+
+    　<li class="col">
+　　　<%= link_to admin_post_categories_path, class: 'nav-link text-dark text-left' do %>
+　　　<strong>Category</strong>
+　　　<% end %>
+　　　</li>
+　　<% end %>
+  </ul>
+
 </div>
 </div>
 </header>

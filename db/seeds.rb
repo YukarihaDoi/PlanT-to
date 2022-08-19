@@ -28,3 +28,4 @@ QuestionCategory.create!([{
   question_category: '観葉植物'
 }
 ])
+
