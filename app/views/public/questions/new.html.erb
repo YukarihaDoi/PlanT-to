@@ -8,15 +8,15 @@
 <%= link_to new_question_path do %>
 質問を投稿
 <% end %>
+
 <!--フォーム-->
 <%= form_with model: @question do |f| %>
 
 <%= f.file_field :question_image, accept: "image/*", class: "w-100" %>
+<%= f.text_field :question_title, class:"form-control", placeholder:"質問タイトル" %>
 <%= f.collection_select :question_category_id, QuestionCategory.all, :id, :question_category, { prompt: 'カテゴリー選択' } %>
-<%= f.text_field :question_title, class:"form-control", placeholder:"タイトル" %>
-<%= f.text_area :question_body, class:"form-control", rows:"3", placeholder:"記事" %>
+<%= f.text_area :question_body, class:"form-control", rows:"3", placeholder:"質問をここに" %>
 <%= f.submit '投稿', class:"btn btn-lg btn-block btn-info mt-4" %>
-
 <% end %>
 <!--フッター-->
 <%= render 'layouts/footer' %>

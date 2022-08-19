@@ -122,6 +122,8 @@ ActiveRecord::Schema.define(version: 2022_08_17_235215) do
     t.integer "question_category_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index ["question_category_id"], name: "index_questions_on_question_category_id"
+    t.index ["user_id"], name: "index_questions_on_user_id"
   end
 
   create_table "relations", force: :cascade do |t|
@@ -152,4 +154,6 @@ ActiveRecord::Schema.define(version: 2022_08_17_235215) do
   add_foreign_key "post_image_hashtag_relations", "post_images"
   add_foreign_key "post_images", "post_categories"
   add_foreign_key "post_images", "users"
+  add_foreign_key "questions", "question_categories"
+  add_foreign_key "questions", "users"
 end

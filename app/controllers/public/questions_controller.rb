@@ -4,6 +4,7 @@ class Public::QuestionsController < ApplicationController
   end
 
   def create
+    p "question action"
     @question = Question.new(question_params)
     @question.user_id = current_user.id
     if @question.save
@@ -14,8 +15,8 @@ class Public::QuestionsController < ApplicationController
   end
 
   def index
-     @questions =Question.all
-     @question_categories =QuestionCategory.all
+    @questions =params[:question_category].present? ? QuestionCategory.find(params[:question_category]).questions: Question.all
+    @question_categories =QuestionCategory.all
   end
 
   def show
@@ -48,6 +49,6 @@ class Public::QuestionsController < ApplicationController
   private
 
   def question_params
-    params.require(:question).permit(:question_title, :question_image, :question_body)
+    params.require(:question).permit(:question_title, :question_image, :question_body ,:user_id, :question_category_id)
   end
 end
