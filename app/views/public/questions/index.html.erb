@@ -5,7 +5,12 @@
   <h5>質問一覧</h5>
   <div class="row">
     <div class="col-md-2">
-    <p>カテゴリー</p>
+    <p>質問カテゴリー</p>
+<% @question_categories.each do |category| %>
+<li><%= link_to category.question_category,questions_path(question_category: category.id) %></li>
+<br>
+<% end %>
+
   </div>
   <div class="col-lg-10">
 <% @questions.each do |question| %>

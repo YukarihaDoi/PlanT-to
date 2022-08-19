@@ -15,6 +15,7 @@ class Public::QuestionsController < ApplicationController
 
   def index
      @questions =Question.all
+     @question_categories =QuestionCategory.all
   end
 
   def show

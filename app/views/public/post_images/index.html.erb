@@ -1,12 +1,11 @@
 <!--ヘッター-->
 <%= render 'layouts/header' %>
 <!--一覧-->
-<p>カテゴリー</p>
-    <% @post_categories.each do |category| %>
-        <%= category.post_category %>
-    <% end %>
-
-
+<p>投稿カテゴリー</p>
+<% @post_categories.each do |category| %>
+<%= link_to category.post_category,post_images_path(post_category: category.id) %>
+<br>
+<% end %>
 
   <div class="col-lg-10">
 <% @post_images.each do |post_image| %>

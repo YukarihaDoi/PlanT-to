@@ -3,7 +3,12 @@
 <div class='container mt-5'>
   <!--1-->
   <div class='row'>
-   <h2>投稿カテゴリ一覧・追加</h2>
+  <%= link_to admin_post_categories_path, class: 'nav-link text-dark' do %>
+   <p>投稿カテゴリ</p>
+   <% end %>
+   <%= link_to admin_question_categories_path, class: 'nav-link text-dark' do %>
+   <p>質問カテゴリ</p>
+   <% end %>
   </div>
 
   <%= form_with model: @p_category,local:true, url: admin_post_categories_path, method: :post do |f| %>
