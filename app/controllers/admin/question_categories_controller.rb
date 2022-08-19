@@ -1,27 +1,27 @@
 class Admin::QuestionCategoriesController < ApplicationController
 
   def index
-     @q_categories = QuestionCategory.all
-     @q_category = QuestionCategory.new
-    end
+     @question_categories = QuestionCategory.all
+     @question_category = QuestionCategory.new
+  end
 
     def create
-     @q_category = QuestionCategory.new(q_category_params)
-      if @q_category.save
+     @question_category = QuestionCategory.new(question_category_params)
+      if @question_category.save
         redirect_to admin_question_categories_path
       else
-        @q_category = QuestionCategory.all
+        @question_category = QuestionCategory.all
         render :index
       end
     end
 
     def edit
-     @q_category = QuestionCategory.find(params[:id])
+     @question_category = QuestionCategory.find(params[:id])
     end
 
     def update
-     @q_category = QuestionCategory.find(params[:id])
-      if @q_category.update(q_category_params)
+     @question_category = QuestionCategory.find(params[:id])
+      if @q_category.update(question_category_params)
         redirect_to admin_question_categories_path
       else
         render :edit
@@ -29,7 +29,7 @@ class Admin::QuestionCategoriesController < ApplicationController
     end
     private
 
-    def q_category_params
+    def question_category_params
       params.require(:question_category).permit(:question_category)
     end
-  end
+end
