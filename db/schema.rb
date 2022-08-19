@@ -58,6 +58,8 @@ ActiveRecord::Schema.define(version: 2022_08_17_235215) do
     t.integer "question_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index ["question_id"], name: "index_answers_on_question_id"
+    t.index ["user_id"], name: "index_answers_on_user_id"
   end
 
   create_table "comments", force: :cascade do |t|
@@ -66,6 +68,8 @@ ActiveRecord::Schema.define(version: 2022_08_17_235215) do
     t.integer "post_image_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index ["post_image_id"], name: "index_comments_on_post_image_id"
+    t.index ["user_id"], name: "index_comments_on_user_id"
   end
 
   create_table "favorites", force: :cascade do |t|
@@ -150,6 +154,10 @@ ActiveRecord::Schema.define(version: 2022_08_17_235215) do
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "answers", "questions"
+  add_foreign_key "answers", "users"
+  add_foreign_key "comments", "post_images"
+  add_foreign_key "comments", "users"
   add_foreign_key "post_image_hashtag_relations", "hashtags"
   add_foreign_key "post_image_hashtag_relations", "post_images"
   add_foreign_key "post_images", "post_categories"

@@ -10,7 +10,6 @@
 <p><%= @question.question_title %></p>
 <!--投稿文章-->
 <p>説明：<%= @question.question_body %></p>
-<p>♡</p>
 
 <% if @question.user == current_user %>
   <%= link_to edit_question_path(@question) do %>
@@ -21,6 +20,7 @@
   <p>削除</p>
   <% end %>
 <% end %>
+
 <div>
   <p>回答数：<%= @question.answers.count %></p>
   <% @question.answers.each do |answer| %>
@@ -34,9 +34,9 @@
 </div>
 
 <div>
-  <%= form_with model: [@question, @answer],url: question_answers_path(@question), method: :post  do |f| %>
+  <%= form_with model: [@question, @answer], method: :post ,local: true do |f| %>
     <%= f.text_area :answer, rows: '5', placeholder: "回答をここに" %>
-    <%= f.submit "送信する" %>
+    　<%= f.submit "投稿",class: "btn btn-outline-success" %>
   <% end %>
 </div>
 

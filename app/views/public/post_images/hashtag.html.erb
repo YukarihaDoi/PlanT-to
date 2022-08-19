@@ -1,0 +1,10 @@
+<h2>ハッシュタグ #<%= @hashtag.hashname %></h2>
+  <ul>
+    <% @post_images.each do |post_image| %>
+      <li>
+        <%= link_to post_image_path(post_image.id) do %>
+          <%= image_tag post_imade.image.variant(gravity: :center, resize:"640x640^", crop:"640x640+0+0"), if post_imade.image.attached? %>
+        <% end %>
+      </li>
+    <% end %>
+  </ul>

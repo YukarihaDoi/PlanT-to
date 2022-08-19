@@ -10,9 +10,9 @@
     <!--上真ん中-->
     <ul class="navbar-nav mx-auto">
         <li>
-            <div class="form-inline my-2 my-lg-0">
+            <div class="form-inline my-2 my-lg-0 ">
             <%= form_with url: search_path, local: true, method: :get do |s| %>
-            <%= s.text_field :word , class: 'form-control word', size:"50", placeholder:"気になるワードを検索しよう"%>
+            <%= s.text_field :word , class: 'form-control word ', size:"50", placeholder:"気になるワードを検索しよう"%>
             <button class="btn btn-outline-light my-2 my-sm-0" type="submit">Search</button>
             <% end %>
             </div>

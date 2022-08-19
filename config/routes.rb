@@ -22,10 +22,6 @@ Rails.application.routes.draw do
   # 検索
   get "search" => "searches#search"
 
-  # ハッシュ
-  get '/post_image/hashtag/:name' => 'post_images#hashtag'
-  get '/post_image/hashtag' => 'post_images#hashtag'
-
   # ユーザー(ファイル構成違うため、module)
   scope module: :public do
     root to: 'homes#top'
@@ -43,6 +39,7 @@ Rails.application.routes.draw do
     resources :post_images, only: [:new, :create, :show, :index, :edit, :update, :destroy] do
       resources :comments, only: [:create, :destroy]
       resource :favorites, only: [:create, :destroy]
+      get '/hashtag/:name' => 'post_images#hashtag', as: 'hashtag'
     end
 
     resources :questions, only: [:new, :create, :show, :index, :edit, :update, :destroy] do

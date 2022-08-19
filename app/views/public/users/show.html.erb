@@ -69,7 +69,7 @@
 <h5>質問一覧</h5>
 <% @questions.each do |question| %>
 <%= link_to question_path(question.id) do %>
-<%= image_tag question.get_question_image %>
+<%= image_tag question.get_question_image(100,100) %>
 <% end %>
 <%= link_to(question_path(question.id), class:"text-dark") do %>
 <p><%= question.question_title %></p>
