@@ -36,10 +36,10 @@ Rails.application.routes.draw do
       post 'unfollow/:id' => 'relations#destroy', as: 'unfollow'
     end
 
+     get '/post_images/hashtag/:name' => 'post_images#hashtag', as: 'hashtag'
     resources :post_images, only: [:new, :create, :show, :index, :edit, :update, :destroy] do
       resources :comments, only: [:create, :destroy]
       resource :favorites, only: [:create, :destroy]
-      get '/hashtag/:name' => 'post_images#hashtag', as: 'hashtag'
     end
 
     resources :questions, only: [:new, :create, :show, :index, :edit, :update, :destroy] do

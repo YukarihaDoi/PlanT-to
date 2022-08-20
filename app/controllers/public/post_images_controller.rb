@@ -25,6 +25,7 @@ class Public::PostImagesController < ApplicationController
 
   # 投稿詳細
   def show
+    @post_categories = PostCategory.all
     @post_image = PostImage.find(params[:id])
     @user = @post_image.user
     @comment = Comment.new
@@ -62,8 +63,9 @@ class Public::PostImagesController < ApplicationController
       @hashtags = Hashtag.all.to_a.group_by{ |hashtag| hashtag.post_images.count}
     else
       @hashtag = Hashtag.find_by(hashname: params[:name])
-      @post_image = @hashtag.post_images.page(params[:page]).per(20).reverse_order
+      @post_image = @hashtag.post_images.reverse_order
       @hashtags = Hashtag.all.to_a.group_by{ |hashtag| hashtag.post_images.count}
+      @post_images = @hashtag.post_images.all
     end
   end
 

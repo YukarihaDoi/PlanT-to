@@ -1,10 +1,22 @@
-<h2>ハッシュタグ #<%= @hashtag.hashname %></h2>
-  <ul>
+<!--ヘッター-->
+<%= render 'layouts/header' %>
+<div class="container mt-5">
+ <div class="row">
+  <div class="col-2">
+  </div>
+  <div class="col-10">
+   <h2>#<%= @hashtag.hashname %></h2>
+  <ul class="list-unstyled">
     <% @post_images.each do |post_image| %>
       <li>
         <%= link_to post_image_path(post_image.id) do %>
-          <%= image_tag post_imade.image.variant(gravity: :center, resize:"640x640^", crop:"640x640+0+0"), if post_imade.image.attached? %>
+          <%= image_tag post_image.get_image(200,200) %>
         <% end %>
       </li>
     <% end %>
   </ul>
+  </div>
+  </div>
+  </div>
+<!--フッター-->
+<%= render 'layouts/footer' %>

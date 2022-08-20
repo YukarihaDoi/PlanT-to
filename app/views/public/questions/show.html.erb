@@ -36,11 +36,8 @@
 <div>
   <%= form_with model: [@question, @answer], method: :post ,local: true do |f| %>
     <%= f.text_area :answer, rows: '5', placeholder: "回答をここに" %>
-    　<%= f.submit "投稿",class: "btn btn-outline-success" %>
+    <%= f.submit "投稿",class: "btn btn-outline-success" %>
   <% end %>
 </div>
-
-
-
 <!--フッター-->
 <%= render 'layouts/footer' %>

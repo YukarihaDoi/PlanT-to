@@ -1,13 +1,10 @@
 <!--ヘッター-->
 <%= render 'layouts/header' %>
 <h5>質問投稿</h5>
-<%= link_to new_post_image_path do %>
-記事を投稿
-<% end %>
-
-<%= link_to new_question_path do %>
-質問を投稿
-<% end %>
+<!--リンク-->
+<div class="row"></div>
+<%= render "public/shared/moves" %>
+</div>
 
 <!--フォーム-->
 <%= form_with model: @question do |f| %>
