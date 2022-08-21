@@ -2,11 +2,14 @@ class Public::UsersController < ApplicationController
 before_action :ensure_currect_user, only: [:edit,:update]
 before_action :authenticate_user!, only: [:show]
 before_action :ensure_guest_user, only: [:edit]
+before_action :login_check, only: [ :index, :show, :edit, :follower, :following ]
 
   def show
     @user = User.find(params[:id])
     @post_images = @user.post_images
     @questions = @user.questions
+    @post_categories = PostCategory.all
+    @question_categories =QuestionCategory.all
   end
 
   def index
@@ -16,10 +19,14 @@ before_action :ensure_guest_user, only: [:edit]
 
   def edit
     @user = User.find(params[:id])
+    @post_categories = PostCategory.all
+    @question_categories =QuestionCategory.all
   end
 
   def update
     @user = User.find(params[:id])
+    @post_categories = PostCategory.all
+    @question_categories =QuestionCategory.all
     if @user.update(user_params)
       redirect_to user_path(current_user.id), notice: "You have updated user successfully."
     else
@@ -30,12 +37,15 @@ before_action :ensure_guest_user, only: [:edit]
   # フォロワー 一覧画面
   def follower
    @user = User.find(params[:id])
+   @post_categories = PostCategory.all
+   @question_categories =QuestionCategory.all
 
   end
   # フォロー 一覧画面
   def following
    @user = User.find(params[:id])
-
+   @post_categories = PostCategory.all
+   @question_categories =QuestionCategory.all
   end
 
 private
@@ -57,4 +67,9 @@ private
       end
     end
 
+    def login_check
+      unless signed_in?
+      redirect_to root_path
+      end
+    end
 end

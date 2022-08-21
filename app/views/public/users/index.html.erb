@@ -1,5 +1,7 @@
 <!--ヘッター-->
 <%= render 'layouts/header' %>
+<!--カテゴリ-->
+<%= render "layouts/side", post_categories: @post_categories, question_categories: @question_categories %>
 <h1>ユーザー一覧</h1>
 
   <% @users.each do |user| %>

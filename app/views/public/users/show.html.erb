@@ -2,6 +2,8 @@
 <%= render 'layouts/header' %>
 <% if current_user.name != "guestuser" %>
 <h5>ユーザーページ</h5>
+<!--カテゴリ-->
+<%= render "layouts/side", post_categories: @post_categories, question_categories: @question_categories %>
 <!-- ユーザーの詳細 -->
 <div>
 <%= image_tag @user.get_profile_image(100,100),class: "rounded-circle" %>
@@ -82,16 +84,10 @@
 <% else %>
 <div class="row　justify-content-center">
     <div class='mx-auto col-10 col-sm-10 col-lg-8 col-xl-6 mt-5'>
+      <p class="text-center">マイページを使うためにはログアウトをしてから、新規登録/ログインをお願いします。</p>
       <div class="btn-wrapper col-10 mx-auto">
-        <p class="text-center">マイページを使うためには新規登録/ログインをお願いします。</p>
         <div class="row">
-          <%= link_to 'ログイン',new_user_session_path, class: "btn btn-success btn-sm btn-block mb-3 ログイン" %>
-        </div>
-        <div class="row">
-          <%= link_to '新規登録',new_user_registration_path, class: "btn btn-success btn-sm btn-block mb-3 新規登録" %>
-        </div>
-        <div class="row">
-          <%= link_to 'ゲストログイン（閲覧用）', users_guest_sign_in_path, class: "btn btn-secondary btn-sm btn-block mb-3 sign_in", method: :post %>
+          <%= link_to 'ゲストログアウト', destroy_user_session_path, class: "btn btn-secondary btn-sm btn-block mb-3 sign_in", method: :delete %>
         </div>
       </div>
     </div>

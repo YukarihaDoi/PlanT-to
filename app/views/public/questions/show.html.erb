@@ -1,43 +1,67 @@
 <!--ヘッター-->
 <%= render 'layouts/header' %>
-
-<h5>投稿詳細画面</h5>
-<%= image_tag @question.get_question_image(200,200) %>
-
-<%= link_to user_path(@question.user) do %>
-<%= @question.user.name %>
-<% end %>
-<p><%= @question.question_title %></p>
-<!--投稿文章-->
-<p>説明：<%= @question.question_body %></p>
-
-<% if @question.user == current_user %>
-  <%= link_to edit_question_path(@question) do %>
-  編集
-  <% end %>
-
-  <%= link_to question_path(@question), method: :delete do %>
-  <p>削除</p>
-  <% end %>
-<% end %>
-
-<div>
-  <p>回答数：<%= @question.answers.count %></p>
-  <% @question.answers.each do |answer| %>
-    <p><%= image_tag answer.user.get_profile_image(100,100) %></p>
-    <%= answer.user.name %>
-    <%= answer.created_at.strftime('%Y/%m/%d') %><%= answer.answer %>
+<div class="container mt-3">
+  <div class="row">
+        <!--カテゴリ-->
+        <%= render "layouts/side", post_categories: @post_categories, question_categories: @question_categories %>
+<div class="col-9 offset-1">
+     <!--アイコン名前-->
+    <div class="mt-2 mb-1">
+      <%= link_to(user_path(@question.user), class:"text-dark") do %>
+       <%= image_tag @question.user.get_profile_image(30,30),class: "rounded-circle" %>
+       <%= @question.user.name %>
+      <% end %>
+    </div>
+    <div class="d-flex">
+    <div class="side-image">
+      <%= image_tag @question.get_question_image(350,200) %>
+    </div>
+    <!--文章-->
+    <div class="side-text">
+      <p class=" font-weight-bold">
+        <%= link_to(question_path(@question.id), class:"text-dark text-left") do %>
+        <%= @question.question_title %>
+        <% end %>
+      </p>
+      <p>説明：<%= @question.question_body %></p>
+      <% if @question.user == current_user %>
+        <%= link_to edit_question_path(@question) do %>
+        編集
+        <% end %>
+        <%= link_to question_path(@question), method: :delete do %>
+         削除
+        <% end %>
+       <% end %>
+        <p>回答数：<%= @question.answers.count %></p>
+       <% @question.answers.each do |answer| %>
+    <%= link_to(user_path(answer.user), class:"text-dark") do %>
+      <%= image_tag answer.user.get_profile_image(30,30) %>
+      <%= answer.user.name %>
+    <% end %>
+    <%= answer.answer %>
+    <br>
+    <%= answer.created_at.strftime('%Y/%m/%d') %>
     <% if answer.user == current_user %>
       <%= link_to "削除", question_answer_path(answer.question, answer), method: :delete %>
     <% end %>
+    <br>
+  <% end %>
+    <div>
+  <% if current_user.name != "guestuser" %>
+    <%= form_with model: [@question, @answer], method: :post ,local: true do |f| %>
+      <%= f.text_area :answer, rows: '5', placeholder: "回答をここに" %>
+      <br>
+      <%= f.submit "投稿",class: "btn btn-outline-success" %>
+    <% end %>
   <% end %>
 </div>
+    </div>
 
-<div>
-  <%= form_with model: [@question, @answer], method: :post ,local: true do |f| %>
-    <%= f.text_area :answer, rows: '5', placeholder: "回答をここに" %>
-    <%= f.submit "投稿",class: "btn btn-outline-success" %>
-  <% end %>
+
+
+</div>
+</div>
+</div>
 </div>
 <!--フッター-->
 <%= render 'layouts/footer' %>

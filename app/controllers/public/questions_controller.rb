@@ -1,6 +1,9 @@
 class Public::QuestionsController < ApplicationController
+before_action :login_check, only: [:new, :index, :show, :edit ]
   def new
     @question =Question.new
+    @post_categories = PostCategory.all
+    @question_categories =QuestionCategory.all
   end
 
   def create
@@ -16,6 +19,7 @@ class Public::QuestionsController < ApplicationController
 
   def index
     @questions =params[:question_category].present? ? QuestionCategory.find(params[:question_category]).questions: Question.all
+    @post_categories = PostCategory.all
     @question_categories =QuestionCategory.all
   end
 
@@ -23,9 +27,14 @@ class Public::QuestionsController < ApplicationController
     @question = Question.find(params[:id])
     @user = @question.user
     @answer = Answer.new
+    @questions =params[:question_category].present? ? QuestionCategory.find(params[:question_category]).questions: Question.all
+    @post_categories = PostCategory.all
+    @question_categories =QuestionCategory.all
   end
 
   def edit
+    @post_categories = PostCategory.all
+    @question_categories =QuestionCategory.all
     @question = Question.find(params[:id])
     if @question.user == current_user
       render :edit
@@ -51,4 +60,11 @@ class Public::QuestionsController < ApplicationController
   def question_params
     params.require(:question).permit(:question_title, :question_image, :question_body ,:user_id, :question_category_id)
   end
+
+  def login_check
+    unless signed_in?
+      redirect_to root_path
+    end
+  end
+
 end

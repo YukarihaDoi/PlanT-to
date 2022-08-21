@@ -1,0 +1,9 @@
+<div class="col-1 list-unstyled offset-1">
+<h5>Category</h5>
+<% post_categories.each do |category| %>
+<li class="pb-1"><%= link_to category.post_category,post_images_path(post_category: category.id), class: 'text-dark' %></li>
+<% end %>
+<% question_categories.each do |category| %>
+<li class="pb-1"><%= link_to category.question_category,questions_path(question_category: category.id), class: 'text-dark' %></li>
+<% end %>
+</div>

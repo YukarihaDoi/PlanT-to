@@ -2,6 +2,9 @@
 <%= render 'layouts/header' %>
 <div class="container mt-5">
  <div class="row">
+   <!--カテゴリ-->
+  <%= render "layouts/side", post_categories: @post_categories, question_categories: @question_categories %>
+  
   <div class="col-2">
   </div>
   <div class="col-10">

@@ -11,12 +11,12 @@ class Public::AnswersController < ApplicationController
 
   def destroy
     Answer.find(params[:id]).destroy
-    redirect_to post_image_path(params[:post_image_id])
+    redirect_to question_path(params[:question_id])
   end
 
   private
 
   def answer_params
-    params.require(:answer).permit(:answer)
+    params.require(:answer).permit(:answer,:question_id)
   end
 end

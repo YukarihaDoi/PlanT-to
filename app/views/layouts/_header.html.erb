@@ -1,65 +1,62 @@
 <header>
   <nav class="navbar navbar-expand-lg navbar-dark ">
     <!--上左-->
-    <a class="navbar-brand p-3" href="/post_images"><span class="text-dark">PlanT-to</span></a>
+    <a class="navbar-brand p-1" href="/post_images"><%= image_tag(('logo-PlanT-to.png'),width: '35%',height: '35%') %></a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
     </button>
 
   　<div class="collapse navbar-collapse" id="navbarSupportedContent">
     <!--上真ん中-->
-    <ul class="navbar-nav mx-auto">
-        <li>
-            <div class="form-inline my-2 my-lg-0 ">
+    <ul class="navbar-nav mxl-auto">
+        <li class="form-inline my-2 my-lg-0 ">
             <%= form_with url: search_path, local: true, method: :get do |s| %>
             <%= s.text_field :word , class: 'form-control word ', size:"50", placeholder:"気になる単語を検索しよう"%>
-            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-            <% end %>
-            </div>
         </li>
+          <li><button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button></li>
+            <% end %>
     </ul>
-
-    <!--上右  -->
-    <ul class="navbar-nav ml-auto">
+    <!--アイコンから表示 -->
+　　<div class="dropdown">
+      <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton", data-toggle="dropdown">
+        <%= image_tag current_user.get_profile_image(30,30),class: "rounded-circle" %>
+      </button>
+       <div class="dropdown-menu dropdown-menu-right">
+       <!--ここにリンク-->
     <% if user_signed_in? %>
-    　<li>
-        <%= link_to about_path, class: 'nav-link text-dark' do %>
-        PlanT-toとは
+        <%= link_to user_path(current_user), class: 'nav-link text-dark' do %>
+        マイページ
         <% end %>
-      </li>
           <% if current_user.name != "guestuser" %>
-            <li>
               <%= link_to new_post_image_path, class: 'nav-link text-dark ' do %>
               投稿
               <% end %>
-            </li>
           <% else %>
-             <li>
               <%= link_to new_user_registration_path, class: 'nav-link text-dark' do %>
               新規登録
               <% end %>
-            </li>
+
           <% end %>
-      <li>
+
         <%= link_to destroy_user_session_path, method: :delete, class: 'nav-link text-dark' do %>
         ログアウト
         <% end %>
-      </li>
 
-      <li>
-        <%= link_to user_path(current_user), class: 'nav-link text-dark text-left' do %>
-      　<%= image_tag current_user.get_profile_image(30,30),class: "rounded-circle" %>
-        <% end %>
-      </li>
 　　　<% else %>
-　　　<li>
+
         <%= link_to destroy_admin_session_path, method: :delete, class: 'nav-link text-dark' do %>
         ログアウト
         <% end %>
-      </li>
+
 
     <% end %>
-　　</ul>
+
+       </div>
+       </div>
+
+
+
+　　<!--ここまで-->
 　　</div>
 　</nav>
 
@@ -80,8 +77,8 @@
       <% end %>
       </li>
       <li class="col">
-      <%= link_to user_path(current_user), class: 'nav-link text-light text-left' do %>
-      <strong>マイページ</strong>
+      <%= link_to new_post_image_path, class: 'nav-link text-light text-left' do %>
+      <strong>投稿する</strong>
       <% end %>
       </li>
 　　<% else %>
@@ -107,4 +104,4 @@
 
 </div>
 </div>
-</header>
+</header

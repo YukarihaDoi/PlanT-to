@@ -5,6 +5,8 @@
 <div class="row"></div>
 <%= render "public/shared/moves" %>
 </div>
+<!--カテゴリ-->
+<%= render "layouts/side", post_categories: @post_categories, question_categories: @question_categories %>
 
 <!--フォーム-->
 <%= form_with model: @question do |f| %>
