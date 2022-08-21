@@ -15,6 +15,8 @@ before_action :login_check, only: [ :index, :show, :edit, :follower, :following 
   def index
     # ゲストユーザー以外のデータを取得
     @users = User.where.not(name: 'guestuser')
+    @post_categories = PostCategory.all
+    @question_categories =QuestionCategory.all
   end
 
   def edit

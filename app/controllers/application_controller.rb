@@ -6,7 +6,7 @@ before_action :configure_permitted_parameters, if: :devise_controller?
     if user_signed_in?
       post_images_path
     else
-      users_path
+      admin_post_images_path
     end
   end
   protected

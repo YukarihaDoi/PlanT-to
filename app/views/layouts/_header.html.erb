@@ -19,7 +19,11 @@
     <!--アイコンから表示 -->
 　　<div class="dropdown">
       <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton", data-toggle="dropdown">
+        <% if user_signed_in? %>
         <%= image_tag current_user.get_profile_image(30,30),class: "rounded-circle" %>
+         <% else %>
+         <%= image_tag 'no_user.jpeg',width: '30px',height: '30px',class: "rounded-circle" %>
+        <% end %>
       </button>
        <div class="dropdown-menu dropdown-menu-right">
        <!--ここにリンク-->
@@ -65,43 +69,44 @@
   <div class="col">
 
     <ul class="row d-flex align-items-center list-unstyled">
+
     <% if user_signed_in? %>
+
       <li class="col">
       <%= link_to post_images_path, class: 'nav-link text-light text-right' do %>
       <strong>Home</strong>
       <% end %>
       </li>
+
       <li class="col">
       <%= link_to questions_path, class: 'nav-link text-light text-center' do %>
       <strong>みんなの質問</strong>
       <% end %>
       </li>
+
       <li class="col">
       <%= link_to new_post_image_path, class: 'nav-link text-light text-left' do %>
       <strong>投稿する</strong>
       <% end %>
       </li>
-　　<% else %>
-
-　　  <li class="col">
-　　　<%= link_to post_images_path, class: 'nav-link text-light text-right' do %>
+　<% else %>
+      <li class="col">
+      <%= link_to admin_post_images_path, class: 'nav-link text-light text-right' do %>
       <strong>Home</strong>
       <% end %>
-　　　</li>
-
-　　　<%= link_to users_path, class: 'nav-link text-light text-center' do %>
-　　　<strong>User</strong>
-　　　<% end %>
-　　　</li>
-
+      </li>
+      <li class="col">
+      <%= link_to admin_users_path, class: 'nav-link text-light text-center' do %>
+       <strong>User</strong>
+       <% end %>
+       </li>
     　<li class="col">
-　　　<%= link_to admin_post_categories_path, class: 'nav-link text-light text-left' do %>
-　　　<strong>Category</strong>
-　　　<% end %>
-　　　</li>
-　　<% end %>
-  </ul>
-
-</div>
-</div>
-</header
+      <%= link_to admin_post_categories_path, class: 'nav-link text-light text-left' do %>
+      <strong>Category</strong>
+      <% end %>
+      </li>
+     <% end %>
+     </ul>
+     </div>
+     </div>
+    </header
