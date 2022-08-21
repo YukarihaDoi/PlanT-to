@@ -3,9 +3,8 @@
 <div class="container mt-5">
   <h5>検索結果</h5>
   <div class="row">
-  <div class="col-md-2">
-    <p>カンテゴリー</p>
-  </div>
+    <!--カテゴリ-->
+    <%= render "layouts/side", post_categories: @post_categories, question_categories: @question_categories %>
   <div class="col-lg-10">
 <% @post_images.each do |image| %>
   <%= link_to user_path(image.id) do %>
@@ -25,4 +24,6 @@
   <%= image_tag u.get_profile_image(100,100) %></br>
   <% end %>
 <% end %>
+  </div>
+  </div>
   </div>

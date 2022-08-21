@@ -16,6 +16,8 @@ before_action :login_check, only: [:new, :index, :show, :edit, :hashtag ]
      redirect_to post_images_path
     else
      render :new
+     @post_categories = PostCategory.all
+     @question_categories =QuestionCategory.all
     end
   end
 

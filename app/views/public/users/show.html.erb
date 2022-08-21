@@ -6,7 +6,7 @@
 <%= render "layouts/side", post_categories: @post_categories, question_categories: @question_categories %>
 <!-- ユーザーの詳細 -->
 <div>
-<%= image_tag @user.get_profile_image(100,100),class: "rounded-circle" %>
+<%= image_tag @user.get_profile_image(100,100),class: "rounded-circle user" %>
 <%= @user.name %>
 <%= @user.introduction %>
 

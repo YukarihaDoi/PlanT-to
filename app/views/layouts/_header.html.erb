@@ -20,7 +20,7 @@
 　　<div class="dropdown">
       <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton", data-toggle="dropdown">
         <% if user_signed_in? %>
-        <%= image_tag current_user.get_profile_image(30,30),class: "rounded-circle" %>
+        <%= image_tag current_user.get_profile_image(30,30),class: "rounded-circle icon" %>
          <% else %>
          <%= image_tag 'no_user.jpeg',width: '30px',height: '30px',class: "rounded-circle" %>
         <% end %>

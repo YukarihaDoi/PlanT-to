@@ -9,8 +9,17 @@
  width: auto;
  height: 100vh;
 }
-.icon image{
- border-color:black;
+.user{
+ width: 80px;
+ height:80px;
+ object-fit: cover;
+ background-color: #999;
+}
+.icon{
+ width: 30px;
+ height:30px;
+ object-fit: cover;
+ background-color: #999;
 }
 .plant-color{
  background-color: #ECECEC;
@@ -25,12 +34,6 @@
 
 .post{
  display: flex;
-}
-
-.side-user{
- padding-top: 30px;
- padding-left: 50px;
- padding-bottom: 5px;
 }
 
 .side-image img{
