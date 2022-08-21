@@ -18,6 +18,9 @@ Rails.application.routes.draw do
     get '/' => 'homes#top'
     resources :post_categories, only: [:index, :create, :edit, :update]
     resources :question_categories, only: [:index, :create, :edit, :update]
+    resources :post_images, only: [:show, :index, :edit, :update, :destroy]
+    resources :users, only: [:show, :index]
+    resources :questions, only: [:show, :index, :edit, :update, :destroy]
   end
   # 検索
   get "search" => "searches#search"

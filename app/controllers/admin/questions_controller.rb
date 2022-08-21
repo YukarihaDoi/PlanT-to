@@ -1,20 +1,6 @@
-class Public::QuestionsController < ApplicationController
-before_action :login_check, only: [:new, :index, :show, :edit ]
-  def new
-    @question =Question.new
-    @post_categories = PostCategory.all
-    @question_categories =QuestionCategory.all
-  end
+class Admin::QuestionsController < ApplicationController
 
-  def create
-    @question = Question.new(question_params)
-    @question.user_id = current_user.id
-    if @question.save
-     redirect_to questions_path
-    else
-     render :new
-    end
-  end
+before_action :login_check, only: [:index, :show, :edit ]
 
   def index
     @questions =params[:question_category].present? ? QuestionCategory.find(params[:question_category]).questions: Question.all
@@ -65,5 +51,4 @@ before_action :login_check, only: [:new, :index, :show, :edit ]
       redirect_to root_path
     end
   end
-
 end
