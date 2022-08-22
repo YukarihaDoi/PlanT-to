@@ -1,0 +1,16 @@
+<!--ヘッター-->
+<%= render 'layouts/header' %>
+<!--カテゴリ-->
+<%= render "layouts/side", post_categories: @post_categories, question_categories: @question_categories %>
+<h1>ユーザー情報編集画面</h1>
+<div>
+  <%= form_with model: @user ,method: :patch do |f| %>
+  <%= f.label "プロフィール画像" %>
+  <%= f.file_field :profile_image %>
+  <%= f.label "名前" %>
+  <%= f.text_field :name %>
+  <%= f.label "自己紹介" %>
+  <%= f.text_field :introduction %>
+  <%= f.submit '編集'%>
+  <% end %>
+</div>

@@ -1,34 +1,53 @@
 Rails.application.routes.draw do
 
-  namespace :public do
-    get 'question_post_images/show'
-    get 'question_post_images/index'
-    get 'question_post_images/create'
-    get 'question_post_images/destroy'
-  end
   # 管理者用devise
-  devise_for :admin,skip: [:passwords], controllers: {
-  registrations: "admin/registrations",
+  devise_for :admin,skip: [:registrations,:passwords], controllers: {
   sessions: "admin/sessions"
   }
-
   # ユーザー用devise
   devise_for :users,skip: [:passwords], controllers: {
   registrations: "public/registrations",
   sessions: 'public/sessions'
   }
-
+  # ゲストログイン
+  devise_scope :user do
+    post 'users/guest_sign_in', to: 'users/sessions#guest_sign_in'
+  end
   # 管理者
   namespace :admin do
     get '/' => 'homes#top'
+    resources :post_categories, only: [:index, :create, :edit, :update]
+    resources :question_categories, only: [:index, :create, :edit, :update]
+    resources :post_images, only: [:show, :index, :edit, :update, :destroy]
+    resources :users, only: [:show, :index]
+    resources :questions, only: [:show, :index, :edit, :update, :destroy]
   end
+  # 検索
+  get "search" => "searches#search"
 
   # ユーザー(ファイル構成違うため、module)
   scope module: :public do
-    root to: 'post_images#index'
+    root to: 'homes#top'
     get '/about' => 'homes#about' , as: 'about'
-    resources :users, only: [:show, :index, :edit, :update]
-    resources :post_images, only: [:show, :index, :edit, :update]
+    get 'relationships/followings'
+    get 'relationships/followers'
+    get "users/:id/following" => "users#following" ,as:"following"
+    get "users/:id/follower" => "users#follower" ,as:"follower"
+
+    resources :users, only: [:show, :index, :edit, :update] do
+      post 'follow/:id' => 'relations#create', as: 'follow'
+      post 'unfollow/:id' => 'relations#destroy', as: 'unfollow'
+    end
+
+     get '/post_images/hashtag/:name' => 'post_images#hashtag', as: 'hashtag'
+    resources :post_images, only: [:new, :create, :show, :index, :edit, :update, :destroy] do
+      resources :comments, only: [:create, :destroy]
+      resource :favorites, only: [:create, :destroy]
+    end
+
+    resources :questions, only: [:new, :create, :show, :index, :edit, :update, :destroy] do
+       resources :answers, only: [:create, :destroy]
+    end
   end
 
 end

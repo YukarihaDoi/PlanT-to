@@ -1,0 +1,29 @@
+<!--ヘッター-->
+<%= render 'layouts/header' %>
+<div class="container mt-5">
+  <h5>検索結果</h5>
+  <div class="row">
+    <!--カテゴリ-->
+    <%= render "layouts/side", post_categories: @post_categories, question_categories: @question_categories %>
+  <div class="col-lg-10">
+<% @post_images.each do |image| %>
+  <%= link_to user_path(image.id) do %>
+  <%= image_tag image.user.get_profile_image(100,100) %>
+  <%= image.user.name %>
+  <% end %>
+  <%= link_to post_image_path(image.id) do %>
+   <%= image_tag image.get_image(100,100) %>
+  <%= image.title %>
+  <% end %>
+<% end %>
+<br>
+<p>ユーザー</p>
+<% @users.each do |u| %>
+  <%= link_to user_path(u.id) do %>
+  <%= u.name %>
+  <%= image_tag u.get_profile_image(100,100) %></br>
+  <% end %>
+<% end %>
+  </div>
+  </div>
+  </div>

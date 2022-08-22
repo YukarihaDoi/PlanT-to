@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_08_12_010826) do
+ActiveRecord::Schema.define(version: 2022_08_17_235215) do
 
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
@@ -46,53 +46,95 @@ ActiveRecord::Schema.define(version: 2022_08_12_010826) do
     t.string "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
+    t.string "name"
+    t.text "introduction"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["email"], name: "index_admins_on_email", unique: true
     t.index ["reset_password_token"], name: "index_admins_on_reset_password_token", unique: true
   end
 
+  create_table "answers", force: :cascade do |t|
+    t.text "answer", null: false
+    t.integer "user_id"
+    t.integer "question_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["question_id"], name: "index_answers_on_question_id"
+    t.index ["user_id"], name: "index_answers_on_user_id"
+  end
+
   create_table "comments", force: :cascade do |t|
     t.text "comment", null: false
+    t.integer "user_id"
+    t.integer "post_image_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["post_image_id"], name: "index_comments_on_post_image_id"
+    t.index ["user_id"], name: "index_comments_on_user_id"
+  end
+
+  create_table "favorites", force: :cascade do |t|
+    t.integer "user_id"
+    t.integer "post_image_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
 
-  create_table "favorites", force: :cascade do |t|
+  create_table "hashtags", force: :cascade do |t|
+    t.string "hashname"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index ["hashname"], name: "index_hashtags_on_hashname", unique: true
+  end
+
+  create_table "post_categories", force: :cascade do |t|
+    t.string "post_category", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "post_image_hashtag_relations", force: :cascade do |t|
+    t.integer "post_image_id"
+    t.integer "hashtag_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["hashtag_id"], name: "index_post_image_hashtag_relations_on_hashtag_id"
+    t.index ["post_image_id"], name: "index_post_image_hashtag_relations_on_post_image_id"
   end
 
   create_table "post_images", force: :cascade do |t|
     t.string "title", null: false
     t.text "body", null: false
+    t.text "hashbody"
+    t.integer "user_id"
+    t.integer "post_category_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index ["post_category_id"], name: "index_post_images_on_post_category_id"
+    t.index ["user_id"], name: "index_post_images_on_user_id"
   end
 
-  create_table "postimage_tag_relations", force: :cascade do |t|
-    t.integer "Postimage_id", null: false
-    t.integer "tag_id", null: false
+  create_table "question_categories", force: :cascade do |t|
+    t.string "question_category", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["Postimage_id"], name: "index_postimage_tag_relations_on_Postimage_id"
-    t.index ["tag_id"], name: "index_postimage_tag_relations_on_tag_id"
   end
 
   create_table "questions", force: :cascade do |t|
     t.string "question_title", null: false
     t.text "question_body", null: false
+    t.integer "user_id"
+    t.integer "question_category_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index ["question_category_id"], name: "index_questions_on_question_category_id"
+    t.index ["user_id"], name: "index_questions_on_user_id"
   end
 
   create_table "relations", force: :cascade do |t|
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-  end
-
-  create_table "tags", force: :cascade do |t|
-    t.string "tag_name"
+    t.integer "follower_id"
+    t.integer "followed_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
@@ -114,6 +156,14 @@ ActiveRecord::Schema.define(version: 2022_08_12_010826) do
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
-  add_foreign_key "postimage_tag_relations", "Postimages"
-  add_foreign_key "postimage_tag_relations", "tags"
+  add_foreign_key "answers", "questions"
+  add_foreign_key "answers", "users"
+  add_foreign_key "comments", "post_images"
+  add_foreign_key "comments", "users"
+  add_foreign_key "post_image_hashtag_relations", "hashtags"
+  add_foreign_key "post_image_hashtag_relations", "post_images"
+  add_foreign_key "post_images", "post_categories"
+  add_foreign_key "post_images", "users"
+  add_foreign_key "questions", "question_categories"
+  add_foreign_key "questions", "users"
 end
