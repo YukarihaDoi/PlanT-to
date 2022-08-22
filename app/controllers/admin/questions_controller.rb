@@ -16,23 +16,18 @@ before_action :side_view, only: [:index, :show, :edit ]
 
   def edit
     @question = Question.find(params[:id])
-    if @question.user == current_user
-      render :edit
-    else
-      redirect_to questions_path
-    end
   end
 
   def update
     @question = Question.find(params[:id])
     @question.update(question_params)
-    redirect_to questions_path
+    redirect_to admin_questions_path
   end
 
   def destroy
      @question = Question.find(params[:id])
      @question.destroy
-     redirect_to questions_path
+     redirect_to admin_questions_path
   end
 
   private

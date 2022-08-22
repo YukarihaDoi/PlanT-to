@@ -7,21 +7,22 @@
 <%= image_tag @user.get_profile_image(100,100),class: "rounded-circle user" %>
 <%= @user.name %>
 <%= @user.introduction %>
-</div>
 
 
 <h5>投稿一覧</h5>
 <% @user.post_images.each do |post_image| %>
-<%= link_to post_image_path(post_image.id) do %>
-<%= image_tag post_image.get_image(350,200) %>
-<% end %>
-<%= link_to post_image_path(post_image.id), class:"text-dark" do %>
-<p><%= post_image.title %></p>
-<% end %>
-<p><%= post_image.body %></p>
-<p>♥<%= post_image.favorites.count %>
-<i class="fa-regular fa-message"></i><%= post_image.comments.count %></p>
-<br>
+    <div class="img-container">
+    <%= link_to post_image_path(post_image.id) do %>
+     <%= image_tag post_image.get_image(100,100) %>
+    <% end %>
+    </div>
+    <%= link_to post_image_path(post_image.id), class:"text-dark" do %>
+     <p><%= post_image.title %></p>
+    <% end %>
+    <p><%= post_image.body %></p>
+    <p>♥<%= post_image.favorites.count %>
+    <i class="fa-regular fa-message"></i><%=post_image.comments.count %></p>
+  <br>
 <% end %>
 
 <h5>質問一覧</h5>
@@ -33,7 +34,7 @@
     <p><%= question.question_title %></p>
   <% end %>
   <%= question.question_body %>
-  <i class="fa-regular fa-message"></i><%= post_image.comments.count %></p>
+  <i class="fa-regular fa-message"></i><%= question.answers.count %></p>
 <% end %>
 <!--フッター-->
 <%= render 'layouts/footer' %>

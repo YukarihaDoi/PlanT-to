@@ -1,12 +1,11 @@
 <!--ヘッター-->
 <%= render 'layouts/header' %>
 <% if current_user.name != "guestuser" %>
-<h5>ユーザーページ</h5>
 <!--カテゴリ-->
 <%= render "layouts/side", post_categories: @post_categories, question_categories: @question_categories %>
 <!-- ユーザーの詳細 -->
 <div>
-<%= image_tag @user.get_profile_image(100,100),class: "rounded-circle " %>
+<%= image_tag @user.get_profile_image(100,100),class: "rounded-circle user" %>
 <%= @user.name %>
 <%= @user.introduction %>
 
@@ -77,7 +76,7 @@
 <p><%= question.question_title %></p>
 <% end %>
 <%= question.question_body %>
-<p>回答の数</p>
+<i class="fa-regular fa-message"></i><%= question.answers.count %></p>
 <br>
 <% end %>
 </div>

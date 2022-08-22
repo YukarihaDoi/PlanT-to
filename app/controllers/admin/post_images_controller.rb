@@ -18,25 +18,20 @@ class Admin::PostImagesController < ApplicationController
   # 投稿編集
   def edit
     @post_image = PostImage.find(params[:id])
-    if @post_image.user == current_user
-      render :edit
-    else
-      redirect_to post_images_path
-    end
   end
 
   # 投稿更新
   def update
     @post_image = PostImage.find(params[:id])
     @post_image.update(post_image_params)
-     redirect_to post_images_path
+    redirect_to admin_post_images_path
   end
 
   # 投稿削除
   def destroy
     @post_image = PostImage.find(params[:id])
     @post_image.destroy
-    redirect_to post_images_path
+    redirect_to admin_post_images_path
   end
 
   # ハッシュ

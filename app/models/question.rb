@@ -9,8 +9,8 @@ class Question < ApplicationRecord
   # 画像確認/サイズ
   def get_question_image(width, height)
     unless question_image.attached?
-      file_path = Rails.root.join('app/assets/images/sample-author1.jpg')
-      question_image.attach(io: File.open(file_path), filename: 'default-image.jpg', content_type: 'image/jpeg')
+      file_path = Rails.root.join('app/assets/images/Leaf-image.jpg')
+      question_image.attach(io: File.open(file_path), filename: 'Leaf-image.jpg', content_type: 'image/jpeg')
     end
     question_image.variant(resize_to_limit: [width, height]).processed
   end

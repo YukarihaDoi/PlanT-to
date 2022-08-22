@@ -10,7 +10,7 @@
         <!--アイコン名前-->
         <div class="mt-2 mb-1">
           <%= link_to user_path(post_image.user),class:"text-dark" do %>
-            <%= image_tag post_image.user.get_profile_image(30,30),class: "rounded-circle" %>
+            <%= image_tag post_image.user.get_profile_image(30,30),class: "icon rounded-circle" %>
             <%= post_image.user.name %>
           <% end %>
         </div>
