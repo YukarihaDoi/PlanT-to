@@ -1,18 +1,15 @@
 class Admin::PostImagesController < ApplicationController
- before_action :login_check, only: [:new, :index, :show, :edit, :hashtag ]
+ before_action :authenticate_admin!, only: [:show,:new, :index, :edit, :hashtag]
+ before_action :side_view, only: [:index, :show, :edit, :hashtag ]
 
   # 投稿一覧
   def index
     @post_images = params[:post_category].present? ? PostCategory.find(params[:post_category]).post_images: PostImage.all
     @hashtags = Hashtag.all.to_a.group_by{ |hashtag| hashtag.post_images.count}
-    @post_categories = PostCategory.all
-    @question_categories =QuestionCategory.all
   end
 
   # 投稿詳細
   def show
-    @post_categories = PostCategory.all
-    @question_categories =QuestionCategory.all
     @post_image = PostImage.find(params[:id])
     @user = @post_image.user
     @comment = Comment.new
@@ -20,8 +17,6 @@ class Admin::PostImagesController < ApplicationController
 
   # 投稿編集
   def edit
-    @post_categories = PostCategory.all
-    @question_categories =QuestionCategory.all
     @post_image = PostImage.find(params[:id])
     if @post_image.user == current_user
       render :edit
@@ -46,8 +41,6 @@ class Admin::PostImagesController < ApplicationController
 
   # ハッシュ
   def hashtag
-    @post_categories = PostCategory.all
-    @question_categories =QuestionCategory.all
     @user = current_user
     if params[:name].nil?
       @hashtags = Hashtag.all.to_a.group_by{ |hashtag| hashtag.post_images.count}
@@ -65,10 +58,9 @@ class Admin::PostImagesController < ApplicationController
     params.require(:post_image).permit(:title, :image, :body, :hashbody, :user_id, :post_category_id)
   end
 
-  def login_check
-    unless signed_in?
-      redirect_to root_path
-    end
+  def side_view
+    @post_categories = PostCategory.all
+    @question_categories =QuestionCategory.all
   end
 
 

@@ -2,6 +2,12 @@
 <%= render 'layouts/header' %>
 <!--カテゴリ-->
 <%= render "layouts/side", post_categories: @post_categories, question_categories: @question_categories %>
-<h1>ユーザー一覧</h1>
+<% @users.each do |user| %>
+    <%= image_tag user.get_profile_image(100,100),class: "rounded-circle user" %>
+    <%= user.name %>
+    <%= link_to(admin_user_path(user.id), class:"text-dark") do %>
+    show
+    <% end %>
+<% end %>
 <!--フッター-->
 <%= render 'layouts/footer' %>

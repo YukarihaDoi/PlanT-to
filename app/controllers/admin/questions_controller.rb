@@ -1,11 +1,10 @@
 class Admin::QuestionsController < ApplicationController
 
 before_action :login_check, only: [:index, :show, :edit ]
+before_action :side_view, only: [:index, :show, :edit ]
 
   def index
     @questions =params[:question_category].present? ? QuestionCategory.find(params[:question_category]).questions: Question.all
-    @post_categories = PostCategory.all
-    @question_categories =QuestionCategory.all
   end
 
   def show
@@ -13,13 +12,9 @@ before_action :login_check, only: [:index, :show, :edit ]
     @user = @question.user
     @answer = Answer.new
     @questions =params[:question_category].present? ? QuestionCategory.find(params[:question_category]).questions: Question.all
-    @post_categories = PostCategory.all
-    @question_categories =QuestionCategory.all
   end
 
   def edit
-    @post_categories = PostCategory.all
-    @question_categories =QuestionCategory.all
     @question = Question.find(params[:id])
     if @question.user == current_user
       render :edit
@@ -50,5 +45,10 @@ before_action :login_check, only: [:index, :show, :edit ]
     unless signed_in?
       redirect_to root_path
     end
+  end
+
+  def side_view
+    @post_categories = PostCategory.all
+    @question_categories =QuestionCategory.all
   end
 end
