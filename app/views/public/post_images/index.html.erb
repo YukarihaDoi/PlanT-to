@@ -5,7 +5,7 @@
       <!--カテゴリ-->
       <%= render "layouts/side", post_categories: @post_categories, question_categories: @question_categories %>
       <!--一覧-->
-      <div class="col-9 offset-1">
+      <div class="col-8 offset-1">
         <% @post_images.each do |post_image| %>
         <!--アイコン名前-->
         <div class="mt-2 mb-1">
@@ -32,6 +32,7 @@
               <%= render_with_hashtags(post_image.hashbody) %>
             </p>
             <!--いいね-->
+          <% if user_signed_in? %>
             <% unless current_user.name == "guestuser" %>
               <% if post_image.favorited_by?(current_user) %>
                 <p>
@@ -47,6 +48,7 @@
                 </p>
               <% end %>
             <% end %>
+          <% end %>
             <!--コメント-->
             <%= link_to "#{post_image.comments.count} コメント", post_image_path(post_image.id) %>
           </div>

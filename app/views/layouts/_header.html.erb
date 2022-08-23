@@ -8,14 +8,18 @@
 
   　<div class="collapse navbar-collapse" id="navbarSupportedContent">
     <!--上真ん中-->
-    <ul class="navbar-nav mxl-auto">
+      <%= form_with url: search_path, local: true, method: :get do |s| %>
+      <ul class="navbar-nav mxl-auto">
         <li class="form-inline my-2 my-lg-0 ">
-            <%= form_with url: search_path, local: true, method: :get do |s| %>
-            <%= s.text_field :word , class: 'form-control word ', size:"50", placeholder:"気になる単語を検索しよう"%>
+          <%= s.text_field :word , class: 'form-control word ', size:"50", placeholder:"気になる投稿やユーザーを検索しよう"%>
         </li>
-          <li><button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button></li>
-            <% end %>
-    </ul>
+        <li>
+          <%= button_tag type: :submit,class: "btn btn-outline-success mx-2" do %>
+            <i class="fa-solid fa-magnifying-glass"></i>
+          <% end %>
+        </li>
+      </ul>
+    <% end %>
     <!--アイコンから表示 -->
 　　<div class="dropdown">
       <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton", data-toggle="dropdown">
@@ -35,11 +39,13 @@
               <%= link_to new_post_image_path, class: 'nav-link text-dark ' do %>
               投稿
               <% end %>
-          <% else %>
-              <%= link_to new_user_registration_path, class: 'nav-link text-dark' do %>
-              新規登録
+              <%= link_to admin_news_images_path, class: 'nav-link text-dark' do %>
+              お知らせ
               <% end %>
-
+          <% else %>
+              <%= link_to admin_news_images_path, class: 'nav-link text-dark' do %>
+              お知らせ
+              <% end %>
           <% end %>
 
         <%= link_to destroy_user_session_path, method: :delete, class: 'nav-link text-dark' do %>
@@ -47,6 +53,9 @@
         <% end %>
 
 　　　<% else %>
+　　　  <%= link_to admin_news_images_path, class: 'nav-link text-dark' do %>
+        お知らせ
+        <% end %>
 
         <%= link_to destroy_admin_session_path, method: :delete, class: 'nav-link text-dark' do %>
         ログアウト

@@ -47,6 +47,11 @@
  display: flex;
 }
 
+.image-warp {
+  display: flex;
+  flex-wrap: wrap;
+}
+
 .index-image img{
  width:  140px;
  height: 104px;

@@ -4,7 +4,7 @@
     <div class="row mx-5 mt-5">
       <!--カテゴリ-->
       <%= render "layouts/side", post_categories: @post_categories, question_categories: @question_categories %>
-        <div class="col-9 offset-1">
+        <div class="col-8 offset-1">
           <div class="mt-2 mb-1">
             <%= link_to(user_path(@question.user), class:"text-dark") do %>
                <%= image_tag @question.user.get_profile_image(30,30),class: "rounded-circle icon" %>
@@ -12,12 +12,14 @@
             <% end %>
               <!--自分の投稿は編集/削除ができる-->
             <% if admin_signed_in? %>
+               
                <%= link_to edit_admin_question_path(@question), data: { confirm: 'このユーザーの投稿を編集しますか？' } do %>
                 編集
                <% end %>|
                <%= link_to admin_question_path(@question), method: :delete, data: { confirm: '本当に消しますか？' } do%>
                 削除
                <% end %>
+            
             <% end %>
           </div>
           <div class="d-flex">
@@ -34,17 +36,14 @@
               </p>
               <i class="fa-regular fa-message"></i><%= @question.answers.count %>
               <% @question.answers.each do |answer| %>
-                <%= image_tag answer.user.get_profile_image(30,30),class: "rounded-circle icon"%>
+                  <%= image_tag answer.user.get_profile_image(30,30),class: "rounded-circle icon"%>
                   <%= link_to(user_path(answer.user), class:"text-dark") do %>
                     <%=answer.user.name %>
                   <% end %>
-                <%= answer.answer %>
-                <%= answer.created_at.strftime('%Y/%m/%d') %>
-                <% if answer.user == current_user %>
-                  <%= link_to "削除", question_answer_path(answer.question, answer), method: :delete %>
-                <% end %>
-              <div>
-              </div>
+                  <%= answer.answer %>
+                  <%= answer.created_at.strftime('%Y/%m/%d') %>
+                    <%= link_to "削除", question_answer_path(answer.question, answer), method: :delete %>
+              <% end %>
             </div>
           </div>
         </div>
