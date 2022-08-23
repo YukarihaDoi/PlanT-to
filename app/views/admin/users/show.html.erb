@@ -1,40 +1,74 @@
 <!--ヘッター-->
 <%= render 'layouts/header' %>
-<!--カテゴリ-->
-<%= render "layouts/side", post_categories: @post_categories, question_categories: @question_categories %>
-<!-- ユーザーの詳細 -->
-<div>
-<%= image_tag @user.get_profile_image(100,100),class: "rounded-circle user" %>
-<%= @user.name %>
-<%= @user.introduction %>
-
-
-<h5>投稿一覧</h5>
-<% @user.post_images.each do |post_image| %>
-    <div class="img-container">
-    <%= link_to post_image_path(post_image.id) do %>
-     <%= image_tag post_image.get_image(100,100) %>
-    <% end %>
+<div class='container mt-5'>
+  <div class='row mx-5 mt-5'>
+  <!--カテゴリ-->
+  <%= render "layouts/side", post_categories: @post_categories, question_categories: @question_categories %>
+    <div class="col-9 offset-1">
+      <div class='row'>
+      <div class="col-3">
+       <table class='table table-bordered'>
+         <tr>
+           <td>
+            <%= image_tag @user.get_profile_image(100,100),class: "rounded-circle user" %>
+           </td>
+         </tr>
+         <tr>
+          <td>
+            名前:<%= @user.name %>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            自己紹介:<br>
+            <%= @user.introduction %>
+          </td>
+        </tr>
+       </table>
+     </div>
+     <div class="col-9">
+      <h5>投稿一覧</h5>
+      <% if @user.post_images.present? %>
+        <!--ある場合-->
+          <% @user.post_images.each do |post_image| %>
+            <div class="index-image">
+             <%= link_to admin_post_image_path(post_image.id) do %>
+               <%= image_tag post_image.get_image(100,100) %>
+             <% end %>
+            </div>
+             <%= link_to post_image_path(post_image.id), class:"text-dark" do %>
+               <p>
+                 <%= post_image.title %>
+               </p>
+             <% end %>
+          <% end %>
+      <% else %>
+          <!--ない場合-->
+      　　　<p>投稿はありません</p>
+      <% end %>
+      <h5>質問一覧</h5>
+      <% if @user.questions.present? %>
+          <!--ある場合-->
+            <% @user.questions.each do |question| %>
+              <div class="index-image">
+                <%= link_to admin_question_path(question.id) do %>
+                  <%= image_tag question.get_question_image(50,50) %>
+                <% end %>
+              </div>
+               <%= link_to admin_question_path(question.id), class:"text-dark" do %>
+                <p>
+                  <%= question.question_title %>
+                </p>
+               <% end %>
+            <% end %>
+      <% else %>
+         <!--ない場合-->
+      　　　<p>投稿はありません</p>
+      <% end %>
+      </div>
+      </div>
     </div>
-    <%= link_to post_image_path(post_image.id), class:"text-dark" do %>
-     <p><%= post_image.title %></p>
-    <% end %>
-    <p><%= post_image.body %></p>
-    <p>♥<%= post_image.favorites.count %>
-    <i class="fa-regular fa-message"></i><%=post_image.comments.count %></p>
-  <br>
-<% end %>
-
-<h5>質問一覧</h5>
-<% @user.questions.each do |question| %>
-  <%= link_to admin_question_path(question.id) do %>
-    <%= image_tag question.get_question_image(100,100) %>
-  <% end %>
-  <%= link_to admin_question_path(question.id), class:"text-dark" do %>
-    <p><%= question.question_title %></p>
-  <% end %>
-  <%= question.question_body %>
-  <i class="fa-regular fa-message"></i><%= question.answers.count %></p>
-<% end %>
+  </div>
+</div>
 <!--フッター-->
 <%= render 'layouts/footer' %>

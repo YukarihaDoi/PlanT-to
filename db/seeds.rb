@@ -31,4 +31,3 @@ QuestionCategory.create!([{
   question_category: '肥料'
 }
 ])
-
