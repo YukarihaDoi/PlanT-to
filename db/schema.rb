@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_08_17_235215) do
+ActiveRecord::Schema.define(version: 2022_08_23_092737) do
 
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
@@ -86,6 +86,13 @@ ActiveRecord::Schema.define(version: 2022_08_17_235215) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["hashname"], name: "index_hashtags_on_hashname", unique: true
+  end
+
+  create_table "news_images", force: :cascade do |t|
+    t.string "news_title", null: false
+    t.text "news_body", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "post_categories", force: :cascade do |t|
