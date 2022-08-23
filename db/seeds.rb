@@ -13,6 +13,10 @@ User.create!(
   email: 'tomato@tomato',
   password: 'tomato10',
   name: 'トマト')
+NewsImage.create!(
+  news_title: '秋間近！秋の花を探してみませんか？',
+  news_body: '秋と言ったらどんな花を思い浮かべますか？'
+  )
 
 PostCategory.create!([{
   post_category: '野菜'
