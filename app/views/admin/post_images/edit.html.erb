@@ -2,27 +2,28 @@
 <%= render 'layouts/header' %>
 <div class="container mt-5">
   <div class="row mx-5 mt-5">
-<!--カテゴリ-->
-<%= render "layouts/side", post_categories: @post_categories, question_categories: @question_categories %>
-<%= form_with model: @post_image ,method: :patch do |f| %>
+    <!--カテゴリ-->
+    <%= render "layouts/side", post_categories: @post_categories, question_categories: @question_categories %>
+    <!--フォーム-->
+    <%= form_with model: @post_image ,method: :patch do |f| %>
     <div class="col-9 offset-1">
       <div class="form-group row">
-        <%= f.file_field :image %>
+      　<%= f.file_field :image %>
       </div>
       <div class="form-group row">
-        <%= f.text_field :title , class: 'form-control title'%>
+      　<%= f.text_field :title , class: 'form-control title'%>
       </div>
       <div class="form-group row">
-        <%= f.collection_select :post_category_id, PostCategory.all, :id, :post_category, { prompt: 'カテゴリー選択' }, class: 'form-control post_category_id' %>
+      　<%= f.collection_select :post_category_id, PostCategory.all, :id, :post_category, { prompt: 'カテゴリー選択' }, class: 'form-control post_category_id' %>
       </div>
       <div class="form-group row">
-        <%= f.text_area :body , class: 'form-control body'%>
+      　<%= f.text_area :body , class: 'form-control body'%>
       </div>
       <div class="form-group row">
-        <%= f.text_area :hashbody, size:"55x3", class: 'form-control hashbody' %>
+      　<%= f.text_area :hashbody, size:"55x3", class: 'form-control hashbody' %>
       </div>
       <div class="form-group row">
-        <%= f.submit '編集',class: "btn btn-outline-success" %>
+      　<%= f.submit '編集',class: "btn btn-outline-success" %>
       </div>
     </div>
     <% end %>

@@ -5,6 +5,7 @@
 <!--カテゴリ-->
 <%= render "layouts/side", post_categories: @post_categories, question_categories: @question_categories %>
 <div class="col-8 offset-1">
+<% unless current_user.name == "guestuser" %>
 <!--リンク-->
 <div  class="mb-2">
 <li class="mx-2 d-inline">記録を投稿</li>
@@ -12,7 +13,7 @@
 </div>
 <!--フォーム-->
 <%= form_with model: @post_image do |f| %>
-<div class="form-group col-5">
+<div class="form-group row">
 <%= f.file_field :image, accept: "image/*", class: "w-100 mb-2" %>
 <%= f.text_field :title, class:"form-control mb-2", placeholder:"タイトル" %>
 <%= f.collection_select :post_category_id, PostCategory.all, :id, :post_category, { prompt: 'カテゴリー選択' }, class:"form-control mb-2" %>
@@ -22,6 +23,10 @@
 </div>
 <% end %>
 </div>
+ <% else %>
+ <p>投稿をするにはSignupが必要です！</p>
+ <% end %>
+ </div>
  </div>
   </div>
 <!--フッター-->

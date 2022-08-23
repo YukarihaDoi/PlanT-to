@@ -1,14 +1,13 @@
 <!--ヘッター-->
 <%= render 'layouts/header' %>
-<!--カテゴリ-->
-<%= render "layouts/side", post_categories: @post_categories, question_categories: @question_categories %>
-<h1>質問編集</h1>
-<%= form_with model: @question ,method: :patch do |f| %>
-
-<%= f.file_field :question_image %>
-<%= f.text_field :question_title %>
-<%= f.text_area :question_body %>
-<%= f.submit '編集'%>
-<% end %>
+  <!--カテゴリ-->
+  <%= render "layouts/side", post_categories: @post_categories, question_categories: @question_categories %>
+   <h1>質問編集</h1>
+   <%= form_with model: @question ,method: :patch do |f| %>
+      <%= f.file_field :question_image %>
+      <%= f.text_field :question_title %>
+      <%= f.text_area :question_body %>
+      <%= f.submit '編集'%>
+   <% end %>
 <!--フッター-->
 <%= render 'layouts/footer' %>
