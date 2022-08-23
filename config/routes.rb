@@ -21,6 +21,7 @@ Rails.application.routes.draw do
     resources :post_images, only: [:show, :index, :edit, :update, :destroy]
     resources :users, only: [:show, :index]
     resources :questions, only: [:show, :index, :edit, :update, :destroy]
+    resources :news_images, only: [:index, :edit, :update ]
   end
   # 検索
   get "search" => "searches#search"
@@ -39,7 +40,7 @@ Rails.application.routes.draw do
       post 'unfollow/:id' => 'relations#destroy', as: 'unfollow'
     end
 
-     get '/post_images/hashtag/:name' => 'post_images#hashtag', as: 'hashtag'
+      get '/post_images/hashtag/:name' => 'post_images#hashtag', as: 'hashtag'
     resources :post_images, only: [:new, :create, :show, :index, :edit, :update, :destroy] do
       resources :comments, only: [:create, :destroy]
       resource :favorites, only: [:create, :destroy]

@@ -5,7 +5,7 @@
     <!--カテゴリ-->
     <%= render "layouts/side", post_categories: @post_categories, question_categories: @question_categories %>
     <!--フォーム-->
-    <%= form_with model: @post_image ,method: :patch do |f| %>
+    <%= form_with model: @post_image, url:admin_post_image_path ,method: :patch do |f| %>
     <div class="col-9 offset-1">
       <div class="form-group row">
       　<%= f.file_field :image %>

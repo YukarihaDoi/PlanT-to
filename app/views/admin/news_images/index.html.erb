@@ -1,0 +1,26 @@
+<!--ヘッター-->
+<%= render 'layouts/header' %>
+<h1>お知らせ</h1>
+<!--画像-->
+<div class="side-image">
+  <% @news_images.each do |news_image| %>
+  <%= image_tag news_image.news_get_image(350,200) %>
+</div>
+<!--説明-->
+<!--文章-->
+<p class="font-weight-bold">
+ <%= news_image.news_title %>
+</p>
+<p>
+ <%= news_image.news_body %>
+</p>
+<!--管理者がサインインしてる場合は編集/削除ができる-->
+<% if admin_signed_in? %>
+  <%= link_to edit_admin_news_image_path(news_image) do %>
+    編集
+  <% end %>
+<% end %>
+ <% end %>
+ </div>
+<!--フッター-->
+<%= render 'layouts/footer' %>

@@ -15,12 +15,12 @@ class Admin::PostCategoriesController < ApplicationController
     end
 
     def edit
-     @p_category = PostCategory.find(params[:id])
+     @post_category = PostCategory.find(params[:id])
     end
 
     def update
-     @p_category = PostCategory.find(params[:id])
-      if @p_category.update(post_category_params)
+     @post_category = PostCategory.find(params[:id])
+      if @post_category.update(post_category_params)
         redirect_to admin_post_categories_path
       else
         render :edit
