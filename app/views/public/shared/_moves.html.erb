@@ -1,0 +1,7 @@
+<%- if controller_name != 'questions' %>
+  <%= link_to "質問を投稿",new_question_path, class: 'text-dark' %><br />
+<% end %>
+
+<%- if controller_name != 'post_images' %>
+  <%= link_to "記録を投稿",new_post_image_path, class: 'text-dark' %><br />
+<% end %>

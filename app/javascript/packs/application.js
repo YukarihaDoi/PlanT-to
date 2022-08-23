@@ -8,6 +8,16 @@ import Turbolinks from "turbolinks"
 import * as ActiveStorage from "@rails/activestorage"
 import "channels"
 
+// BootStrap導入12-15 FontAwesome16
+import "jquery";
+import "popper.js";
+import "bootstrap";
+import "../stylesheets/application"
+import '@fortawesome/fontawesome-free/js/all'
+
+// 追加したcssファイルをimport で追加する
+import "../stylesheets/plant.css"
+
 Rails.start()
 Turbolinks.start()
 ActiveStorage.start()

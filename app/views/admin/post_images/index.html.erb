@@ -1,0 +1,47 @@
+  <!--ヘッター-->
+  <%= render 'layouts/header' %>
+  <div class="container mt-5">
+    <div class="row mx-5 mt-5">
+    <!--カテゴリ-->
+    <%= render "layouts/side", post_categories: @post_categories, question_categories: @question_categories %>
+    <!--一覧-->
+    <div class="col-8 offset-1">
+    <% @post_images.each do |post_image| %>
+    <!--アイコン名前-->
+    <div class="mt-2 mb-1">
+      <%= link_to admin_user_path(post_image.user) do %>
+      <%= image_tag post_image.user.get_profile_image(30,30), class: "icon rounded-circle" %>
+      <%= post_image.user.name %>
+      <% end %>
+    </div>
+    <div class="d-flex">
+      <div class="side-image">
+      　<%= image_tag post_image.get_image(350,200)%>
+      </div>
+      <!--文章-->
+      <div class="side-text">
+        <p class="font-weight-bold">
+          <%= link_to admin_post_image_path(post_image.id), class:"text-dark" do %>
+          <%= post_image.title %>
+          <% end %>
+        </p>
+        <p>
+          ♡<%= post_image.favorites.count %>
+        </p>
+        <p>
+          <%= post_image.body %>
+        </p>
+        <!--ハッシュタグ-->
+        <p>
+        　<%= render_with_hashtags(post_image.hashbody) %>
+        </p>
+        <!--コメント-->
+        　<%= link_to "#{post_image.comments.count} コメント", post_image_path(post_image.id) %>
+      </div>
+    </div>
+    <% end %>
+    </div>
+    </div>
+  </div>
+  <!--フッター-->
+  <%= render 'layouts/footer' %>
