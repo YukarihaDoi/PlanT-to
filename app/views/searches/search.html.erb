@@ -5,13 +5,13 @@
       <!--カテゴリ-->
       <%= render "layouts/side", post_categories: @post_categories, question_categories: @question_categories %>
         <!--一覧-->
-        <div class="col-8 offset-1">
-          <h3>検索結果</h3>
+        <div class="col-8 offset-1 card">
+          <h3 class="mt-2 mb-1 card-body">検索結果</h3>
           <% if @method == "PostImage" %>
             <% if @post_images.present? %>
             　<h5>投稿</h5>
               <% @post_images.each do |image| %>
-                <div class="mt-2 mb-1">
+                <div class="mt-2 mb-1 card-body px-5">
                   <%= link_to user_path(image.id) do %>
                     <%= image_tag image.user.get_profile_image(30,30),class: "rounded-circle icon" %>
                     <%= image.user.name %>

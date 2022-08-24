@@ -3,6 +3,13 @@
   padding: 0;
   box-sizing: border-box;
 }
+body{
+ background-color: #E9EBE7;
+
+}
+.bar{
+ background-color: #BDCE2B;
+}
 
 .top img {
   width:100%;
@@ -67,4 +74,26 @@
 }
 .side-text{
  padding-left: 50px;
+}
+
+.select {
+  display: inline-block;
+  position: relative;
+  border: 1px solid #eee;
+  vertical-align: middle;
+}
+
+select {
+  appearance: none;
+  width: 100px;
+  height: 35px;
+  padding: 2px 2px;
+  padding-right: 1em;
+  border: none;
+  outline: 1;
+  background: #fff;
+  background-image: none;
+  text-indent: 0.01px;
+  text-overflow: ellipsis;
+  cursor: pointer;
 }

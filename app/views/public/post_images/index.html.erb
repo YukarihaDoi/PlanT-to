@@ -8,18 +8,20 @@
       <div class="col-8 offset-1">
         <% @post_images.each do |post_image| %>
         <!--アイコン名前-->
-        <div class="mt-2 mb-1">
+        <div class="mt-2 mb-4">
+          <div class="card border-success shadow p-3">
+            <div class="card-body px-5">
           <%= link_to user_path(post_image.user),class:"text-dark" do %>
             <%= image_tag post_image.user.get_profile_image(130,130),class: "icon rounded-circle" %>
             <%= post_image.user.name %>
           <% end %>
         </div>
-        <div class="d-flex">
-          <div class="side-image">
+        <div class="d-flex ">
+          <div class="side-image px-5 pb-5">
           <%= image_tag post_image.get_image(700,400)%>
           </div>
           <!--文章-->
-          <div class="side-text">
+          <div class="side-text col-4">
               <p class="font-weight-bold">
                 <%= link_to(post_image_path(post_image.id), class:"text-dark") do %>
                  <%= post_image.title %>
@@ -53,6 +55,8 @@
             <%= link_to "#{post_image.comments.count} コメント", post_image_path(post_image.id) %>
           </div>
         </div>
+      </div>
+      </div>
         <% end %>
       </div>
     </div>

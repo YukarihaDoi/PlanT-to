@@ -5,24 +5,24 @@
         <!--カテゴリ-->
         <%= render "layouts/side", post_categories: @post_categories, question_categories: @question_categories %>
           <!--一覧-->
-        <div class="col-9 offset-1">
-          <h2>
+        <div class="col-8 offset-1  card">
+          <h2 class="px-5 pt-5">
             #<%= @hashtag.hashname %>
           </h2>
           <% @post_images.each do |post_image| %>
           <!--アイコン名前-->
-            <div class="mt-2 mb-1">
+            <div class="mt-2 mb-1 card-body px-5">
               <%= link_to user_path(post_image.user),class:"text-dark" do %>
                 <%= image_tag post_image.user.get_profile_image(30,30),class: "icon rounded-circle" %>
                 <%= post_image.user.name %>
               <% end %>
             </div>
             <div class="d-flex">
-              <div class="side-image">
+              <div class="side-image px-5 pb-5">
             　 <%= image_tag post_image.get_image(350,200)%>
               </div>
             <!--文章-->
-            <div class="side-text">
+            <div class="side-text col-4">
               <p class="font-weight-bold">
                 <%= link_to(post_image_path(post_image.id), class:"text-dark") do %>
                  <%= post_image.title %>
