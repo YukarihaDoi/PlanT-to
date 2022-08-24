@@ -52,4 +52,20 @@ class User < ApplicationRecord
     end
   end
 
+  # 検索
+  def self.search_for(word, search)
+
+    if search == "perfect_match"
+      User.where(name:word)
+    elsif search == "forward_match"
+      User.where('name LIKE ?', word+'%')
+    elsif search == "backward_match"
+      User.where('name LIKE ?', '%'+word)
+    elsif search == "partial_match"
+      User.where('name LIKE ?', '%'+word+'%')
+    else
+
+    end
+  end
+
 end

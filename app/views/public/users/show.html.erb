@@ -21,23 +21,27 @@
             </tr>
             <tr>
               <td>
-                自己紹介:<%= @user.introduction %><br>
+                自己紹介:<%= @user.introduction %>
               </td>
             </tr>
             <tr>
               <td>
-                <%= link_to "#{@user.follower.count}フォロー", following_path(current_user, @user) %>
+                <%= link_to "#{@user.follower.count}フォロー", following_path(current_user, @user),class:"text-dark" %>
               </td>
             </tr>
             <tr>
               <td>
-                <%= link_to "#{@user.followed.count}フォロワー", follower_path(current_user, @user)%>
+                <%= link_to "#{@user.followed.count}フォロワー", follower_path(current_user, @user),class:"text-dark"%>
               </td>
             </tr>
           </table>
+
+         <div class='row mx-2'>
          <% if @user == current_user %>
             <!--自分-->
-            <%= link_to "プロフィール編集", edit_user_path(@user) %>
+            <p>
+             <%= link_to "プロフィール編集", edit_user_path(@user),class:"text-success" %>
+            </p>
          <% else %>
             <!--他のユーザー-->
             <% if current_user.following?(@user)  %>
@@ -46,7 +50,9 @@
             <%= link_to 'フォローする', user_follow_path(current_user, @user), method: :POST %>
             <% end %>
          <% end %>
-        </div>
+         </div>
+      　</div>
+
        <div class="col-9">
         <h5>投稿一覧</h5>
           <% if @user.post_images.present? %>
@@ -91,6 +97,8 @@
            <!--ない場合-->
       　　 　<p>投稿はありません</p>
           <% end %>
+          <h5>いいね一覧</h5>
+          <p><%=link_to"お気に入り",favorites_user_path(@user) %></p>
         </div>
     </div>
 </div>
@@ -110,3 +118,5 @@
   </div>
  </div>
 </div>
+<!--フッター-->
+<%= render 'layouts/footer' %>

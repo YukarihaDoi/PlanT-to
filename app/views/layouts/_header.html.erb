@@ -7,19 +7,28 @@
     </button>
 
   　<div class="collapse navbar-collapse" id="navbarSupportedContent">
-    <!--上真ん中-->
+      <!--検索-->
       <%= form_with url: search_path, local: true, method: :get do |s| %>
-      <ul class="navbar-nav mxl-auto">
-        <li class="form-inline my-2 my-lg-0 ">
-          <%= s.text_field :word , class: 'form-control word ', size:"50", placeholder:"気になる投稿やユーザーを検索しよう"%>
-        </li>
-        <li>
-          <%= button_tag type: :submit,class: "btn btn-outline-success mx-2" do %>
-            <i class="fa-solid fa-magnifying-glass"></i>
-          <% end %>
-        </li>
-      </ul>
-    <% end %>
+        <ul class="navbar-nav mxl-auto">
+          <li class="form-inline my-2 my-lg-0">
+            <%= s.text_field :word , class: 'form-control word ', size:"50", placeholder:"気になる投稿やユーザーを検索しよう"%>
+          </li>
+          <li class=" form-select my-2 my-lg-0">
+            <div class="col-md-4">
+            <%= s.select :method, options_for_select([['User'], ['Question'],['PostImage']]),class: "method form-select" %>
+            </div>
+          </li>
+          <li class="form-select my-2 my-lg-0">
+            <%= s.select :search, options_for_select({"完全一致"=>"perfect_match", "前方一致"=>"forward_match",  "後方一致"=>"backward_match", "部分一致"=>"partial_match"}) ,class: "form-control outline-success" %>
+          </li>
+          <li>
+            <%= button_tag type: :submit,class: "btn btn-outline-success mx-2" do %>
+              <i class="fa-solid fa-magnifying-glass"></i>
+            <% end %>
+          </li>
+        </ul>
+      <% end %>
+
     <!--アイコンから表示 -->
 　　<div class="dropdown">
       <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton", data-toggle="dropdown">

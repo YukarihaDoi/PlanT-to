@@ -1,10 +1,19 @@
 class SearchesController < ApplicationController
   def search
-    @post_images = PostImage.where("title LIKE?", "%#{params[:word]}%")
-    @post_images_all = PostImage.all
-    @users = User.where("name LIKE?", "%#{params[:word]}%")
-    @usars_all = User.all
     @post_categories = PostCategory.all
     @question_categories =QuestionCategory.all
+    @method = params[:method]
+    @word = params[:word]
+    @search = params[:search]
+
+    if @method == "PostImage"
+       @post_images = PostImage.search_for(@word,@search)
+
+    elsif @method == "User"
+       @users = User.search_for(@word,@search)
+
+    else
+      @questions = Question.search_for(@word,@search)
+    end
   end
 end

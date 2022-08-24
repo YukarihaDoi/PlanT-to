@@ -25,7 +25,6 @@ Rails.application.routes.draw do
   end
   # 検索
   get "search" => "searches#search"
-
   # ユーザー(ファイル構成違うため、module)
   scope module: :public do
     root to: 'homes#top'
@@ -38,6 +37,10 @@ Rails.application.routes.draw do
     resources :users, only: [:show, :index, :edit, :update] do
       post 'follow/:id' => 'relations#create', as: 'follow'
       post 'unfollow/:id' => 'relations#destroy', as: 'unfollow'
+      # users/:id/favorites というルーティング
+      member do
+        get :favorites
+      end
     end
 
       get '/post_images/hashtag/:name' => 'post_images#hashtag', as: 'hashtag'

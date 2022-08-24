@@ -1,0 +1,13 @@
+<!--ヘッター-->
+<%= render 'layouts/header' %>
+<p>いいね一覧</p>
+<% if @favorite_posts.present? %>
+  <% @favorite_posts.each do |favorite|%>
+  <%= favorite.title %>
+  <% end %>
+<% else %>
+<!--ない場合-->
+<p>いいねした記事はありません</p>
+<% end %>
+<!--フッター-->
+<%= render 'layouts/footer' %>

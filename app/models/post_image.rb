@@ -46,9 +46,19 @@ class PostImage < ApplicationRecord
     end
   end
 
+  # 検索
+  def self.search_for(word, search)
+    if search == "perfect_match"
+      PostImage.where(title:word)
+    elsif search == "forward_match"
+      PostImage.where('title LIKE?',word+'%')
+    elsif search == "backward_match"
+      PostImage.where('title LIKE?','%'+word)
+    elsif search == "partial_match"
+      PostImage.where('title LIKE?','%'+word+'%')
+    else
 
-  # バリテーション
-  validates :title, presence: true
-  validates :body, presence: true
-  validates :image, presence: true
+    end
+  end
+
 end
