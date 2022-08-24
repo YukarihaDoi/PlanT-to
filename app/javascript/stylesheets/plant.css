@@ -47,7 +47,7 @@
  display: flex;
 }
 
-.image-warp {
+.warp {
   display: flex;
   flex-wrap: wrap;
 }

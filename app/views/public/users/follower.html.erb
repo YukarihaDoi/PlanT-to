@@ -1,7 +1,12 @@
-<h1>Follower</h1>
+<!--ヘッター-->
+<%= render 'layouts/header' %>
+<div class='container mt-5'>
+  <div class='row mx-5 mt-5 '>
 <!--カテゴリ-->
 <%= render "layouts/side", post_categories: @post_categories, question_categories: @question_categories %>
-
+<div class="col-8 offset-1">
+   <div class="mt-2">
+     <h5>Follower</h5>
 <table class='table'>
   <thead>
     <tr>
@@ -13,10 +18,16 @@
   <tbody>
      <% @user.followed_user.where.not(id: current_user.id).each do |user| %>
       <tr>
-        <td><%= image_tag user.get_profile_image, size: '50x50' %></td>
+        <td><%= image_tag user.get_profile_image(200,200),class: "rounded-circle user" %></td>
         <td><%= user.name %></td>
         <td><%= link_to 'Show', user, class: "user_#{user.id}" %></td>
       </tr>
      <% end %>
   </tbody>
 </table>
+</div>
+</div>
+</div>
+</div>
+<!--フッター-->
+<%= render 'layouts/footer' %>

@@ -1,0 +1,14 @@
+<div class="row justify-content-center">
+  <div class='mx-auto col-10 col-sm-10 col-lg-8 col-xl-6 mt-5'>
+    
+    <p class="text-center">
+      新規登録/ログインをお願いします!
+    </p>
+    
+    <div class="btn-wrapper col-10 mx-auto">
+      <div>
+       <%= link_to 'ゲストログアウト', destroy_user_session_path, class: "btn btn-secondary btn-sm btn-block mb-3 sign_in", method: :delete %>
+      </div>
+    </div>
+  </div>
+</div>
