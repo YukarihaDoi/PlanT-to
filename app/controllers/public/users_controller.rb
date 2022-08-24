@@ -7,8 +7,8 @@ before_action :login_check, only: [ :index, :show, :edit, :follower, :following 
   def show
     @user = User.find(params[:id])
     @post_images = @user.post_images
-    @questions = @user.questions
     @post_categories = PostCategory.all
+    @questions = @user.questions
     @question_categories =QuestionCategory.all
   end
 
@@ -47,17 +47,24 @@ before_action :login_check, only: [ :index, :show, :edit, :follower, :following 
    @post_categories = PostCategory.all
    @question_categories =QuestionCategory.all
   end
-  
+
    #いいね一覧
    def favorites
     @user = User.find(params[:id])
     favorites= Favorite.where(user_id: @user.id).pluck(:post_image_id)
     @favorite_posts = PostImage.find(favorites)
+    @post_categories = PostCategory.all
+   @question_categories =QuestionCategory.all
    end
-   
-　 #質問一覧
-　 
-　 #投稿一覧
+
+   #質問一覧
+   def questions
+    @user = User.find(params[:id])
+    @questions = @user.questions
+    @question_categories =QuestionCategory.all
+    @post_categories = PostCategory.all
+   end
+
 
 private
    def user_params

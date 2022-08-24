@@ -10,13 +10,13 @@
     <!--アイコン名前-->
     <div class="mt-2 mb-1">
       <%= link_to(user_path(question.user), class:"text-dark") do %>
-      <%= image_tag question.user.get_profile_image(30,30),class: "rounded-circle icon" %>
+      <%= image_tag question.user.get_profile_image(130,130),class: "rounded-circle icon" %>
       <%= question.user.name %>
       <% end %>
     </div>
     <div class="d-flex">
     <div class="side-image">
-      <%= image_tag question.get_question_image(350,200) %>
+      <%= image_tag question.get_question_image(750,400) %>
     </div>
     <!--文章-->
     <div class="side-text">

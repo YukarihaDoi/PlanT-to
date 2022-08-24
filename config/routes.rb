@@ -40,6 +40,7 @@ Rails.application.routes.draw do
       # users/:id/favorites というルーティング
       member do
         get :favorites
+        get :questions
       end
     end
 
