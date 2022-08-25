@@ -13,8 +13,12 @@ class Admin::NewsImagesController < ApplicationController
   # 投稿更新
   def update
     @news_image = NewsImage.find(params[:id])
-    @news_image.update(news_image_params)
-    redirect_to admin_news_images_path
+     if @news_image.update(news_image_params)
+       redirect_to admin_news_images_path
+     else
+       @news_image = NewsImage.find(params[:id])
+       render:edit
+     end
   end
 
   private

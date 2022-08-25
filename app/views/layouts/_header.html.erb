@@ -15,11 +15,13 @@
           </li>
 
           <li class="select mx-1">
-            <%= s.select :method, options_for_select([[""],['User'], ['Question'],['PostImage']]),class: "method form-select form-control form-control-sm" %>
+            
+            <%= s.select :method, options_for_select([['User'], ['Question'],['PostImage']]),class: "method form-select dropdown dropdown-toggle" %>
+            </button>
           </li>
 
           <li class="select mx-1">
-            <%= s.select :search, options_for_select({"完全一致"=>"perfect_match", "前方一致"=>"forward_match",  "後方一致"=>"backward_match", "部分一致"=>"partial_match"}) ,class: "form-control outline-success" %>
+             <%= s.select :search, options_for_select({"完全一致"=>"perfect_match", "前方一致"=>"forward_match",  "後方一致"=>"backward_match", "部分一致"=>"partial_match"}) ,class: "form-control" %>
           </li>
           <li>
             <%= button_tag type: :submit,class: "btn btn-outline-success mx-2" do %>
@@ -39,7 +41,7 @@
         <% end %>
       </button>
     <div class="dropdown-menu dropdown-menu-right">
-       <!--ここにリンク-->
+
     <% if user_signed_in? %>
         <%= link_to user_path(current_user), class: 'nav-link text-dark' do %>
         マイページ

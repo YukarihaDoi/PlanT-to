@@ -43,8 +43,10 @@ Rails.application.routes.draw do
         get :questions
       end
     end
+    # ハッシュ
+    get '/post_images/hashtag/:name' => 'post_images#hashtag'
+    get '/post_images/hashtag' => 'post_images#hashtag'
 
-      get '/post_images/hashtag/:name' => 'post_images#hashtag', as: 'hashtag'
     resources :post_images, only: [:new, :create, :show, :index, :edit, :update, :destroy] do
       resources :comments, only: [:create, :destroy]
       resource :favorites, only: [:create, :destroy]

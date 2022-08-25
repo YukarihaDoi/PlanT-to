@@ -20,8 +20,15 @@ before_action :side_view, only: [:index, :show, :edit ]
 
   def update
     @question = Question.find(params[:id])
-    @question.update(question_params)
-    redirect_to admin_questions_path
+    if @question.update(question_params)
+       redirect_to admin_questions_path
+    else
+      @question = Question.find(params[:id])
+      @post_categories = PostCategory.all
+      @question_categories =QuestionCategory.all
+      @hashtags = Hashtag.all.to_a.group_by{ |hashtag| hashtag.post_images.count}
+      render:edit
+    end
   end
 
   def destroy
@@ -45,5 +52,6 @@ before_action :side_view, only: [:index, :show, :edit ]
   def side_view
     @post_categories = PostCategory.all
     @question_categories =QuestionCategory.all
+    @hashtags = Hashtag.all.to_a.group_by{ |hashtag| hashtag.post_images.count}
   end
 end

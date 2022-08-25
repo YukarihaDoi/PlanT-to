@@ -27,7 +27,7 @@ class PostImage < ApplicationRecord
   #DBへのコミット直前に実施する
   after_create do
     post_image = PostImage.find_by(id:id)
-    hashtags  = hashbody.scan(/[#＃][\w\p{Han}ぁ-ヶｦ-ﾟー]+/)
+    hashtags  = body.scan(/[#＃][\w\p{Han}ぁ-ヶｦ-ﾟー]+/)
     post_image.hashtags = []
     hashtags.uniq.map do |hashtag|
       #ハッシュタグは先頭の'#'を外した上で保存
@@ -39,7 +39,7 @@ class PostImage < ApplicationRecord
   before_update do
     post_image = PostImage.find_by(id:id)
     post_image.hashtags.clear
-    hashtags = hashbody.scan(/[#＃][\w\p{Han}ぁ-ヶｦ-ﾟー]+/)
+    hashtags = body.scan(/[#＃][\w\p{Han}ぁ-ヶｦ-ﾟー]+/)
     hashtags.uniq.map do |hashtag|
       tag = Hashtag.find_or_create_by(hashname: hashtag.downcase.delete('#'))
       post_image.hashtags << tag
@@ -60,5 +60,9 @@ class PostImage < ApplicationRecord
 
     end
   end
+  
+  validates :title, presence: true
+  validates :body, presence: true
+  validates :post_category, presence: true
 
 end

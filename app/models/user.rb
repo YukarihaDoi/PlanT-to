@@ -6,7 +6,7 @@ class User < ApplicationRecord
   # 会員名
   validates :name, presence: true, length: { minimum: 2, maximum: 20 }, uniqueness: true
 
-##アソシエーション
+  ##アソシエーション
   has_many :post_images, dependent: :destroy
   has_many :questions, dependent: :destroy
   has_many :comments, dependent: :destroy
@@ -54,18 +54,17 @@ class User < ApplicationRecord
 
   # 検索
   def self.search_for(word, search)
-
-    if search == "perfect_match"
-      User.where(name:word)
-    elsif search == "forward_match"
-      User.where('name LIKE ?', word+'%')
-    elsif search == "backward_match"
-      User.where('name LIKE ?', '%'+word)
-    elsif search == "partial_match"
-      User.where('name LIKE ?', '%'+word+'%')
-    else
-
-    end
+      if search == "perfect_match"
+        User.where(name:word)
+      elsif search == "forward_match"
+        User.where('name LIKE ?', word+'%')
+      elsif search == "backward_match"
+        User.where('name LIKE ?', '%'+word)
+      elsif search == "partial_match"
+        User.where('name LIKE ?', '%'+word+'%')
+      else
+      end
   end
-
+  #バリテーション
+    validates :name, presence: true
 end

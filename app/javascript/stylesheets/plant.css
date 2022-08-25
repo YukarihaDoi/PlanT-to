@@ -3,12 +3,34 @@
   padding: 0;
   box-sizing: border-box;
 }
+
+/*全体色*/
 body{
  background-color: #E9EBE7;
-
 }
+
+/*top画像*/
+.top-image img{
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+/*top画面-logo*/
+.logo-image img{
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+
+
+body{
+ background-color: #E9EBE7;
+}
+
 .bar{
- background-color: #BDCE2B;
+ background-color:#249786;
 }
 
 .top img {
@@ -96,4 +118,40 @@ select {
   text-indent: 0.01px;
   text-overflow: ellipsis;
   cursor: pointer;
+}
+
+/*タブレット表示時*/
+@media (max-width: 1000px) {
+  header {
+    width: 100%;
+    height: 20px;
+  }
+
+  body{
+    width: 100%;
+    display: block;
+  }
+
+.top-image img{
+  width: 100%;
+  height:auto;
+ }
+
+.logo-image img{
+  width: 100%;
+  height:auto;
+ }
+
+
+
+
+.bar{
+   width: 100%;
+}
+
+}
+
+/*スマホ表示時*/
+@media (max-width: 500px) {
+
 }

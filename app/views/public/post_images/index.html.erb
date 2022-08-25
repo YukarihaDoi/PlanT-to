@@ -3,9 +3,9 @@
   <div class="container mt-5">
     <div class="row mx-5 mt-5">
       <!--カテゴリ-->
-      <%= render "layouts/side", post_categories: @post_categories, question_categories: @question_categories %>
+      <%= render "layouts/side", post_categories: @post_categories, question_categories: @question_categories, hashtags: @hashtags %>
       <!--一覧-->
-      <div class="col-8 offset-1">
+      <div class="col-md--8 offset-1">
         <% @post_images.each do |post_image| %>
         <!--アイコン名前-->
         <div class="mt-2 mb-4">
@@ -21,18 +21,15 @@
           <%= image_tag post_image.get_image(700,400)%>
           </div>
           <!--文章-->
-          <div class="side-text col-4">
+          <div class="mx-3 col-md-4 card-body">
               <p class="font-weight-bold">
                 <%= link_to(post_image_path(post_image.id), class:"text-dark") do %>
                  <%= post_image.title %>
                 <% end %>
               </p>
-              <p>♡<%= post_image.favorites.count %></p>
-              <p><%= post_image.body %></p>
-            <!--ハッシュタグ-->
-            <p>
-              <%= render_with_hashtags(post_image.hashbody) %>
-            </p>
+              <p>
+                <%= render_with_hashtags(post_image.body) %>
+              </p>
             <!--いいね-->
           <% if user_signed_in? %>
             <% unless current_user.name == "guestuser" %>

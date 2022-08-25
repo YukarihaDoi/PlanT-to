@@ -2,8 +2,12 @@
   <%= render 'layouts/header' %>
     <div class="container mt-5">
       <div class="row mx-5 mt-5">
+
+       <% if params[:name] == nil %>
+       <% else %>
+
         <!--カテゴリ-->
-        <%= render "layouts/side", post_categories: @post_categories, question_categories: @question_categories %>
+        <%= render "layouts/side", post_categories: @post_categories, question_categories: @question_categories, hashtags: @hashtags %>
           <!--一覧-->
         <div class="col-8 offset-1  card">
           <h2 class="px-5 pt-5">
@@ -29,11 +33,10 @@
                 <% end %>
               </p>
               <p>♡<%= post_image.favorites.count %></p>
-              <p><%= post_image.body %></p>
-            <!--ハッシュタグ-->
-            <p>
-              <%= render_with_hashtags(post_image.hashbody) %>
-            </p>
+              <!--ハッシュタグ-->
+              <p>
+                <%= render_with_hashtags(post_image.body) %>
+              </p>
             <!--いいね-->
           <% if user_signed_in? %>
             <% unless current_user.name == "guestuser" %>
@@ -58,7 +61,10 @@
             </div>
            <% end %>
         </div>
+        <div>
       </div>
+     <% end %>
+     </div>
     </div>
   <!--フッター-->
   <%= render 'layouts/footer' %>

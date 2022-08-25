@@ -3,7 +3,7 @@
 <div class="container mt-5">
   <div class="row mx-5 mt-5">
     <!--カテゴリ-->
-    <%= render "layouts/side", post_categories: @post_categories, question_categories: @question_categories %>
+    <%= render "layouts/side", post_categories: @post_categories, question_categories: @question_categories, hashtags: @hashtags %>
     <!--一覧-->
     <div class="col-8 offset-1">
         <div class="mt-2 mb-1">
@@ -38,7 +38,7 @@
             <i class="fa-regular fa-message"></i><%= @post_image.comments.count %>
           </p>
           <p>
-             <%= render_with_hashtags(@post_image.hashbody) %>
+             <%= render_with_hashtags(@post_image.body) %>
           </p>
           </div>
         </div>

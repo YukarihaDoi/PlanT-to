@@ -1,9 +1,10 @@
 class Public::QuestionsController < ApplicationController
-before_action :login_check, only: [:new, :index, :show, :edit ]
+
+  before_action :login_check, only: [:new, :index, :show, :edit ]
+  before_action :side_view, only: [ :new, :index, :show, :edit ]
+
   def new
     @question =Question.new
-    @post_categories = PostCategory.all
-    @question_categories =QuestionCategory.all
   end
 
   def create
@@ -12,14 +13,16 @@ before_action :login_check, only: [:new, :index, :show, :edit ]
     if @question.save
      redirect_to questions_path
     else
+     @post_categories = PostCategory.all
+     @question_categories =QuestionCategory.all
+     @hashtags = Hashtag.all.to_a.group_by{ |hashtag| hashtag.post_images.count}
+     @question =Question.new
      render :new
     end
   end
 
   def index
     @questions =params[:question_category].present? ? QuestionCategory.find(params[:question_category]).questions: Question.all
-    @post_categories = PostCategory.all
-    @question_categories =QuestionCategory.all
   end
 
   def show
@@ -27,25 +30,28 @@ before_action :login_check, only: [:new, :index, :show, :edit ]
     @user = @question.user
     @answer = Answer.new
     @questions =params[:question_category].present? ? QuestionCategory.find(params[:question_category]).questions: Question.all
-    @post_categories = PostCategory.all
-    @question_categories =QuestionCategory.all
   end
 
   def edit
-    @post_categories = PostCategory.all
-    @question_categories =QuestionCategory.all
     @question = Question.find(params[:id])
     if @question.user == current_user
       render :edit
     else
-      redirect_to questions_path
+      redirect_to question_path(@question)
     end
   end
 
   def update
     @question = Question.find(params[:id])
-    @question.update(question_params)
-    redirect_to questions_path
+     if @question.update(question_params)
+       redirect_to question_path(@question)
+     else
+       @question = Question.find(params[:id])
+       @post_categories = PostCategory.all
+       @question_categories =QuestionCategory.all
+       @hashtags = Hashtag.all.to_a.group_by{ |hashtag| hashtag.post_images.count}
+       render:edit
+     end
   end
 
   def destroy
@@ -56,14 +62,23 @@ before_action :login_check, only: [:new, :index, :show, :edit ]
 
   private
 
+  # 許可
   def question_params
     params.require(:question).permit(:question_title, :question_image, :question_body ,:user_id, :question_category_id)
   end
 
+  # ログインの確認
   def login_check
     unless signed_in?
       redirect_to root_path
     end
+  end
+
+  # サイドバー
+  def side_view
+    @post_categories = PostCategory.all
+    @question_categories =QuestionCategory.all
+    @hashtags = Hashtag.all.to_a.group_by{ |hashtag| hashtag.post_images.count}
   end
 
 end

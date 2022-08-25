@@ -1,6 +1,6 @@
 class Admin::PostImagesController < ApplicationController
  before_action :authenticate_admin!, only: [:show,:new, :index, :edit, :hashtag]
- before_action :side_view, only: [:index, :show, :edit, :hashtag ]
+ before_action :side_view, only: [:index, :show, :edit, :hashtag,:update ]
 
   # 投稿一覧
   def index
@@ -23,10 +23,16 @@ class Admin::PostImagesController < ApplicationController
   # 投稿更新
   def update
     @post_image = PostImage.find(params[:id])
-    @post_image.update(post_image_params)
-    redirect_to admin_post_images_path
+    if @post_image.update(post_image_params)
+       redirect_to admin_post_images_path
+    else
+      @post_image = PostImage.find(params[:id])
+      @post_categories = PostCategory.all
+      @question_categories =QuestionCategory.all
+      @hashtags = Hashtag.all.to_a.group_by{ |hashtag| hashtag.post_images.count}
+      render:edit
+    end
   end
-
   # 投稿削除
   def destroy
     @post_image = PostImage.find(params[:id])
@@ -56,7 +62,6 @@ class Admin::PostImagesController < ApplicationController
   def side_view
     @post_categories = PostCategory.all
     @question_categories =QuestionCategory.all
+    @hashtags = Hashtag.all.to_a.group_by{ |hashtag| hashtag.post_images.count}
   end
-
-
 end

@@ -29,5 +29,7 @@ class Question < ApplicationRecord
 
     end
   end
-
+  validates :question_title, presence: true
+  validates :question_body, presence: true
+  validates :question_category, presence: true
 end
