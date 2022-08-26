@@ -1,38 +1,77 @@
-<!--ヘッター-->
+<!--ヘッダー-->
 <%= render 'layouts/header' %>
-<div class="container mt-5">
-  <div class="row mx-5 mt-5">
-    <!--カテゴリ-->
-    <%= render "layouts/side", post_categories: @post_categories, question_categories: @question_categories, hashtags: @hashtags %>
-    <!--一覧-->
-    <div class="col-8 offset-1 card">
-    <% @questions.each do |question| %>
-    <!--アイコン名前-->
-    <div class="mt-2 mb-1 card-body px-5">
-      <%= link_to(user_path(question.user), class:"text-dark") do %>
-      <%= image_tag question.user.get_profile_image(130,130),class: "rounded-circle icon" %>
-      <%= question.user.name %>
-      <% end %>
+  <div class="container-fluid">
+    <div class="row mx-auto mt-5">
+      <!--サイド(左)-->
+      <%= render "layouts/side", post_categories: @post_categories, question_categories: @question_categories, hashtags: @hashtags %>
+        <!--一覧(右)-->
+        <div class="col-md-9 offset-1">
+
+          <div class='row mx-5 justify-content-start'>
+            <%= link_to post_images_path, class: 'nav-link text-dark' do %>
+              <p>投稿を見る</p>
+            <% end %>
+            <%= link_to questions_path, class: 'nav-link text-dark' do %>
+              <p class="font-weight-bold">質問を見る</p>
+            <% end %>
+          </div>
+
+          <% @questions.each do |image| %>
+            <div class="mx-3 my-4">
+              <div class="card border-success shadow p-3 mx-3">
+               <div class= "mx-auto">
+
+
+                <div class="mt-1 pt-3 pl-3">
+                  <!--アイコン-->
+                  <%= link_to user_path(image.user),class:"text-dark" do %>
+                    <%= image_tag image.user.get_profile_image(130,130),class: "icon rounded-circle" %>
+                    <%= image.user.name %>
+                  <% end %>
+                </div>
+                　<div class= "index-image col-md-11">
+                    <!--写真-->
+                    <%= image_tag image.get_question_image(700,520)%>
+                  </div>
+                    <p class="font-weight-bold card-title pl-3 pt-2 col-md-11">
+                    <!--タイトル-->
+                      <%= link_to post_image_path(image.id), class:"text-dark" do %>
+                        <%= image.question_title %>
+                      <% end %>
+                    </p>
+                    <p class="card-title pl-3 pt-2 col-md-11">
+                    <!--内容,ハッシュタグリンク-->
+                      <%= render_with_hashtags(image.question_body) %><br>
+                      <%= image.created_at.strftime('%Y/%m/%d') %>
+                    </p>
+                    <!--コメント-->
+                    <!--<p class="card-title pl-3 pt-2">-->
+                    <!--<= link_to "#{post_image.comments.count} コメント", post_image_path(post_image.id) %>-->
+                    <!--</p>-->
+                    <!--いいね(会員のみ)-->
+                 <!-- <h2 class="text-right">-->
+                 <!--   < unless current_user.name == "guestuser" %>-->
+                 <!--     < if image.favorited_by?(current_user) %>-->
+                 <!--         <= link_to post_image_favorites_path(image), method: :delete do %>-->
+                 <!--           ♥<= image.favorites.count %>-->
+                 <!--         < end %>-->
+                 <!--     < else %>-->
+                 <!--         <= link_to post_image_favorites_path(image), method: :post do %>-->
+                 <!--          ♡<= image.favorites.count %>-->
+                 <!--         < end %>-->
+                 <!--       </p>-->
+                 <!--     < end %>-->
+                 <!--   < end %>-->
+                 <!--</h2>-->
+                </div>
+
+                </div>
+              </div>
+          <% end %>
+        </div>
+      </div>
+
     </div>
-    <div class="d-flex">
-    <div class="side-image px-5 pb-5">
-      <%= image_tag question.get_question_image(750,400) %>
-    </div>
-    <!--文章-->
-    <div class="side-text">
-    <p class=" font-weight-bold">
-    <%= link_to(question_path(question.id), class:"text-dark text-left") do %>
-    <%= question.question_title %>
-    <% end %>
-    </p>
-    <p><%= question.question_body %></p>
-    <p><%= link_to "#{question.answers.count} 回答", question_path(question.id) %></p>
-    <br>
-    </div>
-    </div>
-    <% end %>
-    </div>
-</div>
-</div>
+  </div>
 <!--フッター-->
 <%= render 'layouts/footer' %>
