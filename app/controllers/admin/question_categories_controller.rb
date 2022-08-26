@@ -21,7 +21,7 @@ class Admin::QuestionCategoriesController < ApplicationController
 
     def update
      @question_category = QuestionCategory.find(params[:id])
-      if @q_category.update(question_category_params)
+      if @question_category.update(question_category_params)
         redirect_to admin_question_categories_path
       else
         render :edit
@@ -32,4 +32,6 @@ class Admin::QuestionCategoriesController < ApplicationController
     def question_category_params
       params.require(:question_category).permit(:question_category)
     end
+
+
 end

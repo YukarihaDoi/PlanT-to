@@ -1,15 +1,15 @@
 class Public::UsersController < ApplicationController
-before_action :ensure_currect_user, only: [:edit,:update]
-before_action :authenticate_user!, only: [:show]
-before_action :ensure_guest_user, only: [:edit]
-before_action :login_check, only: [ :index, :show, :edit, :follower, :following ]
+
+  before_action :ensure_currect_user, only: [:edit,:update]
+  before_action :authenticate_user!, only: [:show]
+  before_action :ensure_guest_user, only: [:edit]
+  before_action :login_check, only: [ :index, :show, :edit, :follower, :following ]
+  before_action :side_view, only: [ :index, :show, :edit, :follower, :following, :favorites, :questions ]
 
   def show
     @user = User.find(params[:id])
     @post_images = @user.post_images
     @questions = @user.questions
-    @post_categories = PostCategory.all
-    @question_categories =QuestionCategory.all
   end
 
   def index
@@ -19,14 +19,10 @@ before_action :login_check, only: [ :index, :show, :edit, :follower, :following 
 
   def edit
     @user = User.find(params[:id])
-    @post_categories = PostCategory.all
-    @question_categories =QuestionCategory.all
   end
 
   def update
     @user = User.find(params[:id])
-    @post_categories = PostCategory.all
-    @question_categories =QuestionCategory.all
     if @user.update(user_params)
       redirect_to user_path(current_user.id), notice: "You have updated user successfully."
     else
@@ -37,16 +33,26 @@ before_action :login_check, only: [ :index, :show, :edit, :follower, :following 
   # フォロワー 一覧画面
   def follower
    @user = User.find(params[:id])
-   @post_categories = PostCategory.all
-   @question_categories =QuestionCategory.all
 
   end
   # フォロー 一覧画面
   def following
    @user = User.find(params[:id])
-   @post_categories = PostCategory.all
-   @question_categories =QuestionCategory.all
   end
+
+   #いいね一覧
+   def favorites
+    @user = User.find(params[:id])
+    favorites= Favorite.where(user_id: @user.id).pluck(:post_image_id)
+    @favorite_posts = PostImage.find(favorites)
+   end
+
+   #質問一覧
+   def questions
+    @user = User.find(params[:id])
+    @questions = @user.questions
+   end
+
 
 private
    def user_params
@@ -72,4 +78,11 @@ private
       redirect_to root_path
       end
     end
+
+    def side_view
+      @post_categories = PostCategory.all
+      @question_categories =QuestionCategory.all
+      @hashtags = Hashtag.all.to_a.group_by{ |hashtag| hashtag.post_images.count}
+    end
+
 end

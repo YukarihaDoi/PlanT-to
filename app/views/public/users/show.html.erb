@@ -1,95 +1,111 @@
 <!--ヘッター-->
 <%= render 'layouts/header' %>
-<% if current_user.name != "guestuser" %>
-<!--カテゴリ-->
-<%= render "layouts/side", post_categories: @post_categories, question_categories: @question_categories %>
-<!-- ユーザーの詳細 -->
-<div>
-<%= image_tag @user.get_profile_image(100,100),class: "rounded-circle user" %>
-<%= @user.name %>
-<%= @user.introduction %>
+    <div class="container-fluid">
+    <div class='row mx-auto mt-5'>
+      <!--サイドユーザー情報-->
+      <div class="col-md-10">
+        <div class='row card-body'>
 
-<%= link_to "#{@user.follower.count}フォロー", following_path(current_user, @user) %>
-<%= link_to "#{@user.followed.count}フォロワー", follower_path(current_user, @user)%>
+          <div class="col-md-2">
 
-<p>いいね一覧</p>
+            <table class='table table-bordered bg-light pl-3'>
+              <tr>
+                <td>
+                  <%= image_tag @user.get_profile_image(200,200),class: "rounded-circle user" %>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  名前:<%= @user.name %>
+                </td>
+              </tr>
+              <tr>
+                <td>
+                  自己紹介:<%= @user.introduction %>
+                </td>
+              </tr>
+              <tr>
+                 <td>
+                   <%= link_to "#{@user.follower.count}フォロー", following_path(current_user, @user),class:"text-dark" %>
+                 </td>
+              </tr>
+              <tr>
+                 <td>
+                   <%= link_to "#{@user.followed.count}フォロワー", follower_path(current_user, @user),class:"text-dark"%>
+                 </td>
+              </tr>
+            </table>
 
-<% if current_user.name != "guestuser" %>
-<!--ゲスト以外 -->
-<% if @user == current_user %>
-<!--自分-->
-<%= link_to "プロフィール編集", edit_user_path(@user) %>
-<% else %>
-<!--他のユーザー-->
-<% if current_user.following?(@user)  %>
-<%= link_to 'フォロー中', user_unfollow_path(current_user, @user), method: :POST %>
-<% else %>
-<%= link_to 'フォローする', user_follow_path(current_user, @user), method: :POST %>
-<% end %>
-<% end %>
+            <% if current_user.name != "guestuser" %>
+                <div class='row mx-auto'>
+                  <% if @user == current_user %>
+                  <!--自分-->
+                   <p>
+                    <%= link_to "プロフィール編集", edit_user_path(@user),class:"text-success" %>
+                   </p>
+                  <% else %>
+                    <!--他のユーザー-->
+                      <% if current_user.following?(@user) %>
+                       <p>
+                        <%= link_to 'フォロー中', user_unfollow_path(current_user, @user), method: :POST %>
+                       </p>
+                      <% else %>
+                       <p>
+                        <%= link_to 'フォローする', user_follow_path(current_user, @user), method: :POST %>
+                       </p>
+                      <% end %>
+                  <% end %>
+                </div>
+            <% end %>
 
-<% else %>
-<!--ゲストがマイページに入った場合-->
-<p>新規登録お願いします！</p>
-<% end %>
+          </div>
 
-<h5>投稿一覧</h5>
-<% @post_images.each do |post_image| %>
-<div class="img-container">
-<%= link_to post_image_path(post_image.id) do %>
-<%= image_tag post_image.get_image(100,100) %>
-<% end %>
-</div>
-<%= link_to(post_image_path(post_image.id), class:"text-dark") do %>
-<p><%= post_image.title %></p>
-<% end %>
-<%= post_image.body %>
-
-<% if current_user.name != "guestuser" %>
-<!--いいね-->
-<% if post_image.favorited_by?(current_user) %>
-<p>
-<%= link_to post_image_favorites_path(post_image), method: :delete do %>
-♥<%= post_image.favorites.count %> いいね
-<% end %>
-</p>
-<% else %>
-<p>
-<%= link_to post_image_favorites_path(post_image), method: :post do %>
-♡<%= post_image.favorites.count %> いいね
-<% end %>
-</p>
-<% end %>
-<% else %>
-
-<% end %>
-<p><%= link_to "#{post_image.comments.count} コメント", post_image_path(post_image.id) %></p>
-<br>
-<% end %>
-
-<h5>質問一覧</h5>
-<% @questions.each do |question| %>
-<%= link_to question_path(question.id) do %>
-<%= image_tag question.get_question_image(100,100) %>
-<% end %>
-<%= link_to(question_path(question.id), class:"text-dark") do %>
-<p><%= question.question_title %></p>
-<% end %>
-<%= question.question_body %>
-<i class="fa-regular fa-message"></i><%= question.answers.count %></p>
-<br>
-<% end %>
-</div>
-<% else %>
-<div class="row　justify-content-center">
-    <div class='mx-auto col-10 col-sm-10 col-lg-8 col-xl-6 mt-5'>
-      <p class="text-center">マイページを使うためにはログアウトをしてから、新規登録/ログインをお願いします。</p>
-      <div class="btn-wrapper col-10 mx-auto">
-        <div class="row">
-          <%= link_to 'ゲストログアウト', destroy_user_session_path, class: "btn btn-secondary btn-sm btn-block mb-3 sign_in", method: :delete %>
-        </div>
+          <!--左-->
+          <div class="col-md-9 offset-md-1">
+            <div class="row mx-5 justify-content-start">
+                <p>
+                  <%=link_to"記事",user_path(@user), class: 'font-weight-bold nav-link text-dark'  %>
+                </p>
+                <p>
+                 <%=link_to"質問",questions_user_path(@user), class: 'nav-link text-dark'  %>
+                </p>
+                <p>
+                 <%=link_to"いいね",favorites_user_path(@user), class: 'nav-link text-dark'  %>
+                </p>
+            </div>
+              <% if @user.post_images.present? %>
+                  <% @post_images.each do |post_image| %>
+                    <div class="mx-3 my-4">
+                      <div class="card border-success shadow p-3 mx-3">
+                         <div class= "mx-auto">
+                          <div class="index-image col-md-9">
+                            <%= link_to post_image_path(post_image.id) do %>
+                              <%= image_tag post_image.get_image(700,520) %>
+                            <% end %>
+                           <p class="font-weight-bold card-title pl-3 pt-2 col-md-9">
+                            <%= link_to(post_image_path(post_image.id), class:"text-dark") do %>
+                              <%= post_image.title %>
+                            <% end %>
+                           </p>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <% end %>
+              <% else %>
+              <!--ない場合-->
+              <p>
+                投稿した記事はありません
+              </p>
+              <% end %>
+          </div>
+        <!--</div>-->
       </div>
     </div>
-  </div>s
+    </div>
 
-<% end %>
+
+    </div>
+  </div>
+<!--フッター-->
+<%= render 'layouts/footer' %>
