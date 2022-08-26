@@ -1,28 +1,28 @@
 <header>
-  <nav class="navbar navbar-expand-lg navbar-dark ">
+
+  <nav class="navbar navbar-expand-sm">
     <!--上左-->
     <a class="navbar-brand p-1" href="/post_images"><%= image_tag(('logo-PlanT-to.png'),width: '50%',height: '50%') %></a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
+    <!--<span class="navbar-toggler-icon"></span>-->
     </button>
 
-   <div class="collapse navbar-collapse" id="navbarSupportedContent">
+   <!--<div class="collapse navbar-collapse" id="navbarSupportedContent">-->
       <!--検索-->
       <%= form_with url: search_path, local: true, method: :get do |s| %>
         <ul class="navbar-nav mxl-auto">
+         <!--キーワード入力-->
           <li class="form-inline my-2 my-lg-0 mx-1">
             <%= s.text_field :word , class: 'form-control word ', size:"50", placeholder:"気になる投稿やユーザーを検索しよう"%>
           </li>
-
+          <!--絞り込み -->
           <li class="select mx-1">
-            
-            <%= s.select :method, options_for_select([['User'], ['Question'],['PostImage']]),class: "method form-select dropdown dropdown-toggle" %>
-            </button>
+            <%= s.select :method, options_for_select([['User'], ['Question'],['PostImage']]),class: "method form-control form-select dropdown dropdown-toggle" %>
           </li>
-
           <li class="select mx-1">
              <%= s.select :search, options_for_select({"完全一致"=>"perfect_match", "前方一致"=>"forward_match",  "後方一致"=>"backward_match", "部分一致"=>"partial_match"}) ,class: "form-control" %>
           </li>
+          <!--ボタン-->
           <li>
             <%= button_tag type: :submit,class: "btn btn-outline-success mx-2" do %>
               <i class="fa-solid fa-magnifying-glass"></i>
@@ -30,6 +30,7 @@
           </li>
         </ul>
       <% end %>
+      </div>
 
     <!--アイコンから表示 -->
     <div class="dropdown mx-5">
@@ -40,82 +41,96 @@
          <%= image_tag 'no_user.jpeg',width: '30px',height: '30px',class: "rounded-circle" %>
         <% end %>
       </button>
-    <div class="dropdown-menu dropdown-menu-right">
 
-    <% if user_signed_in? %>
-        <%= link_to user_path(current_user), class: 'nav-link text-dark' do %>
-        マイページ
-        <% end %>
-          <% if current_user.name != "guestuser" %>
-              <%= link_to new_post_image_path, class: 'nav-link text-dark ' do %>
-              投稿
+       <div class="dropdown-menu dropdown-menu-left">
+         <!--中身-->
+          <% if user_signed_in? %>
+              <%= link_to user_path(current_user), class: 'nav-link text-dark' do %>
+              マイページ
               <% end %>
-              <%= link_to admin_news_images_path, class: 'nav-link text-dark' do %>
-              お知らせ
+                 <% if current_user.name != "guestuser" %>
+                 <!--会員の場合-->
+                    <%= link_to new_post_image_path, class: 'nav-link text-dark ' do %>
+                     投稿
+                    <% end %>
+                    <%= link_to admin_news_images_path, class: 'nav-link text-dark' do %>
+                     お知らせ
+                    <% end %>
+                 <% else %>
+                 <!--ゲストの場合-->
+                    <%= link_to admin_news_images_path, class: 'nav-link text-dark' do %>
+                    お知らせ
+                    <% end %>
+                <% end %>
+              <%= link_to destroy_user_session_path, method: :delete, class: 'nav-link text-dark' do %>
+               ログアウト
               <% end %>
           <% else %>
+          <!--管理者の場合-->
               <%= link_to admin_news_images_path, class: 'nav-link text-dark' do %>
-              お知らせ
+                お知らせ
+              <% end %>
+              <%= link_to destroy_admin_session_path, method: :delete, class: 'nav-link text-dark' do %>
+                ログアウト
               <% end %>
           <% end %>
-
-        <%= link_to destroy_user_session_path, method: :delete, class: 'nav-link text-dark' do %>
-        ログアウト
-        <% end %>
-
-　　　<% else %>
-　　　  <%= link_to admin_news_images_path, class: 'nav-link text-dark' do %>
-        お知らせ
-        <% end %>
-
-        <%= link_to destroy_admin_session_path, method: :delete, class: 'nav-link text-dark' do %>
-        ログアウト
-        <% end %>
-    <% end %>
-       </div>
        </div>
 
-
-
-   </div>
+      </div>
+   <!--</div>-->
    </nav>
-  <!--下部分-->
-  <div class="row bar mx-5">
-  <div class="col pt-3">
 
-    <ul class="row d-flex align-items-center list-unstyled">
+
+
+  <!--下部分-->
+  <div class="row bar mx-3">
+  <div class="col-md-12 col-sm-12 pt-3">
+
+    <ul class="row d-box align-items-center list-unstyled">
 
     <% if user_signed_in? %>
 
-      <li class="col">
+      <li class="col-md-4 col-sm-2">
       <%= link_to post_images_path, class: 'nav-link text-light text-right' do %>
-      <strong>Home</strong>
+      　<strong>
+      　    Home
+      　</strong>
       <% end %>
       </li>
 
-      <li class="col">
+      <li class="col-md-4 col-sm-2">
       <%= link_to questions_path, class: 'nav-link text-light text-center' do %>
-      <strong>みんなの質問</strong>
+         <strong>
+           Search
+         </strong>
       <% end %>
       </li>
 
-      <li class="col">
+      <li class="col-md-4 col-sm-2">
       <%= link_to new_post_image_path, class: 'nav-link text-light text-left' do %>
-      <strong>投稿する</strong>
+         <strong>
+           Mypage
+        </strong>
       <% end %>
       </li>
+
   <% else %>
-      <li class="col ">
-      <%= link_to admin_post_images_path, class: 'nav-link text-light text-right' do %>
-      <strong>Home</strong>
-      <% end %>
+
+      <li class="col-md-4 col-sm-4">
+        <%= link_to admin_post_images_path, class: 'nav-link text-light text-right' do %>
+         <strong>
+          Home
+         </strong>
+        <% end %>
       </li>
-      <li class="col">
-      <%= link_to admin_users_path, class: 'nav-link text-light text-center' do %>
-       <strong>User</strong>
-       <% end %>
+      <li class="col-md-4">
+        <%= link_to admin_users_path, class: 'nav-link text-light text-center' do %>
+          <strong>
+            User
+          </strong>
+        <% end %>
        </li>
-      <li class="col">
+      <li class="col-md-4">
       <%= link_to admin_post_categories_path, class: 'nav-link text-light text-left' do %>
       <strong>Category</strong>
       <% end %>
@@ -124,4 +139,4 @@
      </ul>
      </div>
      </div>
-    </header
+    </header>
