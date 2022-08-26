@@ -1,34 +1,44 @@
-<!--色-->
-<!--<div class="background">-->
 <div class="container-fluid">
-  <%= image_tag(('logo-PlanT-to.png'),width: '20%',height: '20%') %>
-
+ <div class="row">
   <div class="row justify-content-center top">
-    <%= image_tag 'exsample.jpg' %>
-
-    <div class='mx-auto col-10 col-sm-10 col-lg-8 col-xl-6 mt-5'>
-      <div class="btn-wrapper col-10 mx-auto">
-        <h3>もっと園芸を楽しもう！</h3>
-        <p>PlanT-to(プラントット)は園芸する人たちのコミュニティサイトです</p>
-        <br>
-        <div class="row mt-3">
-          <%= link_to 'ログイン',new_user_session_path, class: "btn btn-light btn-sm btn-block mb-3 ログイン" %>
-        </div>
-        <div class="row">
-          <%= link_to '新規登録',new_user_registration_path, class: "btn btn-light btn-sm btn-block mb-3 新規登録" %>
-        </div>
-        <div class="row">
-          <%= link_to 'ゲストログイン（閲覧用）', users_guest_sign_in_path, class: "btn btn-secondary btn-sm btn-block mb-3 sign_in", method: :post %>
-        </div>
-      <div class="row justify-content-end">
-        <%= link_to new_admin_session_path, class: 'text-dark' do%>
-        管理者はこちら
-        <% end %>
-      </div>
-      </div>
+    <!--トップ画像-->
+    <div class='col-sm-12 top-image'>
+      <%= image_tag 'exsample.jpg' %>
     </div>
+       <!--ロゴ画像-->
+       <div class="row">
+         <div class='col-sm-12 logo-image'>
+           <%= image_tag 'logo-PlanT-to.png' %>
+         </div>
+       </div>
+        <div class='mx-auto col-md-10 col-sm-10 col-lg-8 col-xl-6 '>
+         <div class="col-10 mx-auto btn-wrapper">
+          <!--文字-->
+          <div class="row mt-5 mb-5">
+            <h3 class="text-center">
+              もっと園芸を楽しもう！
+            </h3>
+            <p>
+              PlanT-to(プラントット)は園芸する人たちのコミュニティサイトです
+            </p>
+          </div>
+  　　    　 <!--ボタン-->
+           <div class="row mt-3">
+              <%= link_to 'ログイン',new_user_session_path, class: "btn btn-outline-success btn-sm btn-block mb-3 ログイン" %>
+           </div>
+           <div class="row">
+              <%= link_to '新規登録',new_user_registration_path, class: "btn btn-outline-info btn-sm btn-block mb-3 新規登録" %>
+           </div>
+            <div class="row">
+              <%= link_to 'ゲストログイン（閲覧用）', users_guest_sign_in_path, class: "btn btn-secondary btn-sm btn-block mb-3 sign_in", method: :post %>
+            </div>
+           <div class="row justify-content-end">
+            <%= link_to new_admin_session_path, class: 'text-dark' do%>
+             管理者はこちら
+            <% end %>
+           </div>
+          </div>
+        </div>
+   </div>
+ </div>
 </div>
-</div>
-<!--フッター-->
-<%= render 'layouts/footer' %>
-<!--</div>-->

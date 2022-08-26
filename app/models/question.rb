@@ -15,4 +15,21 @@ class Question < ApplicationRecord
     question_image.variant(resize_to_limit: [width, height]).processed
   end
 
+  # 検索
+  def self.search_for(word, search)
+    if search == "perfect_match"
+      Question.where(question_title:word)
+    elsif search == "forward_match"
+      Question.where('question_title LIKE?',word+'%')
+    elsif search == "backward_match"
+      Question.where('question_title LIKE?','%'+word)
+    elsif search == "partial_match"
+      Question.where('question_title LIKE?','%'+word+'%')
+    else
+
+    end
+  end
+  validates :question_title, presence: true
+  validates :question_body, presence: true
+  validates :question_category, presence: true
 end

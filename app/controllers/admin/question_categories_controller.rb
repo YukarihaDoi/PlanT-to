@@ -32,4 +32,6 @@ class Admin::QuestionCategoriesController < ApplicationController
     def question_category_params
       params.require(:question_category).permit(:question_category)
     end
+
+
 end

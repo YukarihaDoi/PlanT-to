@@ -1,9 +1,10 @@
 class Admin::UsersController < ApplicationController
- before_action :ensure_currect_user, only: [:edit,:update]
- before_action :authenticate_admin!, only: [:show]
- before_action :ensure_guest_user, only: [:edit]
- before_action :login_check, only: [ :index, :show, :edit, :follower, :following ]
- before_action :side_view, only: [:index, :show, :edit]
+
+   before_action :ensure_currect_user, only: [:edit,:update]
+   before_action :authenticate_admin!, only: [:show]
+   before_action :ensure_guest_user, only: [:edit]
+   before_action :login_check, only: [ :index, :show, :edit]
+   before_action :side_view, only: [:index, :show, :edit]
 
   def show
     @user = User.find(params[:id])
@@ -25,24 +26,19 @@ class Admin::UsersController < ApplicationController
     if @user.update(user_params)
       redirect_to user_path(current_user.id), notice: "You have updated user successfully."
     else
+      @user = User.find(params[:id])
+      @post_categories = PostCategory.all
+      @question_categories =QuestionCategory.all
+      @hashtags = Hashtag.all.to_a.group_by{ |hashtag| hashtag.post_images.count}
       render :edit
     end
   end
 
-  # # フォロワー 一覧画面
-  # def follower
-  # @user = User.find(params[:id])
+  private
 
-  # end
-  # # フォロー 一覧画面
-  # def following
-  # @user = User.find(params[:id])
-  # end
-
-private
-   def user_params
-    params.require(:user).permit(:name, :introduction, :profile_image)
-   end
+  def user_params
+   params.require(:user).permit(:name, :introduction, :profile_image)
+  end
 
     def ensure_currect_user
      @user = User.find(params[:id])
@@ -65,7 +61,9 @@ private
     end
 
     def side_view
-    @post_categories = PostCategory.all
-    @question_categories =QuestionCategory.all
+      @post_categories = PostCategory.all
+      @question_categories =QuestionCategory.all
+      @hashtags = Hashtag.all.to_a.group_by{ |hashtag| hashtag.post_images.count}
     end
+
 end

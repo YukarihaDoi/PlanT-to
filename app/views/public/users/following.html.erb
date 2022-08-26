@@ -1,22 +1,34 @@
-<h1>Follow</h1>
+<!--ヘッター-->
+<%= render 'layouts/header' %>
+<div class='container mt-5'>
+  <div class='row mx-5 mt-5 '>
 <!--カテゴリ-->
-<%= render "layouts/side", post_categories: @post_categories, question_categories: @question_categories %>
-
- <table class='table'>
-  <thead>
-    <tr>
-      <th>image</th>
-      <th>name</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
-  <tbody>
-     <% @user.following_user.where.not(id: current_user.id).each do |user| %>
-      <tr>
-        <td><%= image_tag user.get_profile_image(50,50) %></td>
-        <td><%= user.name %></td>
-        <td><%= link_to 'Show', user, class: "user_#{user.id}" %></td>
-      </tr>
-     <% end %>
-  </tbody>
+<%= render "layouts/side", post_categories: @post_categories, question_categories: @question_categories, hashtags: @hashtags %>
+ <div class="col-8 offset-1 card">
+   <div class="mt-2 card-body">
+     <%= image_tag @user.get_profile_image(200,200),class: "rounded-circle user" %>
+     <p class="mx-2">Follow</p>
+<table class='table'>
+<thead>
+<tr>
+<th>image</th>
+<th>name</th>
+<th colspan="3"></th>
+</tr>
+</thead>
+<tbody>
+<% @user.following_user.where.not(id: current_user.id).each do |user| %>
+<tr>
+<td><%= image_tag user.get_profile_image(200,200),class: "rounded-circle user" %></td>
+<td><%= user.name %></td>
+<td><%= link_to 'Show', user, class: "user_#{user.id}" %></td>
+</tr>
+<% end %>
+</tbody>
 </table>
+</div>
+</div>
+</div>
+</div>
+<!--フッター-->
+<%= render 'layouts/footer' %>

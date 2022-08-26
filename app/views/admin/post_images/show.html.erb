@@ -1,9 +1,9 @@
 <!--ヘッター-->
 <%= render 'layouts/header' %>
 <div class="container mt-5">
-　<div class="row mx-5 mt-5">
+  <div class="row mx-5 mt-5">
     <!--カテゴリ-->
-    <%= render "layouts/side", post_categories: @post_categories, question_categories: @question_categories %>
+    <%= render "layouts/side", post_categories: @post_categories, question_categories: @question_categories, hashtags: @hashtags %>
     <!--一覧-->
     <div class="col-8 offset-1">
         <div class="mt-2 mb-1">
@@ -14,10 +14,10 @@
         <!--管理者がサインインしてる場合は編集/削除ができる-->
         <% if admin_signed_in? %>
             <%= link_to edit_admin_post_image_path(@post_image) do %>
-            　編集
+              編集
             <% end %>|
             <%= link_to admin_post_images_path, method: :delete, data: { confirm: '本当に消しますか？' } do%>
-            　削除
+              削除
             <% end %>
         <% end %>
         </div>
@@ -38,18 +38,27 @@
             <i class="fa-regular fa-message"></i><%= @post_image.comments.count %>
           </p>
           <p>
-             <%= render_with_hashtags(@post_image.hashbody) %>
+             <%= render_with_hashtags(@post_image.body) %>
           </p>
-          <!--コメント一覧-->
-          <% @post_image.comments.each do |comment| %>
+          </div>
+        </div>
+        <div class="d-flex">
+          <div class="side-image">
+
+          </div>
+          <div class="side-text">
+            <!--コメント一覧-->
+            <% @post_image.comments.each do |comment| %>
+
             <%= image_tag comment.user.get_profile_image(30,30),class: "icon rounded-circle"%>
-            <%= comment.user.name %>
-            <%= comment.created_at.strftime('%Y/%m/%d') %><%= comment.comment %>
-            <%= link_to "削除", post_image_comment_path(comment.post_image, comment), method: :delete %>
+            <p><%= comment.user.name %></p>
+            <p><%= comment.created_at.strftime('%Y/%m/%d') %><%= comment.comment %></p>
+            <p><%= link_to "削除", post_image_comment_path(comment.post_image, comment), method: :delete %></p>
+            <br>
           <% end %>
-         </div>
+          </div>
         </div>
     </div>
-　</div>
+  </div>
 </div>
 <%= render 'layouts/footer' %>
