@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_08_23_092737) do
+ActiveRecord::Schema.define(version: 2022_08_26_125156) do
 
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
@@ -117,6 +117,27 @@ ActiveRecord::Schema.define(version: 2022_08_23_092737) do
     t.string "question_category", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "question_favorites", force: :cascade do |t|
+    t.bigint "user_id"
+    t.bigint "question_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "question_hashtag_relations", force: :cascade do |t|
+    t.bigint "question_id"
+    t.bigint "question_hashtag_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "question_hashtags", force: :cascade do |t|
+    t.string "question_hashname"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["question_hashname"], name: "index_question_hashtags_on_question_hashname", unique: true
   end
 
   create_table "questions", force: :cascade do |t|

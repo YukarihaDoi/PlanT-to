@@ -12,6 +12,7 @@ class User < ApplicationRecord
   has_many :comments, dependent: :destroy
   has_many :answes, dependent: :destroy
   has_many :favorites, dependent: :destroy
+  has_many :question_favorites, dependent: :destroy
 
   has_many :follower, class_name: "Relation", foreign_key: "follower_id", dependent: :destroy
   has_many :following_user, through: :follower, source: :followed
@@ -20,8 +21,8 @@ class User < ApplicationRecord
 
   ##画像
   has_one_attached :profile_image
+  
   # 画像確認/サイズ
-
   def get_profile_image(width, height)
     unless profile_image.attached?
       file_path = Rails.root.join('app/assets/images/no_user.jpg')

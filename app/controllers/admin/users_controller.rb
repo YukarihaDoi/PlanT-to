@@ -1,8 +1,6 @@
 class Admin::UsersController < ApplicationController
 
-   before_action :ensure_currect_user, only: [:edit,:update]
    before_action :authenticate_admin!, only: [:show]
-   before_action :ensure_guest_user, only: [:edit]
    before_action :login_check, only: [ :index, :show, :edit]
    before_action :side_view, only: [:index, :show, :edit]
 
@@ -24,7 +22,7 @@ class Admin::UsersController < ApplicationController
   def update
     @user = User.find(params[:id])
     if @user.update(user_params)
-      redirect_to user_path(current_user.id), notice: "You have updated user successfully."
+      redirect_to admin_user_path(@user)
     else
       @user = User.find(params[:id])
       @post_categories = PostCategory.all
@@ -37,20 +35,12 @@ class Admin::UsersController < ApplicationController
   private
 
   def user_params
-   params.require(:user).permit(:name, :introduction, :profile_image)
+   params.require(:user).permit(:name, :introduction, :email, :profile_image, :is_deleted)
   end
-
     def ensure_currect_user
      @user = User.find(params[:id])
       unless @user == current_user
        redirect_to user_path(current_user.id)
-      end
-    end
-
-    def ensure_guest_user
-      @user = User.find(params[:id])
-      if @user.name == "guestuser"
-        redirect_to user_path(current_user) , notice: 'ゲストユーザーはプロフィール編集画面へ遷移できません。'
       end
     end
 

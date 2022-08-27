@@ -1,15 +1,69 @@
-<header>
+<header class="shadow-sm">
+  <nav class="navbar navbar-expand-lg">
+    <!--ロゴ-->
+    <div class="container">
+    <a class="navbar-brand" href="/post_images">
+      <div>
+      <%= image_tag(('Logo.png'),width: '15%',height: '15%') %>
+      <span class="text-dark font-weight-bold">PlanT-to</span>
+      </div>
+    </a>
 
-  <nav class="navbar navbar-expand-sm">
-    <!--上左-->
-    <a class="navbar-brand p-2" href="/post_images"><%= image_tag(('logo-PlanT-to.png'),width: '30%',height: '30%') %></a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
-    <!--<span class="navbar-toggler-icon"></span>-->
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown"
+      aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
     </button>
+    <!--ナビ -->
 
-    <!--アイコンから表示 -->
-    <div class="row justify-content-end">
-    <div class="dropdown">
+    <div class="collapse navbar-collapse" id="navbarNavDropdown">
+
+     <ul class="navbar-nav mx-5">
+     <% if user_signed_in? %>
+      <li class="nav-item">
+      <%= link_to post_images_path, class: 'nav-link text-dark' do %>
+        <strong>
+          <i class="fa-solid fa-sun-plant-wilt"></i>Home
+        </strong>
+      <% end %>
+      </li>
+      <li class="nav-item">
+      <%= link_to search_path, class: 'nav-link text-dark' do %>
+         <strong>
+           <i class="fa-solid fa-magnifying-glass"></i>search
+         </strong>
+      <% end %>
+      </li>
+      <li class="nav-item">
+      <%= link_to admin_news_images_path, class: 'nav-link text-dark' do %>
+         <strong>
+         <i class="fa-solid fa-bullhorn"></i>news
+        </strong>
+      <% end %>
+      </li>
+  <% else %>
+      <!--管理者の場合-->
+      <li class="nav-item">
+        <%= link_to admin_post_images_path, class: 'nav-link text-dark' do %>
+         <strong>
+          Home
+         </strong>
+        <% end %>
+      </li>
+      <li class="nav-item">
+        <%= link_to admin_users_path, class: 'nav-link ' do %>
+          <strong>
+            会員一覧
+          </strong>
+        <% end %>
+       </li>
+      <li class="nav-item">
+      <%= link_to admin_news_images_path, class: 'nav-link ' do %>
+      <strong>お知らせ</strong>
+      <% end %>
+      </li>
+     <% end %>
+
+    <li class="dropdown nav-item">
       <!--外側-->
       <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton", data-toggle="dropdown">
         <% if user_signed_in? %>
@@ -18,7 +72,8 @@
          <%= image_tag 'no_user.jpeg',width: '30px',height: '30px',class: "rounded-circle" %>
         <% end %>
       </button>
-      <!--中身-->
+
+      <!--アイコン中身-->
        <div class="dropdown-menu dropdown-menu-right">
           <% if user_signed_in? %>
               <%= link_to user_path(current_user), class: 'nav-link text-dark' do %>
@@ -43,76 +98,28 @@
               <% end %>
           <% else %>
           <!--管理者の場合-->
-              <%= link_to admin_news_images_path, class: 'nav-link text-dark' do %>
-                お知らせ
+              <%= link_to new_admin_news_image_path, class: 'nav-link text-dark' do %>
+                投稿
               <% end %>
               <%= link_to destroy_admin_session_path, method: :delete, class: 'nav-link text-dark' do %>
                 ログアウト
               <% end %>
           <% end %>
-       </div>
+         </div>
+
+         <% if user_signed_in? %>
+           <span class="font-c m-2"><%= current_user.name %></span>
+        <% else %>
+           <span class="font-c m-2">管理者</span>
+        <% end %>
+       </li>
+
+     </ul>
+    </div>
 
       </div>
    </div>
    </nav>
-
-
-
-  <!--下部分-->
-  <div class="row bar mx-3">
-  <div class="col-md-12 col-sm-12 pt-3">
-
-    <ul class="row d-box align-items-center list-unstyled">
-
-    <% if user_signed_in? %>
-
-      <li class="col-md-4 col-sm-2">
-      <%= link_to post_images_path, class: 'nav-link text-light text-right' do %>
-      　<strong>
-      　    Home
-      　</strong>
-      <% end %>
-      </li>
-
-      <li class="col-md-4 col-sm-2">
-      <%= link_to search_path, class: 'nav-link text-light text-center' do %>
-         <strong>
-           Search
-         </strong>
-      <% end %>
-      </li>
-
-      <li class="col-md-4 col-sm-2">
-      <%= link_to new_post_image_path, class: 'nav-link text-light text-left' do %>
-         <strong>
-           Mypage
-        </strong>
-      <% end %>
-      </li>
-
-  <% else %>
-
-      <li class="col-md-4 col-sm-4">
-        <%= link_to admin_post_images_path, class: 'nav-link text-light text-right' do %>
-         <strong>
-          Home
-         </strong>
-        <% end %>
-      </li>
-      <li class="col-md-4">
-        <%= link_to admin_users_path, class: 'nav-link text-light text-center' do %>
-          <strong>
-            User
-          </strong>
-        <% end %>
-       </li>
-      <li class="col-md-4">
-      <%= link_to admin_post_categories_path, class: 'nav-link text-light text-left' do %>
-      <strong>Category</strong>
-      <% end %>
-      </li>
-     <% end %>
-     </ul>
      </div>
      </div>
     </header>

@@ -9,6 +9,17 @@
 body{
  background-color: #E9EBE7;
 }
+/*フォント*/
+header, nav{
+  font-family: fangsong;
+}
+/*色*/
+.color{
+ color:#249786;
+}
+
+
+
 
 
 /*top*/

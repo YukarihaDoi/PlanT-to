@@ -24,7 +24,22 @@
             <%= @user.introduction %>
           </td>
         </tr>
+        <tr>
+         <td>会員ステータス</td>
+         <% if @user.is_deleted == false %>
+          <td>有効</td>
+         <% else %>
+          <td>退会</td>
+         <% end %>
+        </tr>
        </table>
+
+       <div class='row mx-auto'>
+         <p>
+          <%= link_to "ユーザー編集", edit_admin_user_path(@user),class:"text-success" %>
+        </p>
+       </div>
+
      </div>
      <div class="col-9">
       <h5>投稿一覧</h5>

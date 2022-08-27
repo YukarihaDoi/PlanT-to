@@ -1,7 +1,7 @@
 class Public::QuestionsController < ApplicationController
 
   before_action :login_check, only: [:new, :index, :show, :edit ]
-  before_action :side_view, only: [ :new, :index, :show, :edit ]
+  before_action :side_view, only: [ :new, :index, :show, :edit, :hashtag]
 
   def new
     @question =Question.new
@@ -60,11 +60,27 @@ class Public::QuestionsController < ApplicationController
      redirect_to questions_path
   end
 
+  # ハッシュ
+  def hashtag
+    @user = current_user
+    if params[:name].nil?
+      @question_hashtags = QuestionHashtag.all.to_a.group_by{ |question_hashtag| question_hashtag.questions.count}
+    else
+      @question_hashtag = QuestionHashtag.find_by(question_hashname: params[:name])
+      @question = @question_hashtag.questions.reverse_order
+      @question_hashtags = QuestionHashtag.all.to_a.group_by{ |question_hashtag| question_hashtag.questions.count}
+      @questions = @question_hashtag.questions.all
+    end
+
+  end
+
+
+
   private
 
   # 許可
   def question_params
-    params.require(:question).permit(:question_title, :question_image, :question_body ,:user_id, :question_category_id)
+    params.require(:question).permit(:question_title, :question_image,:question_body ,:user_id, :question_category_id)
   end
 
   # ログインの確認

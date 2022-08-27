@@ -3,6 +3,10 @@ class Question < ApplicationRecord
   belongs_to :user
   belongs_to :question_category
   has_many :answers, dependent: :destroy
+  has_many :question_favorites, dependent: :destroy
+  has_many :question_hashtag_relations, dependent: :destroy
+  has_many :question_hashtags, through: :question_hashtag_relations
+
   # 画像
   has_one_attached :question_image
 
@@ -13,6 +17,33 @@ class Question < ApplicationRecord
       question_image.attach(io: File.open(file_path), filename: 'Leaf-image.jpg', content_type: 'image/jpeg')
     end
     question_image.variant(resize_to_limit: [width, height]).processed
+  end
+
+  # いいねしているユーザーがいるかどうか
+  def question_favorited_by?(user)
+    question_favorites.exists?(user_id: user.id)
+  end
+
+  #DBへのコミット直前に実施する
+  after_create do
+    question = Question.find_by(id:id)
+    question_hashtags  = question_body.scan(/[#＃][\w\p{Han}ぁ-ヶｦ-ﾟー]+/)
+    question.question_hashtags = []
+    question_hashtags.uniq.map do |hashtag|
+      #ハッシュタグは先頭の'#'を外した上で保存
+      tag = QuestionHashtag.find_or_create_by(question_hashname: hashtag.downcase.delete('#'))
+      question.question_hashtags << tag
+    end
+  end
+
+  before_update do
+    question = Question.find_by(id:id)
+    question.question_hashtags.clear
+    question_hashtags = question_body.scan(/[#＃][\w\p{Han}ぁ-ヶｦ-ﾟー]+/)
+    question_hashtags.uniq.map do |hashtag|
+      tag = QuestionHashtag.find_or_create_by(question_hashname: hashtag.downcase.delete('#'))
+      question.question_hashtags << tag
+    end
   end
 
   # 検索
@@ -29,7 +60,9 @@ class Question < ApplicationRecord
 
     end
   end
+
   validates :question_title, presence: true
   validates :question_body, presence: true
   validates :question_category, presence: true
+
 end
