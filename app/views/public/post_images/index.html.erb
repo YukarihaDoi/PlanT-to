@@ -1,47 +1,48 @@
-<!--ヘッダー-->
-<%= render 'layouts/header' %>
-  <div class="container-fluid">
+<div class="container-fluid">
     <div class="row mx-5 mt-5">
-      <!--サイド(左)-->
-      <%= render "layouts/side", post_categories: @post_categories, question_categories: @question_categories, hashtags: @hashtags %>
-        <!--一覧(右)-->
-        <div class="col-md-10 pl-1">
+        <div class="col-md-12">
+          <div class='row mx-3 justify-content-start'>
 
-          <div class='row mx-5 justify-content-start'>
-            <%= link_to post_images_path, class: 'nav-link text-dark' do %>
-              <p class="font-weight-bold">投稿を見る</p>
-            <% end %>
-            <%= link_to questions_path, class: 'nav-link text-dark' do %>
-              <p>質問を見る</p>
-            <% end %>
-          </div>
-          <div class='row mx-5 justify-content-start list-unstyled'>
-            <li>
-            <div class="border border-secondary px-2 py-2">
-              Category
+
+          <div class="btn-group dropdown">
+          <button class="btn dropdown-toggle btn-success" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true"  aria-expanded="false">
+           みんなの投稿
+          </button>
+            <div class="dropdown-menu dropdown-menu-left" x-placement="right-start" style="position: absolute; transform: translate3d(60px, 0px, 0px); top: 0px; left: 0px; will-change: transform;">
+
+              <%= link_to questions_path, class: 'nav-link text-dark' do %>
+                <p class="font-weight-bold dropdown-item">みんなの質問</p>
+              <% end %>
             </div>
-            </li>
+       </div>
+         <div class='list-unstyled d-flex flex-row'>
+            <li class="pb-2 px-4">
+             <%= link_to post_images_path,class:"text-dark" do %>
+              すべて
+             <% end %>
+            </li>|
             <% @post_categories.each do |category| %>
             <li class="pb-2 px-4">
               <%= link_to category.post_category,post_images_path(post_category: category.id), class: 'text-dark' %>
            </li>
             <% end %>
           </div>
-
+       </div>
+       <!--ここから一覧-->
+        <div class="image-warp d-flex flex-reverse">
           <% @post_images.each do |image| %>
-            <div class="mx-3 my-4">
-              <div class="card border-success shadow p-3 mx-3">
+            <div class="my-4">
+              <div class="card border-success shadow p-3 mx-3 "style="width:23rem">
                <div class= "mx-auto">
-
-
-                <div class="mt-1 pt-3 pl-3">
+                <div class="mt-1 pt-3 pl-3 mb-2">
                   <!--アイコン-->
                   <%= link_to user_path(image.user),class:"text-dark" do %>
                     <%= image_tag image.user.get_profile_image(130,130),class: "icon rounded-circle" %>
                     <%= image.user.name %>
                   <% end %>
                 </div>
-                　<div class= "index-image col-md-11">
+                 
+                 <div class= "index-image col-md-11">
                     <!--写真-->
                     <%= image_tag image.get_image(700,520)%>
                   </div>
@@ -56,16 +57,15 @@
                       <%= render_with_hashtags(image.body) %><br>
                       <%= image.created_at.strftime('%Y/%m/%d') %>
                     </p>
-
-                  <h2 class="text-right favorite-btn_<%= image.id %>">
+                   <h2 class="text-right pr-3 favorite-btn_<%= image.id %>">
                     <%= render "public/favorites/favorite-btn",post_image: image %>
                   </h2>
-
                 </div>
                 </div>
               </div>
           <% end %>
-        </div>
+          </div>
+       </div>
       </div>
 
     </div>

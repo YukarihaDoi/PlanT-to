@@ -41,6 +41,7 @@ Rails.application.routes.draw do
       member do
         get :favorites
         get :questions
+        get :post_images
       end
     end
     # ハッシュ

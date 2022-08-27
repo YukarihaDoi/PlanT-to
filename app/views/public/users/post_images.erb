@@ -62,12 +62,12 @@
 
             <div class="btn-group dropdown">
           <button class="btn dropdown-toggle btn-success" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true"  aria-expanded="false">
-           すべて
+           投稿
           </button>
             <div class="dropdown-menu dropdown-menu-left" x-placement="right-start" style="position: absolute; transform: translate3d(60px, 0px, 0px); top: 0px; left: 0px; will-change: transform;">
 
-              <%= link_to post_images_user_path(@user), class: 'nav-link text-dark' do %>
-                <p class="font-weight-bold dropdown-item">投稿</p>
+              <%= link_to user_path(@user), class: 'nav-link text-dark' do %>
+                <p class="font-weight-bold dropdown-item">すべて</p>
               <% end %>
 
               <%= link_to questions_user_path(@user), class: 'nav-link text-dark' do %>
@@ -83,27 +83,23 @@
               <% if @user.post_images.present? %>
                  <!--ここから一覧-->
                  <div class="image-warp d-flex flex-reverse">
-                  <% @mixed .each do |image| %>
+                  <% @post_images.each do |post_image| %>
                     <div class="my-4">
                       <div class="card border-success shadow p-3 mx-3" style="width:23rem">
                          <div class= "mx-auto">
                           <div class="index-image col-md-11">
-                            <% if image != PostImage %>
-                              <%= image_tag image.get_image(700,520) %>
-                            <% else %>
-                               <%= image_tag image.get_question_image(700,520)%>
-                            <% end %>
+                              <%= image_tag post_image.get_image(700,520) %>
                            </div>
                            <p class="font-weight-bold card-title pl-3 pt-2 col-md-9">
-                            <%= link_to post_image_path(image.id), class:"text-dark" do %>
-                              <%= image.title %>
+                            <%= link_to post_image_path(post_image.id), class:"text-dark" do %>
+                              <%= post_image.title %>
                             <% end %>
                            </p>
-                          <!--<p class="card-title pl-3 pt-2 col-md-11">-->
+                          <p class="card-title pl-3 pt-2 col-md-11">
                             <!--内容,ハッシュタグリンク-->
-                          <!--    %= render_with_hashtags(post_image.body) %><br>-->
-                          <!--    %= post_image.created_at.strftime('%Y/%m/%d') %>-->
-                          <!--  </p>-->
+                              <%= render_with_hashtags(post_image.body) %><br>
+                              <%= post_image.created_at.strftime('%Y/%m/%d') %>
+                            </p>
                           </div>
                         </div>
                       </div>

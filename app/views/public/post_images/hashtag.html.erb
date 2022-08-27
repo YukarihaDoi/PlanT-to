@@ -1,33 +1,27 @@
-<!--ヘッター-->
-<%= render 'layouts/header' %>
-  <div class="container-fluid">
-    <div class="row mx-auto mt-5">
-       <% if params[:name] == nil %>
-       <% else %>
-       <!--hashtag/:nameの時-->
-        <!--サイド(左)-->
-        <%= render "layouts/side", post_categories: @post_categories, question_categories: @question_categories, hashtags: @hashtags %>
-         <!--一覧(右)-->
-          <div class="col-md-9 offset-md-1">
+<div class="container-fluid">
+   <div class="row mx-5 mt-5">
+      <% if params[:name] == nil %>
+      <% else %>
+          <div class="col-md-12">
 
-            <div class='row mx-5 justify-content-start'>
-              <h5 class="px-5 pt-5">
+            <div class='row mx-3 justify-content-start'>
+              <h3>
                 #<%= @hashtag.hashname %>
-              </h5>
+              </h3>
             </div>
-
+          <div class="image-warp d-flex flex-reverse">
           <% @post_images.each do |image| %>
-          <div class="mx-3 my-4">
+          <div class="my-4">
               <div class="card border-success shadow p-3 mx-3">
                <div class= "mx-auto">
-              <div class="mt-1 pt-3 pl-3">
+              <div class="mt-1 pt-3 pl-3 mb-2">
                   <!--アイコン-->
                   <%= link_to user_path(image.user),class:"text-dark" do %>
                     <%= image_tag image.user.get_profile_image(130,130),class: "icon rounded-circle" %>
                     <%= image.user.name %>
                   <% end %>
                 </div>
-                　<div class= "index-image col-md-11">
+                 <div class= "index-image col-md-11">
                     <!--写真-->
                     <%= image_tag image.get_image(700,520)%>
                   </div>
@@ -42,31 +36,17 @@
                       <%= render_with_hashtags(image.body) %><br>
                       <%= image.created_at.strftime('%Y/%m/%d') %>
                     </p>
-                    <!--コメント-->
-                    <!--<p class="card-title pl-3 pt-2">-->
-                    <!--<= link_to "#{post_image.comments.count} コメント", post_image_path(post_image.id) %>-->
-                    <!--</p>-->
-                    <!--いいね(会員のみ)-->
-                  <h2 class="text-right">
-                    <% unless current_user.name == "guestuser" %>
-                      <% if image.favorited_by?(current_user) %>
-                          <%= link_to post_image_favorites_path(image), method: :delete do %>
-                            ♥<%= image.favorites.count %>
-                          <% end %>
-                      <% else %>
-                          <%= link_to post_image_favorites_path(image), method: :post do %>
-                           ♡<%= image.favorites.count %>
-                          <% end %>
-                        </p>
-                      <% end %>
-                    <% end %>
+                  <h2 class="text-right pr-3 favorite-btn_<%= image.id %>">
+                    <%= render "public/favorites/favorite-btn",post_image: image %>
                  </h2>
+                </div>
+                </div>
                 </div>
             <% end %>
                 </div>
               </div>
         </div>
-      </div>
+      
      <% end %>
     </div>
   </div>

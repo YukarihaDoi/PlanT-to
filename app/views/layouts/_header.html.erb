@@ -1,10 +1,10 @@
-<header class="shadow-sm">
+<header class="shadow-sm sticky-top">
   <nav class="navbar navbar-expand-lg">
     <!--ロゴ-->
-    <div class="container">
+    <div class="container-fluid">
     <a class="navbar-brand" href="/post_images">
       <div>
-      <%= image_tag(('Logo.png'),width: '15%',height: '15%') %>
+      <%= image_tag(('Logo.png'),width: '5%',height: '5%') %>
       <span class="text-dark font-weight-bold">PlanT-to</span>
       </div>
     </a>
@@ -44,7 +44,7 @@
       <!--管理者の場合-->
       <li class="nav-item">
         <%= link_to admin_post_images_path, class: 'nav-link text-dark' do %>
-         <strong>
+　　　　<strong>
           Home
          </strong>
         <% end %>
@@ -75,31 +75,22 @@
 
       <!--アイコン中身-->
        <div class="dropdown-menu dropdown-menu-right">
+
           <% if user_signed_in? %>
-              <%= link_to user_path(current_user), class: 'nav-link text-dark' do %>
+           <!--会員の場合-->
+            <%= link_to user_path(current_user), class: 'nav-link text-dark' do %>
               マイページ
-              <% end %>
-                 <% if current_user.name != "guestuser" %>
-                 <!--会員の場合-->
-                    <%= link_to new_post_image_path, class: 'nav-link text-dark ' do %>
-                     投稿
-                    <% end %>
-                    <%= link_to admin_news_images_path, class: 'nav-link text-dark' do %>
-                     お知らせ
-                    <% end %>
-                 <% else %>
-                 <!--ゲストの場合-->
-                    <%= link_to admin_news_images_path, class: 'nav-link text-dark' do %>
-                    お知らせ
-                    <% end %>
-                <% end %>
-              <%= link_to destroy_user_session_path, method: :delete, class: 'nav-link text-dark' do %>
+            <% end %>
+            <%= link_to new_post_image_path, class: 'nav-link text-dark ' do %>
+                投稿
+            <% end %>
+            <%= link_to destroy_user_session_path, method: :delete, class: 'nav-link text-dark' do %>
                ログアウト
               <% end %>
           <% else %>
           <!--管理者の場合-->
               <%= link_to new_admin_news_image_path, class: 'nav-link text-dark' do %>
-                投稿
+投稿
               <% end %>
               <%= link_to destroy_admin_session_path, method: :delete, class: 'nav-link text-dark' do %>
                 ログアウト
@@ -107,11 +98,7 @@
           <% end %>
          </div>
 
-         <% if user_signed_in? %>
-           <span class="font-c m-2"><%= current_user.name %></span>
-        <% else %>
-           <span class="font-c m-2">管理者</span>
-        <% end %>
+         
        </li>
 
      </ul>
