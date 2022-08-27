@@ -1,5 +1,21 @@
 class Admin::NewsImagesController < ApplicationController
 
+  # 新規
+  def new
+  @news_image = NewsImage.new
+  end
+
+  # 作成
+  def create
+   @news_image = NewsImage.new(news_image_params)
+    if @news_image.save
+       redirect_to admin_news_images_path
+     else
+       @news_image = NewsImage.new
+       render:new
+     end
+  end
+
   # 詳細
   def index
     @news_images = NewsImage.all

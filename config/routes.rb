@@ -19,9 +19,9 @@ Rails.application.routes.draw do
     resources :post_categories, only: [:index, :create, :edit, :update]
     resources :question_categories, only: [:index, :create, :edit, :update]
     resources :post_images, only: [:show, :index, :edit, :update, :destroy]
-    resources :users, only: [:show, :index]
+    resources :users, only: [:show, :index,:edit,:update]
     resources :questions, only: [:show, :index, :edit, :update, :destroy]
-    resources :news_images, only: [:index, :edit, :update ]
+    resources :news_images, only: [:new,:create, :index, :edit, :update ]
   end
   # 検索
   get "search" => "searches#search"
@@ -46,6 +46,8 @@ Rails.application.routes.draw do
     # ハッシュ
     get '/post_images/hashtag/:name' => 'post_images#hashtag'
     get '/post_images/hashtag' => 'post_images#hashtag'
+    get '/questions/hashtag/:name' => 'questions#hashtag'
+    get '/questions/hashtag' => 'questions#hashtag'
 
     resources :post_images, only: [:new, :create, :show, :index, :edit, :update, :destroy] do
       resources :comments, only: [:create, :destroy]
@@ -54,6 +56,7 @@ Rails.application.routes.draw do
 
     resources :questions, only: [:new, :create, :show, :index, :edit, :update, :destroy] do
        resources :answers, only: [:create, :destroy]
+       resource :question_favorites, only: [:create, :destroy]
     end
   end
 

@@ -1,0 +1,2 @@
+class QuestionHashtag < ApplicationRecord
+end

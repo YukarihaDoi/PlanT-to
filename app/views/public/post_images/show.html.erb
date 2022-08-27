@@ -44,25 +44,9 @@
             <%= render_with_hashtags(@post_image.body) %>
           </p>
           <!--ゲスト以外はいいねを押すことができる-->
-            <div class="text-end">
-              <% if current_user.name != "guestuser" %>
-              <% if @post_image.favorited_by?(current_user) %>
-
-              <h3 class="text-right">
-              <%= link_to post_image_favorites_path(@post_image), method: :delete, class: "link" do %>
-              ♥
-              <% end %>
-              </h3>
-              <% else %>
-              <h3 class="text-right">
-              <%= link_to post_image_favorites_path(@post_image), method: :post, class: "link"  do %>
-              ♡
-              <% end %>
-              </h3>
-              <% end %>
-              <% end %>
-              </div>
-           </div>
+            <h2 class="text-end favorite_buttons_<%= @post_image.id %>">
+              <%= render "public/favorites/favorite-btn", image: @post_image %>
+           </h2>
         <div class="row mx-2 mt-5">
        <div>
          <h5 class="font-weight-normal">
