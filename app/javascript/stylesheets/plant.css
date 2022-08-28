@@ -12,9 +12,9 @@ body{
  margin: 0;
 }
 
-/*ヘッダーオレンジ*/
+/*ヘッダー*/
 header{
-  background-color:#E27E5E;
+  background-color:#009DA7;
 }
 
 /*フォント*/
@@ -28,12 +28,20 @@ header, nav{
  height:208px;
  object-fit: cover;
 }
+
+
+/*繰り返しの動き*/
 .image-warp{
   display: flex;
   flex-wrap: wrap;
 }
 
-
+/*show画面&news画面*/
+.show-image img{
+ width: 420px;
+ height:312px;
+ object-fit: cover;
+}
 
 
 
@@ -142,10 +150,11 @@ select {
 
 /*タブレット表示時*/
 @media (max-width: 1000px) {
-/*一覧画像 */
+
+/*タブレット時,一覧画像 */
 .index-image img{
- width:350px;
- height:243px;
+ width:280px;
+ height:208px;
  object-fit: cover;
 }
 
