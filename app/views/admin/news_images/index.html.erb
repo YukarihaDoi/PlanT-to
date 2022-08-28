@@ -1,26 +1,36 @@
-<!--ヘッター-->
-<%= render 'layouts/header' %>
-<h1>お知らせ</h1>
-<!--画像-->
-<div class="side-image">
-  <% @news_images.each do |news_image| %>
-  <%= image_tag news_image.news_get_image(350,200) %>
-</div>
-<!--説明-->
-<!--文章-->
-<p class="font-weight-bold">
- <%= news_image.news_title %>
-</p>
-<p>
- <%= news_image.news_body %>
-</p>
-<!--管理者がサインインしてる場合は編集/削除ができる-->
-<% if admin_signed_in? %>
-  <%= link_to edit_admin_news_image_path(news_image) do %>
-    編集
-  <% end %>
-<% end %>
- <% end %>
+<div class="container-fluid">
+  <div class="row mx-5 mt-5">
+    <div class="col-md-12">
+      <!--ここから一覧-->
+        <div class="image-warp d-flex flex-reverse">
+           <% @news_images.each do |news_image| %>
+             <div class="card border-success shadow p-3 mx-3 "style="width:23rem">
+             <div class= "mx-auto">
+             <div class= "index-image col-md-11">
+             <%= image_tag news_image.news_get_image(700,520) %>
+            </div>
+            <p class="font-weight-bold card-title pl-3 pt-2 col-md-11">
+              <%= news_image.news_title %>
+            </p>
+            <p class="card-title pl-3 pt-2 col-md-11">
+             <%= news_image.news_body %>
+             <%= news_image.created_at.strftime('%Y/%m/%d') %>
+            </p>
+            <!--管理者がサインインしてる場合は編集/削除ができる-->
+            <% if admin_signed_in? %>
+              <%= link_to edit_admin_news_image_path(news_image) do %>
+                編集
+              <% end %>
+            <% end %>
+            </div>
+                </div>
+              </div>
+        <% end %>
+         </div>
+       </div>
+      </div>
+
+    </div>
  </div>
 <!--フッター-->
 <%= render 'layouts/footer' %>

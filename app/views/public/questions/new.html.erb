@@ -1,16 +1,23 @@
-<!--ヘッター-->
-<%= render 'layouts/header' %>
-<div class="container mt-5">
+<div class="container-fluid">
 <div class="row mx-5 mt-5">
-<!--カテゴリ-->
-<%= render "layouts/side", post_categories: @post_categories, question_categories: @question_categories, hashtags: @hashtags %>
-<div class="col-8 offset-1">
+<div class="col-md-12">
+
+<div class='row mx-3 justify-content-start'>
 <% unless current_user.name == "guestuser" %>
-<!--リンク-->
-<div  class="mb-2">
-<li class="d-inline">質問を投稿</li>
-<li class="d-inline"><%= render "public/shared/moves" %></li>
+
+<div class="btn-group dropdown">
+    <button class="btn dropdown-toggle btn-warning" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true"  aria-expanded="false">
+      質問する
+    </button>
+ <div class="dropdown-menu dropdown-menu-left" x-placement="right-start" style="position: absolute; transform: translate3d(60px, 0px, 0px); top: 0px; left: 0px; will-change: transform;">
+   <%= link_to new_post_image_path, class: 'nav-link text-dark' do %>
+     <p class="font-weight-bold dropdown-item">投稿する</p>
+   <% end %>
+ </div>
 </div>
+</div>
+
+<div class='row mt-5 mx-5 justify-content-center'>
 <!--フォーム-->
 <%= form_with model: @question do |f| %>
 <div class="form-group row">
@@ -18,15 +25,17 @@
 <%= f.text_field :question_title, class:"form-control mb-2", placeholder:"質問タイトル" %>
 <%= f.collection_select :question_category_id, QuestionCategory.all, :id, :question_category, { prompt: 'カテゴリーを選択してください' }, class:"form-control mb-2" %>
 <%= f.text_area :question_body, class:"form-control mb-2", rows:"3", placeholder:"例:育て方について/名前を教えて,など" %>
-<%= f.submit '投稿', class:"btn btn-lg btn-block btn-outline-info mt-4 mt-4 my-sm-0" %>
+<%= f.submit '質問', class:"btn btn-lg btn-block btn-outline-warning mt-4 mt-4 my-sm-0" %>
 </div>
 <% end %>
-</div>
+
  <% else %>
  <%= render 'public/users/guests' %>
  <% end %>
 </div>
+
  </div>
+  </div>
   </div>
 <!--フッター-->
 <%= render 'layouts/footer' %>

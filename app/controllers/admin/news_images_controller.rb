@@ -18,7 +18,7 @@ class Admin::NewsImagesController < ApplicationController
 
   # 詳細
   def index
-    @news_images = NewsImage.all
+    @news_images = NewsImage.all.order(created_at: :desc)
   end
 
   # 投稿編集

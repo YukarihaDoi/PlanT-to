@@ -22,7 +22,7 @@ class Public::SessionsController < Devise::SessionsController
     ## 【処理内容3】
     redirect_to new_user_registration_path
    else
-    redirect_to root_path(current_user)
+    redirect_to post_images_path(current_user)
    end
   end
   # GET /resource/sign_in

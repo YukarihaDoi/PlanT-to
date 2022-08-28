@@ -6,10 +6,12 @@ class Public::UsersController < ApplicationController
   before_action :login_check, only: [ :index, :show, :edit, :follower, :following ]
   before_action :side_view, only: [ :index, :show, :edit, :follower, :following, :favorites, :questions ]
 
+  # すべて表示（混ぜる）
   def show
     @user = User.find(params[:id])
     @post_images = @user.post_images
     @questions = @user.questions
+    @mixed = (@post_images + @questions).sort_by {|record| record.created_at}.reverse
   end
 
   def index
@@ -40,7 +42,7 @@ class Public::UsersController < ApplicationController
    @user = User.find(params[:id])
   end
 
-   #いいね一覧
+   #いいね一覧(混ぜる！)
    def favorites
     @user = User.find(params[:id])
     favorites= Favorite.where(user_id: @user.id).pluck(:post_image_id)
@@ -51,6 +53,12 @@ class Public::UsersController < ApplicationController
    def questions
     @user = User.find(params[:id])
     @questions = @user.questions
+   end
+
+   #投稿一覧
+   def post_images
+   @user = User.find(params[:id])
+    @post_images = @user.post_images
    end
 
 

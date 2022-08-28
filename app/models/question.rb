@@ -57,7 +57,7 @@ class Question < ApplicationRecord
     elsif search == "partial_match"
       Question.where('question_title LIKE?','%'+word+'%')
     else
-
+     Question.all
     end
   end
 

@@ -24,7 +24,7 @@ before_action :side_view, only: [ :new, :index, :show, :edit, :hashtag ]
 
   # 投稿一覧
   def index
-    @post_images = params[:post_category].present? ? PostCategory.find(params[:post_category]).post_images: PostImage.all
+    @post_images = params[:post_category].present? ? PostCategory.find(params[:post_category]).post_images: PostImage.all.order(created_at: :desc)
     @hashtags = Hashtag.all.to_a.group_by{ |hashtag| hashtag.post_images.count}
   end
 
