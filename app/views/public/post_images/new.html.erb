@@ -9,7 +9,6 @@
         </h2>
      <% end %>
     </div>
-    <% unless current_user.name == "guestuser" %>
 
          <% if @post_image.errors.any? %>
            <ul>
@@ -21,7 +20,7 @@
              <% end %>
            </ul>
          <% end %>
-
+   <% unless current_user.name == "guestuser" %>
      <!--フォーム-->
       <%= form_with model: @post_image do |f| %>
         <div class="form-group col-md-11 px-5 pb-5 mx-auto">

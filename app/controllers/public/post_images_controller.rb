@@ -14,7 +14,6 @@ before_action :side_view, only: [ :new, :index, :show, :edit, :hashtag, :popular
     if @post_image.save
        redirect_to post_images_path
     else
-      @post_image = PostImage.new
       @post_categories = PostCategory.all
       @hashtags = Hashtag.all.to_a.group_by{ |hashtag| hashtag.post_images.count}
       render :new
