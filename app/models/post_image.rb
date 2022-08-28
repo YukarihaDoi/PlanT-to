@@ -6,6 +6,7 @@ class PostImage < ApplicationRecord
   has_many :favorites, dependent: :destroy
   has_many :post_image_hashtag_relations, dependent: :destroy
   has_many :hashtags, through: :post_image_hashtag_relations
+  has_many :favorite_users, through: :favorites, source: :user
 
   # 画像
   has_one_attached :image

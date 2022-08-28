@@ -1,7 +1,7 @@
 <div class="container-fluid">
  <div class='row mx-5 mt-5'>
   <div class="col-md-12">
-    
+
     <div class="col-md-2">
     <table class='table table-bordered bg-light pl-3'>
     <tr>
@@ -30,7 +30,7 @@
     </td>
     </tr>
     </table>
-    
+
     <% if current_user.name != "guestuser" %>
     <div class='row mx-auto'>
     <% if @user == current_user %>
@@ -53,8 +53,8 @@
     </div>
     <% end %>
     </div>
-    
-    
+
+
     <!--左-->
     <div class="col-md-8">
     <div class="row mx-3 justify-content-start">
@@ -63,13 +63,9 @@
     いいね
     </button>
     <div class="dropdown-menu dropdown-menu-left" x-placement="right-start" style="position: absolute; transform: translate3d(60px, 0px, 0px); top: 0px; left: 0px; will-change: transform;">
-    
+
     <%= link_to user_path(@user), class: 'nav-link text-dark' do %>
     <p class="font-weight-bold dropdown-item">投稿</p>
-    <% end %>
-    
-    <%= link_to questions_user_path(@user), class: 'nav-link text-dark' do %>
-    <p class="font-weight-bold dropdown-item">いいね</p>
     <% end %>
     </div>
     </div>
@@ -105,7 +101,7 @@
     </div>
     </div>
     </div>
-  
+
   </div>
  </div>
 </div>

@@ -1,6 +1,6 @@
 class Public::PostImagesController < ApplicationController
 before_action :login_check, only: [:new, :index, :show, :edit, :hashtag ]
-before_action :side_view, only: [ :new, :index, :show, :edit, :hashtag ]
+before_action :side_view, only: [ :new, :index, :show, :edit, :hashtag, :popular, :following_posts ]
 
   # 新規投稿
   def new
@@ -16,7 +16,6 @@ before_action :side_view, only: [ :new, :index, :show, :edit, :hashtag ]
     else
       @post_image = PostImage.new
       @post_categories = PostCategory.all
-      @question_categories =QuestionCategory.all
       @hashtags = Hashtag.all.to_a.group_by{ |hashtag| hashtag.post_images.count}
       render :new
     end
@@ -26,6 +25,19 @@ before_action :side_view, only: [ :new, :index, :show, :edit, :hashtag ]
   def index
     @post_images = params[:post_category].present? ? PostCategory.find(params[:post_category]).post_images: PostImage.all.order(created_at: :desc)
     @hashtags = Hashtag.all.to_a.group_by{ |hashtag| hashtag.post_images.count}
+  end
+
+  # フォローしている人たちの投稿一覧
+  def following_posts
+   user_ids = current_user.following_user.pluck(:id) # フォローしているユーザーのid一覧
+   user_ids.push(current_user.id) # 自身のidを一覧に追加する
+   @post_images = params[:post_category].present? ? PostCategory.find(params[:post_category]).post_images: PostImage.where(user_id: user_ids).order(created_at: :desc)
+  end
+
+  # 人気（いいね）が多い投稿
+  def popular
+   @post_images = PostImage.includes(:favorite_users).sort {|a,b| b.favorite_users.size <=> a.favorite_users.size}
+  # @post_categories =
   end
 
   # 投稿詳細
@@ -52,7 +64,6 @@ before_action :side_view, only: [ :new, :index, :show, :edit, :hashtag ]
        redirect_to post_image_path(@post_image)
     else
        @post_categories = PostCategory.all
-       @question_categories =QuestionCategory.all
        @hashtags = Hashtag.all.to_a.group_by{ |hashtag| hashtag.post_images.count}
        render:edit
     end
@@ -95,7 +106,6 @@ before_action :side_view, only: [ :new, :index, :show, :edit, :hashtag ]
   # サイドバー
   def side_view
     @post_categories = PostCategory.all
-    @question_categories =QuestionCategory.all
     @hashtags = Hashtag.all.to_a.group_by{ |hashtag| hashtag.post_images.count}
   end
 

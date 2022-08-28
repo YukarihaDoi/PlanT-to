@@ -8,6 +8,7 @@ class Admin < ApplicationRecord
   # 画像確認/サイズ
   def get_news_image(width, height)
     unless news_image.attached?
+      # ここの画像直す
       file_path = Rails.root.join('app/assets/images/exsample.jpg')
       news_image.attach(io: File.open(file_path), filename: 'exsample.jpg', content_type: 'image/jpeg')
     end

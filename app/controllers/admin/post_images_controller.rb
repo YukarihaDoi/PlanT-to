@@ -28,7 +28,6 @@ class Admin::PostImagesController < ApplicationController
     else
       @post_image = PostImage.find(params[:id])
       @post_categories = PostCategory.all
-      @question_categories =QuestionCategory.all
       @hashtags = Hashtag.all.to_a.group_by{ |hashtag| hashtag.post_images.count}
       render:edit
     end
@@ -61,7 +60,6 @@ class Admin::PostImagesController < ApplicationController
 
   def side_view
     @post_categories = PostCategory.all
-    @question_categories =QuestionCategory.all
     @hashtags = Hashtag.all.to_a.group_by{ |hashtag| hashtag.post_images.count}
   end
 end
