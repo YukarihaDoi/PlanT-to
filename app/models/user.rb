@@ -63,6 +63,7 @@ class User < ApplicationRecord
       elsif search == "partial_match"
         User.where('name LIKE ?', '%'+word+'%')
       else
+      
       end
   end
   #バリテーション

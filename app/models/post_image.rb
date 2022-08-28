@@ -58,10 +58,10 @@ class PostImage < ApplicationRecord
     elsif search == "partial_match"
       PostImage.where('title LIKE?','%'+word+'%')
     else
-     PostImage.all
+     
     end
   end
-  
+
   validates :title, presence: true
   validates :body, presence: true
   validates :post_category, presence: true

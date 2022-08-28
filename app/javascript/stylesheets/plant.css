@@ -22,7 +22,12 @@ header{
   border-color: rgba(212, 108, 228, 1);
 }
 
-
+.wrap{
+	list-style: none;
+	padding-left: 0;
+	display: flex;
+	flex-wrap: wrap;
+}
 /*フォント*/
 header, nav{
   font-family: fangsong;
