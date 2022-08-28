@@ -22,7 +22,11 @@
       <% end %>
     </div>
     <div class="col-md-8 px-5">
-      <%= render "public/shared/error_messages", resource: resource %>
+      <% if flash[:alert].present? %>
+      <div id="error_explanation">
+      <%= flash[:alert] %>
+      </div>
+      <% end %>
     </div>
   </div>
 </div>

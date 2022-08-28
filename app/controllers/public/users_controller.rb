@@ -47,19 +47,6 @@ class Public::UsersController < ApplicationController
     @favorite_posts = PostImage.find(favorites)
    end
 
-   #質問一覧
-   def questions
-    @user = User.find(params[:id])
-    @questions = @user.questions
-   end
-
-   #投稿一覧
-   def post_images
-    @user = User.find(params[:id])
-    @post_images = @user.post_images
-   end
-
-
 private
    def user_params
     params.require(:user).permit(:name, :introduction, :profile_image)

@@ -25,6 +25,7 @@ class Public::SessionsController < Devise::SessionsController
     redirect_to post_images_path(current_user)
    end
   end
+  
   # GET /resource/sign_in
   # def new
   #   super

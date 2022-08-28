@@ -22,12 +22,12 @@
         </tr>
         <tr>
           <td>
-           <%= link_to "#{@user.follower.count}フォロー", following_path(current_user, @user),class:"text-dark" %>
+           <%= link_to "#{@user.follower.count}フォロー", following_path(@user, @user),class:"text-dark" %>
           </td>
         </tr>
         <tr>
           <td>
-           <%= link_to "#{@user.followed.count}フォロワー", follower_path(current_user, @user),class:"text-dark"%>
+           <%= link_to "#{@user.followed.count}フォロワー", follower_path(@user, @user),class:"text-dark"%>
           </td>
         </tr>
       </table>
