@@ -7,7 +7,6 @@ class Admin::UsersController < ApplicationController
   def show
     @user = User.find(params[:id])
     @post_images = @user.post_images
-    @questions = @user.questions
   end
 
   def index
@@ -26,7 +25,6 @@ class Admin::UsersController < ApplicationController
     else
       @user = User.find(params[:id])
       @post_categories = PostCategory.all
-      @question_categories =QuestionCategory.all
       @hashtags = Hashtag.all.to_a.group_by{ |hashtag| hashtag.post_images.count}
       render :edit
     end
@@ -52,7 +50,6 @@ class Admin::UsersController < ApplicationController
 
     def side_view
       @post_categories = PostCategory.all
-      @question_categories =QuestionCategory.all
       @hashtags = Hashtag.all.to_a.group_by{ |hashtag| hashtag.post_images.count}
     end
 

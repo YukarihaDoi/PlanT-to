@@ -1,4 +1,4 @@
-<header class="shadow-sm sticky-top">
+<header class="shadow-sm  fixed-top">
   <nav class="navbar navbar-expand-lg">
     <!--ロゴ-->
     <div class="container-fluid">
@@ -9,12 +9,14 @@
       </div>
     </a>
 
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown"
+    <button class="navbar-dark navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown"
       aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
     <!--ナビ -->
+<% unless signed_in? %>
 
+<% else %>
     <div class="collapse navbar-collapse" id="navbarNavDropdown">
 
      <ul class="navbar-nav mx-5">
@@ -29,36 +31,38 @@
       <li class="nav-item">
       <%= link_to search_path, class: 'nav-link text-light' do %>
          <strong>
-           <i class="fa-solid fa-magnifying-glass"></i>search
+           <i class="fa-solid fa-magnifying-glass"></i>Search
          </strong>
       <% end %>
       </li>
       <li class="nav-item">
       <%= link_to admin_news_images_path, class: 'nav-link text-light' do %>
          <strong>
-         <i class="fa-solid fa-bullhorn"></i>news
+         <i class="fa-solid fa-bullhorn"></i>News
         </strong>
       <% end %>
       </li>
   <% else %>
       <!--管理者の場合-->
       <li class="nav-item">
-        <%= link_to admin_post_images_path, class: 'nav-link text-dark' do %>
+        <%= link_to admin_post_images_path, class: 'nav-link text-light' do %>
 　　　　<strong>
           Home
          </strong>
         <% end %>
       </li>
       <li class="nav-item">
-        <%= link_to admin_users_path, class: 'nav-link ' do %>
+        <%= link_to admin_users_path, class: 'nav-link text-light' do %>
           <strong>
-            会員一覧
+            User
           </strong>
         <% end %>
        </li>
       <li class="nav-item">
-      <%= link_to admin_news_images_path, class: 'nav-link ' do %>
-      <strong>お知らせ</strong>
+      <%= link_to admin_news_images_path, class: 'nav-link text-light' do %>
+        <strong>
+         <i class="fa-solid fa-bullhorn"></i>News
+        </strong>
       <% end %>
       </li>
      <% end %>
@@ -90,12 +94,13 @@
           <% else %>
           <!--管理者の場合-->
               <%= link_to new_admin_news_image_path, class: 'nav-link text-dark' do %>
-投稿
+             投稿
               <% end %>
               <%= link_to destroy_admin_session_path, method: :delete, class: 'nav-link text-dark' do %>
                 ログアウト
               <% end %>
           <% end %>
+
          </div>
 
 
@@ -107,6 +112,7 @@
       </div>
    </div>
    </nav>
+   <% end %>
      </div>
      </div>
     </header>

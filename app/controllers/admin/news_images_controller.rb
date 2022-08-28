@@ -10,10 +10,10 @@ class Admin::NewsImagesController < ApplicationController
    @news_image = NewsImage.new(news_image_params)
     if @news_image.save
        redirect_to admin_news_images_path
-     else
+    else
        @news_image = NewsImage.new
        render:new
-     end
+    end
   end
 
   # 詳細

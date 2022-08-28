@@ -6,6 +6,7 @@ class PostImage < ApplicationRecord
   has_many :favorites, dependent: :destroy
   has_many :post_image_hashtag_relations, dependent: :destroy
   has_many :hashtags, through: :post_image_hashtag_relations
+  has_many :favorite_users, through: :favorites, source: :user
 
   # 画像
   has_one_attached :image
@@ -57,12 +58,11 @@ class PostImage < ApplicationRecord
     elsif search == "partial_match"
       PostImage.where('title LIKE?','%'+word+'%')
     else
-     PostImage.all
+     
     end
   end
 
   validates :title, presence: true
   validates :body, presence: true
   validates :post_category, presence: true
-
 end

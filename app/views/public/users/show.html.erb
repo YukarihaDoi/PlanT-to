@@ -22,12 +22,12 @@
         </tr>
         <tr>
           <td>
-           <%= link_to "#{@user.follower.count}フォロー", following_path(current_user, @user),class:"text-dark" %>
+           <%= link_to "#{@user.follower.count}フォロー", following_path(@user, @user),class:"text-dark" %>
           </td>
         </tr>
         <tr>
           <td>
-           <%= link_to "#{@user.followed.count}フォロワー", follower_path(current_user, @user),class:"text-dark"%>
+           <%= link_to "#{@user.followed.count}フォロワー", follower_path(@user, @user),class:"text-dark"%>
           </td>
         </tr>
       </table>
@@ -66,9 +66,6 @@
         </button>
 
         <div class="dropdown-menu dropdown-menu-left" x-placement="right-start" style="position: absolute; transform: translate3d(60px, 0px, 0px); top: 0px; left: 0px; will-change: transform;">
-          <%= link_to questions_user_path(@user), class: 'nav-link text-dark' do %>
-           <p class="font-weight-bold dropdown-item">質問</p>
-          <% end %>
           <%= link_to favorites_user_path(@user), class: 'nav-link text-dark' do %>
            <p class="font-weight-bold dropdown-item">いいね</p>
           <% end %>

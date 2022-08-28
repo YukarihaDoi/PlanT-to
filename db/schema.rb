@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_08_26_125156) do
+ActiveRecord::Schema.define(version: 2022_08_23_092737) do
 
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
@@ -52,14 +52,6 @@ ActiveRecord::Schema.define(version: 2022_08_26_125156) do
     t.datetime "updated_at", precision: 6, null: false
     t.index ["email"], name: "index_admins_on_email", unique: true
     t.index ["reset_password_token"], name: "index_admins_on_reset_password_token", unique: true
-  end
-
-  create_table "answers", force: :cascade do |t|
-    t.text "answer", null: false
-    t.bigint "user_id"
-    t.bigint "question_id"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "comments", force: :cascade do |t|
@@ -109,42 +101,6 @@ ActiveRecord::Schema.define(version: 2022_08_26_125156) do
     t.text "body", null: false
     t.bigint "user_id"
     t.bigint "post_category_id"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-  end
-
-  create_table "question_categories", force: :cascade do |t|
-    t.string "question_category", null: false
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-  end
-
-  create_table "question_favorites", force: :cascade do |t|
-    t.bigint "user_id"
-    t.bigint "question_id"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-  end
-
-  create_table "question_hashtag_relations", force: :cascade do |t|
-    t.bigint "question_id"
-    t.bigint "question_hashtag_id"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-  end
-
-  create_table "question_hashtags", force: :cascade do |t|
-    t.string "question_hashname"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.index ["question_hashname"], name: "index_question_hashtags_on_question_hashname", unique: true
-  end
-
-  create_table "questions", force: :cascade do |t|
-    t.string "question_title", null: false
-    t.text "question_body", null: false
-    t.bigint "user_id"
-    t.bigint "question_category_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end

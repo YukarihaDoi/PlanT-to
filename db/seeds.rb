@@ -9,27 +9,27 @@ Admin.create!(
   email: 'test@test.com',
   password: 'test01')
 
-NewsImage.create!(
+NewsImage.create!([{
   news_title: '秋間近！秋の花を探してみませんか？',
   news_body: '秋と言ったらどんな花を思い浮かべますか？'
-  )
+  },
+  {
+  news_title: 'アップデートを行いました',
+  news_body: '新しく〇〇機能が追加されました'
+  }
+  ])
 
 PostCategory.create!([{
   post_category: '園芸日記'
 },
 {
-  post_category: 'ギフト'
+  post_category: '質問・相談'
+},
+{
+  post_category: '宣伝'
 },
 {
   post_category: 'その他'
-}
-])
-
-QuestionCategory.create!([{
-  question_category: '園芸相談'
-},
-{
-  question_category: 'その他'
 }
 ])
 
@@ -66,7 +66,7 @@ PostImage.create!([{
 },
 {
   user_id: 2,
-  post_category_id: 2,
+  post_category_id: 1,
   title: '黄色のトマト',
   body: '今年は黄色のトマトも植えました。大変美味しそうです。たくさんできたので親戚に #お裾分け するぞ！',
   image: ActiveStorage::Blob.create_and_upload!(io:File.open(Rails.root.join("./app/assets/plants_images/tomato.jpg")),filename: 'tomato.jpg' )
@@ -77,25 +77,32 @@ PostImage.create!([{
   title: '新しい植木、入荷しました',
   body: '#山形 で #花屋 を経営しています！買いたい人はお気軽にお問い合わせください！',
   image: ActiveStorage::Blob.create_and_upload!(io:File.open(Rails.root.join("./app/assets/plants_images/uekibati.jpg")),filename: 'uekibati.jpg' )
-}
-])
-
-
-
-
-
-Question.create!([{
-  user_id: 1,
-  question_category_id: 1,
-  question_title: 'この植物の名前を教えて欲しいです',
-  question_body: 'タロイモ科？かも？と母が言っていました。貰い物ものですが、あげた人も名前がわからないらしいです',
-  question_image: ActiveStorage::Blob.create_and_upload!(io:File.open(Rails.root.join("./app/assets/plants_images/humei.jpg")),filename: 'humei.jpg' )
 },
 {
   user_id: 1,
-  question_category_id: 2,
-  question_title: '野菜を育てようと思うのですが',
-  question_body: '初心者は何から始めるといいですか？',
+  post_category_id: 2,
+  title: 'この植物の #名前 について教えてください',
+  body: '名前がわかりません',
+  image: ActiveStorage::Blob.create_and_upload!(io:File.open(Rails.root.join("./app/assets/plants_images/humei.jpg")),filename: 'humei.jpg' )
+},
+{
+  user_id: 2,
+  post_category_id: 3,
+  title: '朝市始めました',
+  body: '早起きして買いに来てくれー #朝市'
+},
+{
+  user_id: 3,
+  post_category_id: 4,
+  title: 'アルバイト募集！',
+  body: '＃花屋 で働きませんか？ #アルバイト',
+  image: ActiveStorage::Blob.create_and_upload!(io:File.open(Rails.root.join("./app/assets/plants_images/green_necklace.jpg")),filename: 'green_necklace.jpg' )
+},
+{
+  user_id: 1,
+  post_category_id: 2,
+  title: 'もう一つ植物を買いたい',
+  body: 'おすすめありますか？'
 }
 ])
 

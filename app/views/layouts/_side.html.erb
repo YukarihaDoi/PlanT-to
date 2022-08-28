@@ -26,11 +26,6 @@
           <%= link_to category.post_category,admin_post_images_path(post_category: category.id), class: 'text-dark' %>
         </li>
       <% end %>
-      <p class="pb-2 px-4">質問カテゴリ</p>
-      <% question_categories.each do |category| %>
-         <li class="pb-2 px-4">
-           <%= link_to category.question_category,admin_questions_path(question_category: category.id), class: 'text-dark' %>
-         </li>
-       <% end %>
+
   </div>
 <% end %>

@@ -1,25 +1,23 @@
 <div class="container-fluid">
     <div class="row mx-5 mt-5">
         <div class="col-md-12">
-          
           <div class='row mx-3 justify-content-start'>
+
+
           <div class="btn-group dropdown">
           <button class="btn dropdown-toggle btn-success" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true"  aria-expanded="false">
-          タイムライン
+           人気順
           </button>
-            
             <div class="dropdown-menu dropdown-menu-left" x-placement="right-start" style="position: absolute; transform: translate3d(60px, 0px, 0px); top: 0px; left: 0px; will-change: transform;">
 
+              <%= link_to post_images_path, class: 'nav-link text-dark' do %>
+                <p class="font-weight-bold dropdown-item">タイムライン</p>
+              <% end %>
               <%= link_to following_posts_post_images_path, class: 'nav-link text-dark' do %>
                 <p class="font-weight-bold dropdown-item">フォロー投稿</p>
               <% end %>
-              <%= link_to popular_post_images_path, class: 'nav-link text-dark' do %>
-                <p class="font-weight-bold dropdown-item">人気順</p>
-              <% end %>
             </div>
-       
-         </div>
-         
+       </div>
          <div class='list-unstyled d-flex flex-row'>
             <li class="pb-2 px-4">
              <%= link_to post_images_path,class:"text-dark" do %>
@@ -28,14 +26,12 @@
             </li>|
             <% @post_categories.each do |category| %>
             <li class="pb-2 px-4">
-              <%= link_to category.post_category,post_images_path(post_category: category.id), class: 'text-dark' %>
-           　</li>
+              <%= link_to category.post_category,popular_post_images_path(post_category: category.id), class: 'text-dark' %>
+           </li>
             <% end %>
           </div>
        </div>
-       
-       <p class="ml-3 mt-3">新規投稿順で表示</p>
-       
+       <p class="ml-3 mt-3">いいねが多い順番で表示</p>
        <!--ここから一覧-->
         <div class="image-warp d-flex flex-reverse">
           <% @post_images.each do |image| %>
@@ -58,8 +54,6 @@
                     <!--タイトル-->
                       <%= link_to post_image_path(image.id), class:"text-dark" do %>
                         <%= image.title %>
-                         ♥<%= image.favorites.count %>
-                         <i class="fa-regular fa-message"></i><%= image.comments.count %>
                       <% end %>
                     </p>
                     <p class="card-title pl-3 pt-2 col-md-11">
