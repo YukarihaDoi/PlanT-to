@@ -1,18 +1,8 @@
 <% if user_signed_in? %>
   <!--ユーザー-->
-  <div class="col-md-2 list-unstyled tag-category">
-   <p class="px-4 pb-2 pt-3 font-weight-bold">投稿カテゴリ</p>
-   <% post_categories.each do |category| %>
-      <li class="pb-2 px-4">
-        <%= link_to category.post_category,post_images_path(post_category: category.id), class: 'text-dark' %>
-      </li>
-    <% end %>
-      <p class="px-4 pt-5 font-weight-bold">質問カテゴリ</p>
-    <% question_categories.each do |category| %>
-      <li class="pb-2 px-4">
-        <%= link_to category.question_category,questions_path(question_category: category.id), class: 'text-dark' %>
-      </li>
-    <% end %>
+  <div class="col-md-2 list-unstyled px-4 ">
+    <div class="border-end py-2 px-2 border border-secondary rounded">
+    <p class="px-4 font-weight-bold">Hot!</p>
       <% hashtags.sort.reverse.each do |count| %>
          <% count[1].each do |hashtag| %>
            <p class="px-4">
@@ -20,7 +10,11 @@
            </p>
          <% end %>
       <% end %>
+      </div>
   </div>
+
+
+
 
 <% else %>
   <!--管理者-->
@@ -32,11 +26,6 @@
           <%= link_to category.post_category,admin_post_images_path(post_category: category.id), class: 'text-dark' %>
         </li>
       <% end %>
-      <p class="pb-2 px-4">質問カテゴリ</p>
-      <% question_categories.each do |category| %>
-         <li class="pb-2 px-4">
-           <%= link_to category.question_category,admin_questions_path(question_category: category.id), class: 'text-dark' %>
-         </li>
-       <% end %>
+
   </div>
 <% end %>

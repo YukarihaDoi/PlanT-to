@@ -6,10 +6,10 @@ class Public::UsersController < ApplicationController
   before_action :login_check, only: [ :index, :show, :edit, :follower, :following ]
   before_action :side_view, only: [ :index, :show, :edit, :follower, :following, :favorites, :questions ]
 
+  # すべて表示
   def show
     @user = User.find(params[:id])
     @post_images = @user.post_images
-    @questions = @user.questions
   end
 
   def index
@@ -47,13 +47,6 @@ class Public::UsersController < ApplicationController
     @favorite_posts = PostImage.find(favorites)
    end
 
-   #質問一覧
-   def questions
-    @user = User.find(params[:id])
-    @questions = @user.questions
-   end
-
-
 private
    def user_params
     params.require(:user).permit(:name, :introduction, :profile_image)
@@ -81,7 +74,6 @@ private
 
     def side_view
       @post_categories = PostCategory.all
-      @question_categories =QuestionCategory.all
       @hashtags = Hashtag.all.to_a.group_by{ |hashtag| hashtag.post_images.count}
     end
 

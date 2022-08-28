@@ -54,14 +54,6 @@ ActiveRecord::Schema.define(version: 2022_08_23_092737) do
     t.index ["reset_password_token"], name: "index_admins_on_reset_password_token", unique: true
   end
 
-  create_table "answers", force: :cascade do |t|
-    t.text "answer", null: false
-    t.bigint "user_id"
-    t.bigint "question_id"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-  end
-
   create_table "comments", force: :cascade do |t|
     t.text "comment", null: false
     t.bigint "user_id"
@@ -109,21 +101,6 @@ ActiveRecord::Schema.define(version: 2022_08_23_092737) do
     t.text "body", null: false
     t.bigint "user_id"
     t.bigint "post_category_id"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-  end
-
-  create_table "question_categories", force: :cascade do |t|
-    t.string "question_category", null: false
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-  end
-
-  create_table "questions", force: :cascade do |t|
-    t.string "question_title", null: false
-    t.text "question_body", null: false
-    t.bigint "user_id"
-    t.bigint "question_category_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end

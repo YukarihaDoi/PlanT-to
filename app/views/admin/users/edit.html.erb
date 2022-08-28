@@ -1,0 +1,44 @@
+<div class="container mt-5">
+  <div class="row mx-5 mt-5">
+    <!--カテゴリ-->
+    <%= render "layouts/side", post_categories: @post_categories, hashtags: @hashtags %>
+    <div class="col-8 offset-1 card">
+      <div  class="row mb-2 card-body">
+       <%= link_to user_path(@user),class:"text-success" do %>
+        <p>マイページに戻る</p>
+       <% end %>
+      </div>
+<% if @user.errors.any? %>
+<ul>
+<%= @user.errors.count %>件のエラーが発生しました
+<% @user.errors.full_messages.each do |message| %>
+<li><%= message %></li>
+<% end %>
+</ul>
+<% end %>
+
+      <!--フォーム-->
+      <%= form_with model: @user ,method: :patch, url:admin_user_path do |f| %>
+        <div class="form-group row px-5 pb-5">
+          <%= f.label "プロフィール画像" %>
+          <%= f.file_field :profile_image, accept: "image/*", class: "w-100 mb-2" %>
+          <%= f.label "名前" %><br>
+          <%= f.text_field :name, class:"form-control mb-2", placeholder:"名前" %>
+          <%= f.label "自己紹介" %><br>
+          <%= f.text_area :introduction, class:"form-control mb-2", rows:"3", placeholder:"好きな植物などみんなに紹介しましょう" %>
+          <%= f.submit '編集', class:"btn btn-lg btn-block btn-outline-info mt-4 my-sm-0"%>
+          <table>
+           <div class="form-group row">
+            <label class="col-lg-3">会員ステータス</label>
+            <div class="col-1">
+              <%= f.radio_button :is_deleted, false %>有効
+            </div>
+            <div>
+              <%= f.radio_button :is_deleted, true %>退会
+            </div>
+          </div>
+            </div>
+      <% end %>
+    </div>
+  </div>
+</div>

@@ -1,111 +1,116 @@
-<!--ヘッター-->
-<%= render 'layouts/header' %>
-    <div class="container-fluid">
-    <div class='row mx-auto mt-5'>
-      <!--サイドユーザー情報-->
-      <div class="col-md-10">
-        <div class='row card-body'>
+<div class="container-fluid">
+ <div class='row mx-5 mt-5'>
+  <div class="col-md-12">
 
-          <div class="col-md-2">
+    <div class="col-md-2">
 
-            <table class='table table-bordered bg-light pl-3'>
-              <tr>
-                <td>
-                  <%= image_tag @user.get_profile_image(200,200),class: "rounded-circle user" %>
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  名前:<%= @user.name %>
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  自己紹介:<%= @user.introduction %>
-                </td>
-              </tr>
-              <tr>
-                 <td>
-                   <%= link_to "#{@user.follower.count}フォロー", following_path(current_user, @user),class:"text-dark" %>
-                 </td>
-              </tr>
-              <tr>
-                 <td>
-                   <%= link_to "#{@user.followed.count}フォロワー", follower_path(current_user, @user),class:"text-dark"%>
-                 </td>
-              </tr>
-            </table>
+      <table class='table table-bordered bg-light pl-3'>
+        <tr>
+          <td>
+           <%= image_tag @user.get_profile_image(200,200),class: "rounded-circle user" %>
+          </td>
+        </tr>
+        <tr>
+          <td>
+           名前:<%= @user.name %>
+          </td>
+        </tr>
+        <tr>
+          <td>
+           自己紹介:<%= @user.introduction %>
+          </td>
+        </tr>
+        <tr>
+          <td>
+           <%= link_to "#{@user.follower.count}フォロー", following_path(@user, @user),class:"text-dark" %>
+          </td>
+        </tr>
+        <tr>
+          <td>
+           <%= link_to "#{@user.followed.count}フォロワー", follower_path(@user, @user),class:"text-dark"%>
+          </td>
+        </tr>
+      </table>
 
-            <% if current_user.name != "guestuser" %>
-                <div class='row mx-auto'>
-                  <% if @user == current_user %>
-                  <!--自分-->
-                   <p>
-                    <%= link_to "プロフィール編集", edit_user_path(@user),class:"text-success" %>
-                   </p>
-                  <% else %>
-                    <!--他のユーザー-->
-                      <% if current_user.following?(@user) %>
-                       <p>
-                        <%= link_to 'フォロー中', user_unfollow_path(current_user, @user), method: :POST %>
-                       </p>
-                      <% else %>
-                       <p>
-                        <%= link_to 'フォローする', user_follow_path(current_user, @user), method: :POST %>
-                       </p>
-                      <% end %>
-                  <% end %>
+    <% if current_user.name != "guestuser" %>
+      <div class='row mx-auto'>
+        <% if @user == current_user %>
+          <!--自分-->
+          <p>
+          <%= link_to "プロフィール編集", edit_user_path(@user),class:"text-success" %>
+          </p>
+        <% else %>
+          <!--他のユーザー-->
+          <% if current_user.following?(@user) %>
+            <p>
+             <%= link_to 'フォロー中', user_unfollow_path(current_user, @user), method: :POST %>
+            </p>
+          <% else %>
+            <p>
+             <%= link_to 'フォローする', user_follow_path(current_user, @user), method: :POST %>
+            </p>
+          <% end %>
+        <% end %>
+      </div>
+    <% end %>
+
+    </div>
+
+
+    <div class="col-md-12">
+      <div class="row mx-3 justify-content-start">
+
+      <div class="btn-group dropdown">
+        <button class="btn dropdown-toggle btn-success" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true"  aria-expanded="false">
+          投稿
+        </button>
+
+        <div class="dropdown-menu dropdown-menu-left" x-placement="right-start" style="position: absolute; transform: translate3d(60px, 0px, 0px); top: 0px; left: 0px; will-change: transform;">
+          <%= link_to favorites_user_path(@user), class: 'nav-link text-dark' do %>
+           <p class="font-weight-bold dropdown-item">いいね</p>
+          <% end %>
+        </div>
+
+      </div>
+
+      <% if @user.post_images.present? %>
+        <!--ここから一覧-->
+        <div class="image-warp d-flex flex-reverse">
+          <% @post_images.each do |post_image| %>
+          <div class="my-4">
+            <div class="card border-success shadow p-3 mx-3" style="width:23rem">
+              <div class= "mx-auto">
+                <div class="index-image col-md-8">
+                  <%= image_tag post_image.get_image(700,520) %>
                 </div>
-            <% end %>
-
-          </div>
-
-          <!--左-->
-          <div class="col-md-9 offset-md-1">
-            <div class="row mx-5 justify-content-start">
-                <p>
-                  <%=link_to"記事",user_path(@user), class: 'font-weight-bold nav-link text-dark'  %>
+                <p class="font-weight-bold card-title pl-3 pt-2 col-md-9">
+                  <%= link_to post_image_path(post_image.id), class:"text-dark" do %>
+                   <%= post_image.title %>
+                  <% end %>
                 </p>
-                <p>
-                 <%=link_to"質問",questions_user_path(@user), class: 'nav-link text-dark'  %>
+                <p class="card-title pl-3 pt-2 col-md-11">
+                  <!--内容,ハッシュタグリンク-->
+                  <%= render_with_hashtags(post_image.body) %><br>
+                  <%= post_image.created_at.strftime('%Y/%m/%d') %>
                 </p>
-                <p>
-                 <%=link_to"いいね",favorites_user_path(@user), class: 'nav-link text-dark'  %>
-                </p>
+              </div>
             </div>
-              <% if @user.post_images.present? %>
-                  <% @post_images.each do |post_image| %>
-                    <div class="mx-3 my-4">
-                      <div class="card border-success shadow p-3 mx-3">
-                         <div class= "mx-auto">
-                          <div class="index-image col-md-9">
-                            <%= link_to post_image_path(post_image.id) do %>
-                              <%= image_tag post_image.get_image(700,520) %>
-                            <% end %>
-                           <p class="font-weight-bold card-title pl-3 pt-2 col-md-9">
-                            <%= link_to(post_image_path(post_image.id), class:"text-dark") do %>
-                              <%= post_image.title %>
-                            <% end %>
-                           </p>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    <% end %>
-              <% else %>
-              <!--ない場合-->
-              <p>
-                投稿した記事はありません
-              </p>
-              <% end %>
           </div>
-        <!--</div>-->
+          <% end %>
+      <% else %>
+        <!--ない場合-->
+        <p>
+        投稿した記事はありません
+        </p>
+        </div>
+      <% end %>
+
+
       </div>
     </div>
-    </div>
 
-
-    </div>
   </div>
+ </div>
+</div>
 <!--フッター-->
 <%= render 'layouts/footer' %>

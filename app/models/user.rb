@@ -8,20 +8,20 @@ class User < ApplicationRecord
 
   ##アソシエーション
   has_many :post_images, dependent: :destroy
-  has_many :questions, dependent: :destroy
   has_many :comments, dependent: :destroy
-  has_many :answes, dependent: :destroy
   has_many :favorites, dependent: :destroy
+  has_many :favorite_post_images, through: :favorites, source: :post_image
 
   has_many :follower, class_name: "Relation", foreign_key: "follower_id", dependent: :destroy
   has_many :following_user, through: :follower, source: :followed
   has_many :followed, class_name: "Relation", foreign_key: "followed_id", dependent: :destroy
   has_many :followed_user, through: :followed, source: :follower
 
+
   ##画像
   has_one_attached :profile_image
-  # 画像確認/サイズ
 
+  # 画像確認/サイズ
   def get_profile_image(width, height)
     unless profile_image.attached?
       file_path = Rails.root.join('app/assets/images/no_user.jpg')
@@ -63,6 +63,7 @@ class User < ApplicationRecord
       elsif search == "partial_match"
         User.where('name LIKE ?', '%'+word+'%')
       else
+      
       end
   end
   #バリテーション

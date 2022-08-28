@@ -3,7 +3,7 @@
 <div class='container mt-5'>
   <div class='row mx-5 mt-5'>
   <!--カテゴリ-->
-  <%= render "layouts/side", post_categories: @post_categories, question_categories: @question_categories, hashtags: @hashtags %>
+  <%= render "layouts/side", post_categories: @post_categories, hashtags: @hashtags %>
     <div class="col-8 offset-1">
       <div class='row'>
       <div class="col-3">
@@ -24,7 +24,22 @@
             <%= @user.introduction %>
           </td>
         </tr>
+        <tr>
+         <td>会員ステータス</td>
+         <% if @user.is_deleted == false %>
+          <td>有効</td>
+         <% else %>
+          <td>退会</td>
+         <% end %>
+        </tr>
        </table>
+
+       <div class='row mx-auto'>
+         <p>
+          <%= link_to "ユーザー編集", edit_admin_user_path(@user),class:"text-success" %>
+        </p>
+       </div>
+
      </div>
      <div class="col-9">
       <h5>投稿一覧</h5>
@@ -44,25 +59,6 @@
           <% end %>
       <% else %>
           <!--ない場合-->
-      　　　<p>投稿はありません</p>
-      <% end %>
-      <h5>質問一覧</h5>
-      <% if @user.questions.present? %>
-          <!--ある場合-->
-            <% @user.questions.each do |question| %>
-              <div class="index-image">
-                <%= link_to admin_question_path(question.id) do %>
-                  <%= image_tag question.get_question_image(50,50) %>
-                <% end %>
-              </div>
-               <%= link_to admin_question_path(question.id), class:"text-dark" do %>
-                <p>
-                  <%= question.question_title %>
-                </p>
-               <% end %>
-            <% end %>
-      <% else %>
-         <!--ない場合-->
       　　　<p>投稿はありません</p>
       <% end %>
       </div>

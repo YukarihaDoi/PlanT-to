@@ -1,3 +1,4 @@
+/*初期設定*/
 * {
   margin: 0;
   padding: 0;
@@ -5,10 +6,55 @@
 }
 
 /*全体*/
-/*全体色*/
 body{
- background-color: #E9EBE7;
+ padding-top:30px;/* ヘッダーと同じ高さ */
+ background-color: #F5F6F6;
+ margin: 0;
 }
+
+/*ヘッダー*/
+header{
+  background-color:#009DA7;
+}
+
+.navbar-dark .navbar-toggler{
+  /* 枠線 */
+  border-color: rgba(212, 108, 228, 1);
+}
+
+.wrap{
+	list-style: none;
+	padding-left: 0;
+	display: flex;
+	flex-wrap: wrap;
+}
+/*フォント*/
+header, nav{
+  font-family: fangsong;
+}
+
+/*index画面*/
+.index-image img{
+ width: 280px;
+ height:208px;
+ object-fit: cover;
+}
+
+
+/*繰り返しの動き*/
+.image-warp{
+  display: flex;
+  flex-wrap: wrap;
+}
+
+/*show画面&news画面*/
+.show-image img{
+ width: 420px;
+ height:312px;
+ object-fit: cover;
+}
+
+
 
 
 /*top*/
@@ -30,14 +76,6 @@ body{
  display: inline-block;
 }
 
-
-
-/*index画面*/
-.index-image img{
- width: 700px;
- height:520px;
- object-fit: cover;
-}
 
 
 
@@ -123,10 +161,11 @@ select {
 
 /*タブレット表示時*/
 @media (max-width: 1000px) {
-/*一覧画像 */
+
+/*タブレット時,一覧画像 */
 .index-image img{
- width:350px;
- height:243px;
+ width:280px;
+ height:208px;
  object-fit: cover;
 }
 

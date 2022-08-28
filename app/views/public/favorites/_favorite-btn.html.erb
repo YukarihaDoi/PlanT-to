@@ -1,0 +1,14 @@
+<% unless admin_signed_in? %>
+  <% unless current_user.name == "guestuser" %>
+    <% if post_image.favorited_by?(current_user) %>
+        <%= link_to post_image_favorites_path(post_image), method: :delete, remote: true , class:"text-success text-decoration-none" do %>
+         ♥<%= post_image.favorites.count %>
+        <% end %>
+    <% else %>
+        <%= link_to post_image_favorites_path(post_image), method: :post, remote: true , class:"text-secondary text-decoration-none" do %>
+         ♡<%= post_image.favorites.count %>
+        <% end %>
+      </p>
+    <% end %>
+  <% end %>
+<% end %>
