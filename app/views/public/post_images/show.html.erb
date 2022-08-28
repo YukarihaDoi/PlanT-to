@@ -44,6 +44,9 @@
             <p>
               <%= render_with_hashtags(@post_image.body) %>
             </p>
+            <p>
+              ♥<%= @post_image.favorites.count %>
+            </p>
             <!--ゲスト以外はいいねを押すことができる-->
               <h2 class="text-end favorite_buttons_<%= @post_image.id %>">
                 <%= render "public/favorites/favorite-btn", post_image: @post_image %>
@@ -75,5 +78,3 @@
       </div>
    </div>
  </div>
-<!--フッター-->
-<%= render 'layouts/footer' %>

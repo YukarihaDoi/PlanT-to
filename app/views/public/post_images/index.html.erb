@@ -54,6 +54,8 @@
                     <!--タイトル-->
                       <%= link_to post_image_path(image.id), class:"text-dark" do %>
                         <%= image.title %>
+                         ♥<%= image.favorites.count %>
+                         <i class="fa-regular fa-message"></i><%= image.comments.count %>
                       <% end %>
                     </p>
                     <p class="card-title pl-3 pt-2 col-md-11">
