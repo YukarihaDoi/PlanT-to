@@ -56,7 +56,7 @@
                     </div>
                     <div class= "index-image col-md-11">
                       <!--写真-->
-                      <%= image_tag image.get_image(700,520) %>
+                      <%= image_tag image.get_image(700,520), class: "img-fluid" %>
                     </div>
                     <p class="font-weight-bold card-title pl-3 pt-2 col-md-11">
                       <!--タイトル-->
@@ -78,8 +78,9 @@
                 </div>
               </div>
             <% end %>
+
           </div>
-       
+
        </div>
     </div>
 </div>

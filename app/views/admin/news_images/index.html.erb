@@ -7,8 +7,8 @@
 
       <% @news_images.each do |news_image| %>
         <div class="card border-success shadow p-3 mx-auto mt-5" style="width:50rem">
-          <div class='row no-gutters mx-auto'>
-  
+          <div class='row no-gutters'>
+
               <div class="col-md-8">
                 <%= news_image.created_at.strftime('%Y/%m/%d') %>更新
                   <% if admin_signed_in? %>
@@ -18,10 +18,10 @@
                     <% end %>
                   <% end %>
                   <div class= "show-image mt-2">
-                  <%= image_tag news_image.news_get_image(700,520) %>
+                  <%= image_tag news_image.news_get_image(700,520), class: "img-fluid" %>
                   </div>
               </div>
-  
+
               <div class="col-md-4">
                 <div class="card-body">
                   <p class="font-weight-bold">

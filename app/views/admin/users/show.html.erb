@@ -51,7 +51,7 @@
             <div class="card border-success shadow p-3 mx-3" style="width:20rem">
               <div class= "mx-auto">
                 <div class="index-image col-md-8">
-                   <%= image_tag post_image.get_image(700,520) %>
+                   <%= image_tag post_image.get_image(700,520), class: "img-fluid" %>
                 </div>
             <p class="font-weight-bold card-title pl-3 pt-2 col-md-11">
              <%= link_to admin_post_image_path(post_image.id), class:"text-dark" do %>

@@ -4,7 +4,7 @@
  <div class="container mt-5">
    <div class="row mx-5 my-5">
       <div class="col-md-12">
-        <div class="card border-success shadow p-3 mx-auto mt-5" style="width:50rem">
+        <div class="card border-success shadow p-3 mx-auto mt-5">
          <div class='row no-gutters mx-auto'>
 
            <!--左画像/入力-->
@@ -30,7 +30,7 @@
                 <% end %>
               <% end %>
                  <div class="show-image mt-2 ml-5">
-                  <%= image_tag @post_image.get_image(700,520) %><br>
+                  <%= image_tag @post_image.get_image(700,520), class: "img-fluid" %><br>
                  </div>
                  <!--ゲストユーザー以外はコメントできる-->
                   <% if current_user.name != "guestuser" %>
@@ -57,7 +57,7 @@
               <%= render_with_hashtags(@post_image.body) %>
             </p>
             <!--ゲスト以外はいいねを押すことができる-->
-              <h2 class="text-right pr-3 favorite_buttons_<%= @post_image.id %>">
+              <h2 class="text-right pr-3 favorite-btn_<%= @post_image.id %>">
                 <%= render "public/favorites/favorite-btn", post_image: @post_image %>
              </h2>
             <!--コメント一覧-->
