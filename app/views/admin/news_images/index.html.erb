@@ -1,39 +1,43 @@
+<!--ヘッダー-->
+<%= render 'layouts/header' %>
+<!--お知らせ一覧-->
 <div class="container mt-5">
   <div class="row mx-5 mt-5">
     <div class="col-md-12">
-      
-      <!--ここから一覧-->
-        <div class="col-md-8">
-        <!--管理者がサインインしてる場合は編集/削除ができる-->
-            <% if admin_signed_in? %>
-              <%= link_to edit_admin_news_image_path(news_image) do %>
-                編集
-              <% end %>|
-            <% end %>
-         
-           <% @news_images.each do |news_image| %>
-          <div class="card border-success shadow p-3 my-3 mx-auto "style="width:50rem">
-           <div class= "show-image mt-2">
-             <%= image_tag news_image.news_get_image(700,520) %>
-            </div>
-            <p class="font-weight-bold card-title pl-3 pt-2 col-md-11">
-              <%= news_image.news_title %>
-            </p>
-            <p class="card-title pl-3 pt-2 col-md-11">
-             <%= news_image.news_body %>
-             <%= news_image.created_at.strftime('%Y/%m/%d') %>
-            </p>
-            
-            </div>
-                
-        <% end %>
-        </div>
-              
-         </div>
-       </div>
-      </div>
 
-    </div>
- </div>
+      <% @news_images.each do |news_image| %>
+        <div class="card border-success shadow p-3 mx-auto mt-5" style="width:50rem">
+          <div class='row no-gutters'>
+
+              <div class="col-md-8">
+                <%= news_image.created_at.strftime('%Y/%m/%d') %>更新
+                  <% if admin_signed_in? %>
+                    <!--管理者がサインインしてる場合は編集/削除ができる-->
+                    <%= link_to edit_admin_news_image_path(news_image) do %>
+                      編集
+                    <% end %>
+                  <% end %>
+                  <div class= "show-image mt-2">
+                  <%= image_tag news_image.news_get_image(700,520), class: "img-fluid" %>
+                  </div>
+              </div>
+
+              <div class="col-md-4">
+                <div class="card-body">
+                  <p class="font-weight-bold">
+                    <%= news_image.news_title %>
+                  </p>
+                  <p>
+                    <%= news_image.news_body %>
+                  </p>
+                </div>
+              </div>
+          </div>
+        </div>
+    　<% end %>
+
+   </div>
+  </div>
+</div>
 <!--フッター-->
 <%= render 'layouts/footer' %>

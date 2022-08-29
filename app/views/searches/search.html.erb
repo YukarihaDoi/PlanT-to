@@ -1,128 +1,144 @@
+<!--ヘッダー-->
+<%= render 'layouts/header' %>
+<!--searchから遷移-->
+
 <div class="container-fluid">
-   <div class="row mx-5 mt-5">
-     <div class="col-md-12">
+  <div class="row mx-5 mt-5">
+    <div class="col-md-12">
+      <div class='row mx-3 justify-content-start'>
 
-       <div class='row mx-3 justify-content-start'>
-
-       <div class="col-md-6 mx-auto">
-         <p>ハッシュタグ一覧</p>
-
-         <div class="d-flex flex-sm-row justify-content-start">
-         <% @hashtags.sort.reverse.each do |count| %>
-         <% count[1].each do |hashtag| %>
-          <ul class="wrap">
-           <li class="px-4">
-             <%= link_to "##{hashtag.hashname}","/post_images/hashtag/#{hashtag.hashname}",date:{"turbolinks"=>false}, class: 'text-info' %>
-           </li>
-         </ul>
-         <% end %>
-        <% end %>
-       </div>
-       </div>
-       <div class="col-md-6 mx-auto">
-        <%= form_with url: search_path, local: true, method: :get do |s| %>
-        <!--検索-->
-        <div class="form-group row">
-          <%= s.label'フリーワード' %>
-          <%= s.text_field :word, class: 'form-control mb-2', placeholder:"気になる投稿やユーザーを検索しよう"%>
-          <%= s.label'絞り込み' %>
-          <br>
-          <%= s.select :method, options_for_select([['「投稿」からさがす'],['「ユーザー」からさがす']]),{ prompt: '-' },class: "form-control" %>
-         <br>
-          <%= s.select :search, options_for_select({"完全一致"=>"perfect_match", "前方一致"=>"forward_match",  "後方一致"=>"backward_match", "部分一致"=>"partial_match"}),{ prompt: '-' },class: "form-control" %>
-        </div>
-
-        <div class="form-group row">
-          <%= button_tag type: :submit,class: "btn btn-outline-info form-control" do %>
-              <i class="fa-solid fa-magnifying-glass"></i>
-          <% end %>
-        </div>
-
-        <% end %>
-      </div>
-    </div>
-
-
-
-      <h3>検索結果</h3>
-
-        <% if @method == "「投稿」からさがす" %>
-          <!--投稿-->
-          <% if @post_images.present? %>
-              <div class="image-warp d-flex flex-reverse">
-              <% @post_images.each do |image| %>
-                <div class="my-4">
-                  <div class="card border-success shadow p-3 mx-3" style="width:23rem">
-                   <div class= "mx-auto">
-                    <div class="mt-1 pt-3 pl-3 mb-2">
-                      <!--アイコン-->
-                      <%= link_to user_path(image.user),class:"text-dark" do %>
-                        <%= image_tag image.user.get_profile_image(130,130),class: "rounded-circle icon" %>
-                        <%= image.user.name %>
-                      <% end %>
-                    </div>
-
-                    <div class= "index-image col-md-11">
-                       <!--写真-->
-                      <%= image_tag image.get_image(700,520) %>
-                    </div>
-                    <p class="font-weight-bold card-title pl-3 pt-2 col-md-11">
-                      <!--タイトル-->
-                      <%= link_to post_image_path(image.id), class:"text-dark" do %>
-                         <%= image.title %>
-                         ♥<%= image.favorites.count %>
-                      <% end %>
-                    </p>
-                    <p class="card-title pl-3 pt-2 col-md-11">
-                    <!--内容,ハッシュタグリンク-->
-                      <%= render_with_hashtags(image.body) %><br>
-                      <%= image.created_at.strftime('%Y/%m/%d') %>
-                    </p>
-                   <h2 class="text-right favorite-btn_<%= image.id %>">
-                    <%= render "public/favorites/favorite-btn", post_image: image %>
-                   </h2>
-                 </div>
+        <div class="col-md-12">
+          <!--検索部分-->
+          <p>ハッシュタグ一覧</p>
+            <div class="row">
+              <div class= "col-xs-12 col-lg-12 col-md-12 col-sm-12">
+                <div class= "hashtag-name">
+                  <% @hashtags.sort.reverse.each do |count| %>
+                    <% count[1].each do |hashtag| %>
+                     <%= link_to "##{hashtag.hashname}(#{hashtag.post_images.count})","/post_images/hashtag/#{hashtag.hashname}",date:{"turbolinks"=>false}, class: 'text-info' %>
+                    <% end %>
+                  <% end %>
                 </div>
-               </div>
-              <% end %>
               </div>
             </div>
-            </div>
 
-
-         <% else %>
-
-         <% end %>
-
-      　<% else %>
-
-             <% if @users.present? %>
-             <div class="image-warp d-flex flex-reverse">
-                 <% @users.each do |user| %>
-                   <table class='table card'>
-                     <tbody>
-                       <tr>
-                          <td width=50>
-                            <%= image_tag user.get_profile_image(200,200),class: "rounded-circle user" %>
-                          </td>
-                          <td width=100 class="font-weight-bold text-left">
-                            <%= user.name %>
-                          </td>
-                          <td width=20>
-                            <%= link_to user_path(user.id) do %>
-                              show
-                            <% end %>
-                          </td>
-                       </tr>
-                     </tbody>
-                   </table>
+          <div class="row">
+            <div class= "col-xs-12 col-lg-12 col-md-12 col-sm-12">
+              <%= form_with url: search_path, local: true, method: :get do |s| %>
+               <div class="form-group row mx-auto">
+                  <%= s.label'フリーワード' %>
+                  <%= s.text_field :word, class: 'form-control mb-2', placeholder:"ワード検索"%>
+                  <%= s.label'絞り込み' %>
+                  <%= s.select :method, options_for_select([['「投稿」からさがす'],['「ユーザー」からさがす']]),{ prompt: '-' },class: "form-control" %>
+                  <%= s.select :search, options_for_select({"完全一致"=>"perfect_match", "前方一致"=>"forward_match",  "後方一致"=>"backward_match", "部分一致"=>"partial_match"}),{ prompt: '-' },class: "form-control" %>
+               </div>
+                <div class="form-group row mx-auto">
+                  <%= button_tag type: :submit,class: "btn btn-outline-info form-control" do %>
+                    <i class="fa-solid fa-magnifying-glass"></i>
                   <% end %>
-              <% else %>
-
-            <% end %>
-
-           </div>
+                </div>
+              <% end %>
+            </div>
           </div>
-          <% end %>
+          <h3>検索結果</h3>
         </div>
 
+          <!--投稿で検索-->
+         <% if @method == "「投稿」からさがす" %>
+            <% if @post_images.present? %>
+              
+              <div class="image-warp d-flex flex-reverse">
+                <% @post_images.each do |image| %>
+                <div class="my-4">
+                  <div class="card border-success shadow p-3 mx-3" style="width:23rem">
+                    <div class= "mx-auto">
+                      <div class="mt-1 pt-3 pl-3 mb-2">
+                        <!--アイコン-->
+                        <%= link_to user_path(image.user),class:"text-dark" do %>
+                        <%= image_tag image.user.get_profile_image(130,130),class: "rounded-circle icon" %>
+                        <%= image.user.name %>
+                        <% end %>
+                      </div>
+                      <div class= "index-image col-md-11">
+                        <!--写真-->
+                        <%= image_tag image.get_image(700,520), class: "img-fluid" %>
+                      </div>
+                      <p class="font-weight-bold card-title pl-3 pt-2 col-md-11">
+                        <!--タイトル-->
+                        <%= link_to post_image_path(image.id), class:"text-dark" do %>
+                        <%= image.title %>
+                        <% end %>
+                      </p>
+                      <p class=" pl-3 pt-2 col-md-11">
+                        <!--内容,ハッシュタグリンク-->
+                        <%= render_with_hashtags(image.body) %><br>
+                        <%= image.created_at.strftime('%Y/%m/%d') %>
+                        ♥<%= image.favorites.count %>
+                      <i class="fa-regular fa-message"></i><%= image.comments.count %>
+                      </p>
+                      <h2 class="text-right favorite-btn_<%= image.id %>">
+                        <%= render "public/favorites/favorite-btn", post_image: image %>
+                      </h2>
+                    </div>
+                  </div>
+                </div>
+                <% end %>
+              </div>
+            
+            <% else %>
+            <!--いない場合は非表示-->
+            <% end %>
+         <!--ユーザで検索ー-->
+         <% else %>
+          <% if @users.present? %>
+            <table class='table table-inverse col-md-10 mx-auto table-bordered bg-light'>
+              <thead>
+                <tr>
+                 <th>image</th>
+                 <th>name</th>
+                 <th colspan="4"></th>
+                </tr>
+              </thead>
+              <tbody>
+              <% @users.each do |user| %>
+                <tr>
+                  <td>
+                   <%= image_tag user.get_profile_image(200,200),class: "rounded-circle user" %>
+                  </td>
+                  <td class="font-weight-bold ">
+                    <%= link_to user_path(user.id), class:"text-dark"  do %>
+                     <%= user.name %>
+                    <% end %>
+                  </td>
+                  <td>
+                    <%= link_to user_path(user.id), class:"text-dark" do %>
+                      show
+                    <% end %>
+                  </td>
+                  <td>
+                    <% if current_user.following?(user) %>
+                      <p>
+                        <%= link_to 'フォロー中', user_unfollow_path(current_user, user), method: :POST, class:"text-dark" %>
+                      </p>
+                    <% else %>
+                      <p>
+                        <%= link_to 'フォローする', user_follow_path(current_user, user), method: :POST, class:"text-dark" %>
+                      </p>
+                    <% end %>
+                 </td>
+                </tr>
+              <% end %>
+              </tbody>
+            </table>
+          <% else %>
+          <!--いない場合は非表示-->
+          <% end %>
+        <% end %>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+<!--フッター-->
+<%= render 'layouts/footer' %>

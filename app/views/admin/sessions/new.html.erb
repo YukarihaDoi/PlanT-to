@@ -21,7 +21,11 @@
          </div>
         </div>
        <div class="col-md-8 px-5">
-          <%= render "admin/shared/error_messages", resource: resource %>
+         <% if flash[:alert].present? %>
+         <div id="error_explanation">
+           <%= flash[:alert] %>
+         </div>
+        <% end %>
       <% end %>
     </div>
 </div>
