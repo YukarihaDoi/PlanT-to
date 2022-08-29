@@ -67,12 +67,13 @@
                         <%= link_to post_image_path(image.id), class:"text-dark" do %>
                         <%= image.title %>
                         <% end %>
-                        ♥<%= image.favorites.count %>
                       </p>
                       <p class="pl-3 pt-2 col-md-11">
                         <!--内容,ハッシュタグリンク-->
                         <%= render_with_hashtags(image.body) %><br>
                         <%= image.created_at.strftime('%Y/%m/%d') %>
+                        ♥<%= image.favorites.count %>
+                        <i class="fa-regular fa-message"></i><%= image.comments.count %>
                       </p>
                       <h2 class="text-right pr-3 favorite-btn_<%= image.id %>">
                         <%= render "public/favorites/favorite-btn",post_image: image %>

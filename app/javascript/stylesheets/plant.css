@@ -35,7 +35,7 @@ header, nav{
 
 /*index画面*/
 .index-image img{
- width: 280px;
+ width: 300px;
  height:208px;
  object-fit: cover;
 }
@@ -54,6 +54,11 @@ header, nav{
  object-fit: cover;
 }
 
+
+/*文字*/
+.category-name{
+  display: inline-block;
+}
 
 .hashtag-name {
   display: inline-block;

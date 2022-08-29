@@ -1,5 +1,9 @@
+<!--ヘッダー-->
+<%= render 'layouts/header' %>
+
+<!--投稿詳細-->
  <div class="container mt-5">
-   <div class="row mx-5 mt-5">
+   <div class="row mx-5 my-5">
       <div class="col-md-12">
 
         <div class="card border-success shadow p-3 mx-auto mt-5" style="width:50rem">
@@ -35,39 +39,31 @@
                  <!--ゲストユーザー以外はコメントできる-->
                   <% if current_user.name != "guestuser" %>
                    <%= form_with model: [@post_image, @comment], method: :post, local: true do |f| %>
-                    <div class="form-group mt-5">
+                    <div class="form-group mt-5 col-md-11 ml-4">
                      <%= f.text_area :comment, placeholder: "コメントをここに" ,class: 'form-control comment',size: "12x5" %>
                     </div>
-                     <%= f.submit "投稿",class: "btn btn-outline-success" %>
+                     <%= f.submit "投稿",class: "btn btn-outline-success col-md-4 ml-5" %>
                    <% end %>
                   <% end %>
              </div>
 
            <!--右-->
-          <div class="col-md-4">
+          <div class="col-md-4 mt-5 pt-3">
             <div class="card-body">
-
             <p class="font-weight-bold">
               <%= @post_image.title %>
-              
             </p>
-            <p class="text-right pr-3">
+            <p class=" pr-3">
                ♥<%= @post_image.favorites.count %>
               <i class="fa-regular fa-message"></i><%= @post_image.comments.count %>
               </p>
             <p>
               <%= render_with_hashtags(@post_image.body) %>
             </p>
-
             <!--ゲスト以外はいいねを押すことができる-->
               <h2 class="text-right pr-3 favorite_buttons_<%= @post_image.id %>">
                 <%= render "public/favorites/favorite-btn", post_image: @post_image %>
              </h2>
-
-              <h5 class="font-weight-normal">
-                <i class="fa-regular fa-message"></i><%= @post_image.comments.count %>
-              </h5>
-
             <!--コメント一覧-->
             <% @post_image.comments.each do |comment| %>
                <%= image_tag comment.user.get_profile_image(100,100),class: "rounded-circle icon"%>

@@ -1,3 +1,7 @@
+<!--ヘッダー-->
+<%= render 'layouts/header' %>
+<!--ユーザー詳細-->
+
 <div class="container-fluid">
  <div class='row mx-auto mt-5 justify-content-center'>
 
@@ -68,33 +72,47 @@
           </div>
         </div>
 
-        <% if @favorite_posts.present? %>
-          <!--ここから一覧-->
-          <div class="image-warp d-flex flex-reverse">
-            <% @favorite_posts.each do |favorite|%>
-              <div class="my-4">
-                <div class="card border-success shadow p-3 mx-3" style="width:20rem">
-                  <div class= "mx-auto">
-                    <div class="index-image col-md-8">
-                     <%= image_tag favorite.get_image(700,520) %>
+        <% if @post_images.present? %>
+             <div class="image-warp d-flex flex-reverse">
+                <% @post_images.each do |image| %>
+                <div class="my-4">
+                  <div class="card border-success shadow p-3 mx-3" style="width:23rem">
+                    <div class= "mx-auto">
+                      <div class="mt-1 pt-3 pl-3 mb-2">
+                        <!--アイコン-->
+                        <%= link_to user_path(image.user),class:"text-dark" do %>
+                        <%= image_tag image.user.get_profile_image(130,130),class: "rounded-circle icon" %>
+                        <%= image.user.name %>
+                        <% end %>
+                      </div>
+                      <div class= "index-image col-md-11">
+                        <!--写真-->
+                        <%= image_tag image.get_image(700,520) %>
+                      </div>
+                      <p class="font-weight-bold card-title pl-3 pt-2 col-md-11">
+                        <!--タイトル-->
+                        <%= link_to post_image_path(image.id), class:"text-dark" do %>
+                        <%= image.title %>
+                        <% end %>
+                      </p>
+                      <p class=" pl-3 pt-2 col-md-11">
+                        <!--内容,ハッシュタグリンク-->
+                        <%= render_with_hashtags(image.body) %><br>
+                        <%= image.created_at.strftime('%Y/%m/%d') %>
+                        ♥<%= image.favorites.count %>
+                      <i class="fa-regular fa-message"></i><%= image.comments.count %>
+                      </p>
+                      <h2 class="text-right favorite-btn_<%= image.id %>">
+                        <%= render "public/favorites/favorite-btn", post_image: image %>
+                      </h2>
                     </div>
-                    <p>
-                      <%= link_to(post_image_path(favorite.id), class:"text-dark") do %>
-                      <%= favorite.title %>
-                      <% end %>
-                    </p>
-                    <p class="card-title pl-3 pt-2 col-md-11">
-                    <!--内容,ハッシュタグリンク-->
-                      <%= render_with_hashtags(favorite.body) %><br>
-                      <%= favorite.created_at.strftime('%Y/%m/%d') %>
-                    </p>
                   </div>
                 </div>
-              </div>
-            <% end %>
+                <% end %>
+
         <% else %>
             <!--いいねがない場合-->
-            <p>
+            <p class= "ml-5">
              いいねした記事はありません
             </p>
           </div>
