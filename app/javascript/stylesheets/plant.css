@@ -55,7 +55,9 @@ header, nav{
 }
 
 
-
+.hashtag-name {
+  display: inline-block;
+}
 
 /*top*/
 /*top画像*/

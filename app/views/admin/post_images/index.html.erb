@@ -9,12 +9,12 @@
       <div class="card border-success shadow p-3 mx-3" style="width:23rem">
         <div class= "mx-auto">
           <div class="mt-1 pt-3 pl-3">
-    <!--アイコン-->
-    <%= image_tag post_image.user.get_profile_image(130,130), class: "icon rounded-circle mb-3" %>
-    <%= link_to admin_user_path(post_image.user), class:"text-dark" do %>
-      <%= post_image.user.name %>
-    <% end %>
-   </div>
+           <!--アイコン-->
+           <%= image_tag post_image.user.get_profile_image(130,130), class: "icon rounded-circle mb-3" %>
+           <%= link_to admin_user_path(post_image.user), class:"text-dark" do %>
+             <%= post_image.user.name %>
+           <% end %>
+         </div>
     <div class="index-image col-md-11">
       <%= image_tag post_image.get_image(700,520)%>
     </div>

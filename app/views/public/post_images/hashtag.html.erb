@@ -1,93 +1,93 @@
+<!--ヘッダー-->
+<%= render 'layouts/header' %>
+<!--ハッシュタグをクリックすると遷移-->
+
 <div class="container-fluid">
-   <div class="row mx-5 mt-5">
+  <div class="row mx-5 mt-5">
+    <div class="col-md-12">
       <% if params[:name] == nil %>
+      <!--route条件分岐のため記載-->
       <% else %>
+        <div class='row mx-3 justify-content-start'>
+
           <div class="col-md-12">
-
-            <div class='row mx-3 justify-content-start'>
-
-            <div class="col-md-6 mx-auto">
-         <p>ハッシュタグ一覧</p>
-
-         <div class="d-flex flex-sm-row justify-content-start">
-         <% @hashtags.sort.reverse.each do |count| %>
-         <% count[1].each do |hashtag| %>
-          <ul class="wrap">
-           <li class="px-4">
-             <%= link_to "##{hashtag.hashname}","/post_images/hashtag/#{hashtag.hashname}",date:{"turbolinks"=>false}, class: 'text-info' %>
-           </li>
-         </ul>
-         <% end %>
-        <% end %>
-       </div>
-       </div>
-       <div class="col-md-6 mx-auto">
-        <%= form_with url: search_path, local: true, method: :get do |s| %>
-        <!--検索-->
-        <div class="form-group row">
-          <%= s.label'フリーワード' %>
-          <%= s.text_field :word, class: 'form-control mb-2', placeholder:"気になる投稿やユーザーを検索しよう"%>
-          <%= s.label'絞り込み' %>
-          <br>
-          <%= s.select :method, options_for_select([['「投稿」からさがす'],['「ユーザー」からさがす']]),{ prompt: '-' },class: "form-control" %>
-         <br>
-          <%= s.select :search, options_for_select({"完全一致"=>"perfect_match", "前方一致"=>"forward_match",  "後方一致"=>"backward_match", "部分一致"=>"partial_match"}),{ prompt: '-' },class: "form-control" %>
-        </div>
-
-        <div class="form-group row">
-          <%= button_tag type: :submit,class: "btn btn-outline-info, form-control" do %>
-              <i class="fa-solid fa-magnifying-glass"></i>
-          <% end %>
-        </div>
-
-        <% end %>
-      </div>
-    </div>
-
-              <h3>
-                #<%= @hashtag.hashname %>
-              </h3>
-            </div>
-          <div class="image-warp d-flex flex-reverse">
-          <% @post_images.each do |image| %>
-          <div class="my-4">
-              <div class="card border-success shadow p-3 mx-3">
-               <div class= "mx-auto">
-              <div class="mt-1 pt-3 pl-3 mb-2">
-                  <!--アイコン-->
-                  <%= link_to user_path(image.user),class:"text-dark" do %>
-                    <%= image_tag image.user.get_profile_image(130,130),class: "icon rounded-circle" %>
-                    <%= image.user.name %>
-                  <% end %>
-                </div>
-                 <div class= "index-image col-md-11">
-                    <!--写真-->
-                    <%= image_tag image.get_image(700,520)%>
-                  </div>
-                    <p class="font-weight-bold card-title pl-3 pt-2 col-md-11">
-                    <!--タイトル-->
-                      <%= link_to post_image_path(image.id), class:"text-dark" do %>
-                        <%= image.title %>
+            <!--検索部分-->
+            <p>ハッシュタグ一覧</p>
+              <div class="row">
+                <div class= "col-xs-12 col-lg-12 col-md-12 col-sm-12">
+                  <div class= "hashtag-name">
+                    <% @hashtags.sort.reverse.each do |count| %>
+                      <% count[1].each do |hashtag| %>
+                       <%= link_to "##{hashtag.hashname}(#{hashtag.post_images.count})","/post_images/hashtag/#{hashtag.hashname}",date:{"turbolinks"=>false}, class: 'text-info' %>
                       <% end %>
-                    </p>
-                    <p class="card-title pl-3 pt-2 col-md-11">
-                    <!--内容,ハッシュタグリンク-->
-                      <%= render_with_hashtags(image.body) %><br>
-                      <%= image.created_at.strftime('%Y/%m/%d') %>
-                    </p>
-                  <h2 class="text-right pr-3 favorite-btn_<%= image.id %>">
-                    <%= render "public/favorites/favorite-btn",post_image: image %>
-                 </h2>
-                </div>
-                </div>
-                </div>
-            <% end %>
+                    <% end %>
+                  </div>
                 </div>
               </div>
-        </div>
 
-     <% end %>
+            <div class="row">
+              <div class= "col-xs-12 col-lg-12 col-md-12 col-sm-12">
+                <%= form_with url: search_path, local: true, method: :get do |s| %>
+                  <div class="form-group row mx-auto">
+                    <%= s.label'フリーワード' %>
+                    <%= s.text_field :word, class: 'form-control mb-2', placeholder:"ワード検索"%>
+                    <%= s.label'絞り込み' %>
+                    <%= s.select :method, options_for_select([['「投稿」からさがす'],['「ユーザー」からさがす']]),{ prompt: '-' },class: "form-control" %>
+                    <%= s.select :search, options_for_select({"完全一致"=>"perfect_match", "前方一致"=>"forward_match",  "後方一致"=>"backward_match", "部分一致"=>"partial_match"}),{ prompt: '-' },class: "form-control" %>
+                  </div>
+                  <div class="form-group row mx-auto">
+                   <%= button_tag type: :submit,class: "btn btn-outline-info form-control" do %>
+                     <i class="fa-solid fa-magnifying-glass"></i>
+                   <% end %>
+                  </div>
+                <% end %>
+              </div>
+            </div>
+            <h3>#<%= @hashtag.hashname %></h3>
+          </div>
+
+            <div class="image-warp d-flex flex-reverse">
+              <% @post_images.each do |image| %>
+                <div class="my-4">
+                  <div class="card border-success shadow p-3 mx-3" style="width:23rem">
+                    <div class= "mx-auto">
+                      <div class="mt-1 pt-3 pl-3 mb-2">
+                        <!--アイコン-->
+                        <%= link_to user_path(image.user),class:"text-dark" do %>
+                          <%= image_tag image.user.get_profile_image(130,130),class: "icon rounded-circle" %>
+                          <%= image.user.name %>
+                        <% end %>
+                      </div>
+                      <div class= "index-image col-md-11">
+                        <!--写真-->
+                        <%= image_tag image.get_image(700,520)%>
+                      </div>
+                      <p class="font-weight-bold card-title pl-3 pt-2 col-md-11">
+                        <!--タイトル-->
+                        <%= link_to post_image_path(image.id), class:"text-dark" do %>
+                        <%= image.title %>
+                        <% end %>
+                        ♥<%= image.favorites.count %>
+                      </p>
+                      <p class="pl-3 pt-2 col-md-11">
+                        <!--内容,ハッシュタグリンク-->
+                        <%= render_with_hashtags(image.body) %><br>
+                        <%= image.created_at.strftime('%Y/%m/%d') %>
+                      </p>
+                      <h2 class="text-right pr-3 favorite-btn_<%= image.id %>">
+                        <%= render "public/favorites/favorite-btn",post_image: image %>
+                      </h2>
+                    </div>
+                  </div>
+                </div>
+              <% end %>
+            </div>
+
+        </div>
+      <% end %>
     </div>
   </div>
-  <!--フッター-->
-  <%= render 'layouts/footer' %>
+</div>
+
+<!--フッター-->
+<%= render 'layouts/footer' %>
