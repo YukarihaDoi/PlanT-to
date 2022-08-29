@@ -1,21 +1,33 @@
-<!--ヘッター-->
-  <%= render 'layouts/header' %>
-<h1>お知らせ編集</h1>
-<%= form_with model: @news_image, url:admin_news_image_path ,method: :patch do |f| %>
-    <div class="col-9 offset-1">
-      <div class="form-group row">
-      　<%= f.file_field :news_image %>
+<div class="container mt-5">
+  <div class="row mt-5 mx-auto justify-content-center">
+    <div class="col-md-8 card shadow p-3">
+
+      <div  class="row mb-2 pl-5 card-body">
+       <%= link_to admin_news_images_path,class:"text-info" do %>
+          <h2>
+           <i class="fa-solid fa-circle-left"></i>
+          </h2>
+       <% end %>
       </div>
-      <div class="form-group row">
-      　<%= f.text_field :news_title , class: 'form-control news_title'%>
-      </div>
-      <div class="form-group row">
-      　<%= f.text_area :news_body , class: 'form-control news_body'%>
-      </div>
-      <div class="form-group row">
-      　<%= f.submit '編集',class: "btn btn-outline-success" %>
-      </div>
+
+        <% if @news_image.errors.any? %>
+          <ul>
+          <%= @news_image.errors.count %>件のエラーが発生しました
+            <% @news_image.errors.full_messages.each do |message| %>
+              <li>
+                <%= message %>
+              </li>
+            <% end %>
+          </ul>
+        <% end %>
+
+   <%= form_with model: @news_image, url: admin_news_image_path ,method: :patch do |f| %>
+    <div class="form-group col-md-11 px-5 pb-5 mx-auto">
+      　<%= f.file_field :news_image, accept: "image/*", class: "w-100 mb-2" %>
+      　<%= f.text_field :news_title , class: 'form-control mb-2'%>
+      　<%= f.text_area :news_body , class: 'form-control mb-2'%>
+      　<%= f.submit '編集',class: "btn btn-lg btn-block btn-outline-info mt-4 my-sm-0" %>
     </div>
   <% end %>
-  <!--フッター-->
-  <%= render 'layouts/footer' %>
+  </div>
+</div>

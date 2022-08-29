@@ -1,4 +1,5 @@
-<header class="shadow-sm  fixed-top">
+<header class="sticky-top">
+
   <nav class="navbar navbar-expand-lg">
     <!--ロゴ-->
     <div class="container-fluid">
@@ -46,15 +47,15 @@
       <!--管理者の場合-->
       <li class="nav-item">
         <%= link_to admin_post_images_path, class: 'nav-link text-light' do %>
-　　　　<strong>
-          Home
+        <strong>
+          <i class="fa-solid fa-sun-plant-wilt"></i>Posts
          </strong>
         <% end %>
       </li>
       <li class="nav-item">
         <%= link_to admin_users_path, class: 'nav-link text-light' do %>
           <strong>
-            User
+            <i class="fa-solid fa-users"></i>Users
           </strong>
         <% end %>
        </li>
@@ -100,7 +101,6 @@
                 ログアウト
               <% end %>
           <% end %>
-
          </div>
 
 

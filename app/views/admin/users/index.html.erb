@@ -1,28 +1,46 @@
 <div class='container mt-5'>
-  <div class='row mx-5 mt-5 '>
-     <!--カテゴリ-->
-     <%= render "layouts/side", post_categories: @post_categories, hashtags: @hashtags %>
-      <div class="col-8 offset-1">
-        <div class="mt-2">
-          <% @users.each do |user| %>
+  <div class='row mx-auto mt-5 '>
+         <div class="col-md-12 card">
+        <div class="mt-2 card-body">
+
           <table class='table'>
-            <tbody>
+            <thead>
               <tr>
-                <td width=50>
-                <%= image_tag user.get_profile_image(100,100),class: "rounded-circle user" %>
-                </td>
-                <td width=100 class="font-weight-bold text-left">
-                <%= user.name %>
-                </td>
-                <td width=20>
-                <%= link_to(admin_user_path(user.id), class:"text-dark") do %>
-                  show
-                <% end %>
-                </td>
+                <th>Image</th>
+                <th>Name</th>
+                <th>Status</th>
+                <th colspan="4"></th>
               </tr>
+             </thead>
+            <tbody>
+              <% @users.each do |user| %>
+              <tr>
+                <td><%= image_tag user.get_profile_image(200,200),class: "rounded-circle user" %></td>
+
+                <td class="font-weight-bold text-dark">
+                  <%= link_to admin_user_path(user), class:"text-dark" do %>
+                    <%= user.name %>
+                  <% end %>
+                </td>
+
+
+                  <% if user.is_deleted == false %>
+                    <td  class="font-weight-bold">
+                      有効
+                    </td>
+                  <% else %>
+                    <td  class="font-weight-bold text-danger">
+                      利用停止
+                    </td>
+                  <% end %>
+
+                <td><%= link_to 'Edit', edit_admin_user_path(user.id), class:"user_#{user.id} text-dark", data: { confirm: 'ユーザーのステータスを変更しますか？' } %></td>
+              </tr>
+              <% end %>
             </tbody>
           </table>
-          <% end %>
+
+
        </div>
      </div>
   </div>

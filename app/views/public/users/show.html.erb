@@ -1,10 +1,8 @@
 <div class="container-fluid">
- <div class='row mx-5 mt-5'>
-  <div class="col-md-12">
+ <div class='row mx-auto mt-5 justify-content-center'>
 
     <div class="col-md-2">
-
-      <table class='table table-bordered bg-light pl-3'>
+      <table class='table table-bordered bg-light'>
         <tr>
           <td>
            <%= image_tag @user.get_profile_image(200,200),class: "rounded-circle user" %>
@@ -17,7 +15,8 @@
         </tr>
         <tr>
           <td>
-           自己紹介:<%= @user.introduction %>
+           自己紹介:<br>
+           <%= @user.introduction %>
           </td>
         </tr>
         <tr>
@@ -32,45 +31,42 @@
         </tr>
       </table>
 
-    <% if current_user.name != "guestuser" %>
-      <div class='row mx-auto'>
-        <% if @user == current_user %>
-          <!--自分-->
-          <p>
-          <%= link_to "プロフィール編集", edit_user_path(@user),class:"text-success" %>
-          </p>
-        <% else %>
-          <!--他のユーザー-->
-          <% if current_user.following?(@user) %>
+      <% if current_user.name != "guestuser" %>
+        <div class='row mx-auto'>
+          <% if @user == current_user %>
+            <!--自分-->
             <p>
-             <%= link_to 'フォロー中', user_unfollow_path(current_user, @user), method: :POST %>
+             <%= link_to "プロフィール編集", edit_user_path(@user),class:"text-success" %>
             </p>
           <% else %>
-            <p>
-             <%= link_to 'フォローする', user_follow_path(current_user, @user), method: :POST %>
-            </p>
+            <!--他のユーザー-->
+            <% if current_user.following?(@user) %>
+              <p>
+               <%= link_to 'フォロー中', user_unfollow_path(current_user, @user), method: :POST %>
+              </p>
+            <% else %>
+              <p>
+               <%= link_to 'フォローする', user_follow_path(current_user, @user), method: :POST %>
+              </p>
+            <% end %>
           <% end %>
-        <% end %>
-      </div>
-    <% end %>
-
+        </div>
+      <% end %>
     </div>
 
 
-    <div class="col-md-12">
-      <div class="row mx-3 justify-content-start">
+    <div class="col-md-9">
+      <div class="row justify-content-start">
 
-      <div class="btn-group dropdown">
+      <div class="btn-group dropdown ml-3">
         <button class="btn dropdown-toggle btn-success" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true"  aria-expanded="false">
           投稿
         </button>
-
         <div class="dropdown-menu dropdown-menu-left" x-placement="right-start" style="position: absolute; transform: translate3d(60px, 0px, 0px); top: 0px; left: 0px; will-change: transform;">
           <%= link_to favorites_user_path(@user), class: 'nav-link text-dark' do %>
            <p class="font-weight-bold dropdown-item">いいね</p>
           <% end %>
         </div>
-
       </div>
 
       <% if @user.post_images.present? %>
@@ -78,7 +74,7 @@
         <div class="image-warp d-flex flex-reverse">
           <% @post_images.each do |post_image| %>
           <div class="my-4">
-            <div class="card border-success shadow p-3 mx-3" style="width:23rem">
+            <div class="card border-success shadow p-3 mx-3" style="width:20rem">
               <div class= "mx-auto">
                 <div class="index-image col-md-8">
                   <%= image_tag post_image.get_image(700,520) %>
@@ -98,19 +94,15 @@
           </div>
           <% end %>
       <% else %>
-        <!--ない場合-->
-        <p>
-        投稿した記事はありません
-        </p>
+          <!--投稿がない場合-->
+          <p>
+           投稿した記事はありません
+          </p>
         </div>
       <% end %>
-
 
       </div>
     </div>
 
-  </div>
  </div>
 </div>
-<!--フッター-->
-<%= render 'layouts/footer' %>

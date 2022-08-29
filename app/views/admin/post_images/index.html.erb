@@ -1,48 +1,36 @@
- <div class="container-fluid">
-<div class="row mx-auto mt-5">
-<!--サイド-->
-<%= render "layouts/side", post_categories: @post_categories, hashtags: @hashtags %>
-<!--一覧-->
-<div class="col-md-9 offset-md-1">
+<div class="container-fluid">
+ <div class="row mx-5 mt-5">
+  <div class="col-md-12">
 
-
-
-<% @post_images.each do |post_image| %>
-<div class="mx-3 my-4">
- <div class="card border-success shadow p-3 mx-3">
-  <div class= "mx-auto">
-
-   <div class="mt-1 pt-3 pl-3">
+<p class="ml-3 mt-3">新規投稿順で表示</p>
+ <div class="image-warp d-flex flex-reverse">
+   <% @post_images.each do |post_image| %>
+    <div class="my-4">
+      <div class="card border-success shadow p-3 mx-3" style="width:23rem">
+        <div class= "mx-auto">
+          <div class="mt-1 pt-3 pl-3">
     <!--アイコン-->
-    <%= link_to admin_user_path(post_image.user) do %>
-      <%= image_tag post_image.user.get_profile_image(130,130), class: "icon rounded-circle" %>
+    <%= image_tag post_image.user.get_profile_image(130,130), class: "icon rounded-circle mb-3" %>
+    <%= link_to admin_user_path(post_image.user), class:"text-dark" do %>
       <%= post_image.user.name %>
     <% end %>
    </div>
-   <!--<div class="d-flex">-->
     <div class="index-image col-md-11">
-      <!--写真-->
       <%= image_tag post_image.get_image(700,520)%>
     </div>
     <!--文章-->
-    <!--<div class="side-text">ならぶ-->
     <p class="font-weight-bold card-title pl-3 pt-2 col-md-11">
      <%= link_to admin_post_image_path(post_image.id), class:"text-dark" do %>
        <%= post_image.title %>
      <% end %>
+     ♥<%= post_image.favorites.count %>
+    <i class="fa-regular fa-message"></i><%= post_image.comments.count %>
     </p>
-    <!--<p>-->
-    <!--♡%= post_image.favorites.count %>-->
-    <!--</p>-->
-    <!--ハッシュタグ-->
     <p class="card-title pl-3 pt-2 col-md-11">
-    　<%= render_with_hashtags(post_image.body) %>
-      <%= post_image.created_at.strftime('%Y/%m/%d') %>
+     <%= post_image.body %>
+     <%= post_image.created_at.strftime('%Y/%m/%d') %>
     </p>
-    <!--コメント-->
-　  <!--<= link_to "#{post_image.comments.count} コメント", post_image_path(post_image.id) %>-->
- </div>
-<!--</div>-->
+     </div>
 </div>
 </div>
 <% end %>
@@ -51,5 +39,3 @@
 
 </div>
 </div>
-<!--フッター-->
-<%= render 'layouts/footer' %>

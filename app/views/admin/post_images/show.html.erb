@@ -1,61 +1,64 @@
 <div class="container mt-5">
   <div class="row mx-5 mt-5">
-    <!--カテゴリ-->
-    <%= render "layouts/side", post_categories: @post_categories, hashtags: @hashtags %>
-    <!--一覧-->
-    <div class="col-8 offset-1">
-        <div class="mt-2 mb-1">
-        <%= link_to(admin_user_path(@post_image.user), class:"text-dark") do %>
-            <%= image_tag @post_image.user.get_profile_image(30,30),class: " icon rounded-circle" %>
-            <%= @post_image.user.name %>
-        <% end %>
-        <!--管理者がサインインしてる場合は編集/削除ができる-->
-        <% if admin_signed_in? %>
+    <div class="col-md-12">
+
+     <div class="card border-success shadow p-3 mx-auto mt-5" style="width:50rem">
+      <div class='row no-gutters mx-auto'>
+
+
+         <div class="col-md-8">
+            <%= link_to(admin_user_path(@post_image.user), class:"text-dark") do %>
+                <%= image_tag @post_image.user.get_profile_image(30,30),class: " icon rounded-circle" %>
+                <%= @post_image.user.name %>
+            <% end %>
+            <!--管理者がサインインしてる場合は編集/削除ができる-->
             <%= link_to edit_admin_post_image_path(@post_image) do %>
               編集
             <% end %>|
             <%= link_to admin_post_images_path, method: :delete, data: { confirm: '本当に消しますか？' } do%>
               削除
             <% end %>
-        <% end %>
-        </div>
-        <div class="d-flex">
-         <div class="side-image">
-            <%= image_tag @post_image.get_image(350,200) %>
-         </div>
-        <!--文章-->
-         <div class="side-text">
-          <p class="font-weight-bold">
-            <%= @post_image.title %>
-          </p>
-          <p>
-            <%= @post_image.body %>
-          </p>
-          <p>
-            ♥<%= @post_image.favorites.count %>
-            <i class="fa-regular fa-message"></i><%= @post_image.comments.count %>
-          </p>
-          <p>
-             <%= render_with_hashtags(@post_image.body) %>
-          </p>
-          </div>
-        </div>
-        <div class="d-flex">
-          <div class="side-image">
 
+            <div class="show-image mt-2">
+              <%= image_tag @post_image.get_image(700,520) %>
+            </div>
           </div>
-          <div class="side-text">
+
+          <div class="col-md-4">
+            <div class="card-body">
+
+              <p class="font-weight-bold">
+                <%= @post_image.title %>
+              </p>
+              <p>
+                <%= @post_image.body %>
+              </p>
+              <p>
+                ♥<%= @post_image.favorites.count %>
+                <i class="fa-regular fa-message"></i><%= @post_image.comments.count %>
+              </p>
+
+              <h5 class="font-weight-normal">
+                <i class="fa-regular fa-message"></i><%= @post_image.comments.count %>
+              </h5>
+
             <!--コメント一覧-->
             <% @post_image.comments.each do |comment| %>
 
-            <%= image_tag comment.user.get_profile_image(30,30),class: "icon rounded-circle"%>
-            <p><%= comment.user.name %></p>
-            <p><%= comment.created_at.strftime('%Y/%m/%d') %><%= comment.comment %></p>
-            <p><%= link_to "削除", post_image_comment_path(comment.post_image, comment), method: :delete %></p>
-            <br>
-          <% end %>
-          </div>
+              <%= image_tag comment.user.get_profile_image(30,30),class: "icon rounded-circle"%>
+                <%= link_to(admin_user_path(comment.user), class:"text-dark") do %>
+                 <%= comment.user.name %>
+                <% end %>
+
+              <%= comment.created_at.strftime('%Y/%m/%d') %><br>
+              <%= comment.comment %>
+              <%= link_to "削除", post_image_comment_path(comment.post_image, comment), method: :delete %>
+          　<% end %>
+          　</div>
+
+         </div>
         </div>
+
     </div>
   </div>
 </div>

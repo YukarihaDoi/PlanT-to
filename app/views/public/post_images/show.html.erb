@@ -7,8 +7,17 @@
 
            <!--左-->
            <div class="col-md-8">
+
+             <div  class="mb-2">
+               <%= link_to post_images_path,class:"text-info" do %>
+                  <h2>
+                   <i class="fa-solid fa-circle-left"></i>
+                  </h2>
+               <% end %>
+             </div>
+
              <%= link_to(user_path(@post_image.user), class:"text-dark") do %>
-               <%= image_tag @post_image.user.get_profile_image(100,100),class: "icon rounded-circle" %>
+               <%= image_tag @post_image.user.get_profile_image(100,100),class: "icon rounded-circle ml-5" %>
                <%= @post_image.user.name %>
              <% end %>
               <!--自分の投稿は編集/削除ができる-->
@@ -20,13 +29,13 @@
                   削除
                 <% end %>
               <% end %>
-                 <div class="show-image mt-2">
+                 <div class="show-image mt-2 ml-5">
                   <%= image_tag @post_image.get_image(700,520) %><br>
                  </div>
                  <!--ゲストユーザー以外はコメントできる-->
                   <% if current_user.name != "guestuser" %>
                    <%= form_with model: [@post_image, @comment], method: :post, local: true do |f| %>
-                    <div class="form-group mt-2">
+                    <div class="form-group mt-5">
                      <%= f.text_area :comment, placeholder: "コメントをここに" ,class: 'form-control comment',size: "12x5" %>
                     </div>
                      <%= f.submit "投稿",class: "btn btn-outline-success" %>
@@ -35,20 +44,23 @@
              </div>
 
            <!--右-->
-          <div class="col-md-4 ard-body">
+          <div class="col-md-4">
             <div class="card-body">
 
             <p class="font-weight-bold">
               <%= @post_image.title %>
+              
             </p>
+            <p class="text-right pr-3">
+               ♥<%= @post_image.favorites.count %>
+              <i class="fa-regular fa-message"></i><%= @post_image.comments.count %>
+              </p>
             <p>
               <%= render_with_hashtags(@post_image.body) %>
             </p>
-            <p>
-              ♥<%= @post_image.favorites.count %>
-            </p>
+
             <!--ゲスト以外はいいねを押すことができる-->
-              <h2 class="text-end favorite_buttons_<%= @post_image.id %>">
+              <h2 class="text-right pr-3 favorite_buttons_<%= @post_image.id %>">
                 <%= render "public/favorites/favorite-btn", post_image: @post_image %>
              </h2>
 
@@ -56,18 +68,20 @@
                 <i class="fa-regular fa-message"></i><%= @post_image.comments.count %>
               </h5>
 
-          <!--コメント一覧-->
+            <!--コメント一覧-->
             <% @post_image.comments.each do |comment| %>
                <%= image_tag comment.user.get_profile_image(100,100),class: "rounded-circle icon"%>
-               <%= link_to(user_path(comment.user), class:"text-dark") do %>
-                <%= comment.user.name %>
+               <%= link_to(user_path(comment.user), class:"text-dark mb-3") do %>
+                <font size="2"><%= comment.user.name %></font><br>
                <% end %>
-               <%= comment.created_at.strftime('%Y/%m/%d') %><br>
                <%= comment.comment %>
                  <!--コメントしたのが自分のものの場合削除できる-->
                   <% if comment.user == current_user %>
-                     <%= link_to "削除", post_image_comment_path(comment.post_image, comment), method: :delete %>
+                     <%= link_to  post_image_comment_path(comment.post_image, comment), method: :delete  do%>
+                      <font size="2">削除</font><br>
+                     <% end %>
                   <% end %>
+                  <br>
             <% end %>
              </div>
            </div>
