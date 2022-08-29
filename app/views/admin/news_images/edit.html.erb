@@ -1,3 +1,6 @@
+<!--ヘッダー-->
+<%= render 'layouts/header' %>
+<!--お知らせ編集-->
 <div class="container mt-5">
   <div class="row mt-5 mx-auto justify-content-center">
     <div class="col-md-8 card shadow p-3">
@@ -23,11 +26,13 @@
 
    <%= form_with model: @news_image, url: admin_news_image_path ,method: :patch do |f| %>
     <div class="form-group col-md-11 px-5 pb-5 mx-auto">
-      　<%= f.file_field :news_image, accept: "image/*", class: "w-100 mb-2" %>
-      　<%= f.text_field :news_title , class: 'form-control mb-2'%>
-      　<%= f.text_area :news_body , class: 'form-control mb-2'%>
-      　<%= f.submit '編集',class: "btn btn-lg btn-block btn-outline-info mt-4 my-sm-0" %>
+      <%= f.file_field :news_image, accept: "image/*", class: "w-100 mb-2" %>
+      <%= f.text_field :news_title , class: 'form-control mb-2'%>
+      <%= f.text_area :news_body , class: 'form-control mb-2'%>
+      <%= f.submit '編集',class: "btn btn-lg btn-block btn-outline-info mt-4 my-sm-0" %>
     </div>
   <% end %>
   </div>
 </div>
+<!--フッター-->
+<%= render 'layouts/footer' %>

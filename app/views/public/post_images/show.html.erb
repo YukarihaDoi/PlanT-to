@@ -1,17 +1,14 @@
 <!--ヘッダー-->
 <%= render 'layouts/header' %>
-
 <!--投稿詳細-->
  <div class="container mt-5">
    <div class="row mx-5 my-5">
       <div class="col-md-12">
-
         <div class="card border-success shadow p-3 mx-auto mt-5" style="width:50rem">
          <div class='row no-gutters mx-auto'>
 
-           <!--左-->
+           <!--左画像/入力-->
            <div class="col-md-8">
-
              <div  class="mb-2">
                <%= link_to post_images_path,class:"text-info" do %>
                   <h2>
@@ -19,7 +16,6 @@
                   </h2>
                <% end %>
              </div>
-
              <%= link_to(user_path(@post_image.user), class:"text-dark") do %>
                <%= image_tag @post_image.user.get_profile_image(100,100),class: "icon rounded-circle ml-5" %>
                <%= @post_image.user.name %>
@@ -47,7 +43,7 @@
                   <% end %>
              </div>
 
-           <!--右-->
+           <!--右文章-->
           <div class="col-md-4 mt-5 pt-3">
             <div class="card-body">
             <p class="font-weight-bold">
@@ -84,7 +80,6 @@
 
          </div>
         </div>
-
       </div>
    </div>
  </div>
