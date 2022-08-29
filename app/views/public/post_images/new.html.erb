@@ -1,3 +1,6 @@
+<!--ヘッダー-->
+<%= render 'layouts/header' %>
+<!--新規作成-->
 <div class="container mt-5">
  <div class="row mx-auto mt-5 justify-content-center">
   <div class="col-md-8 card shadow p-3">
@@ -20,9 +23,9 @@
              <% end %>
            </ul>
          <% end %>
-   <% unless current_user.name == "guestuser" %>
-     <!--フォーム-->
-      <%= form_with model: @post_image do |f| %>
+     <% unless current_user.name == "guestuser" %>
+       <!--フォーム-->
+        <%= form_with model: @post_image do |f| %>
         <div class="form-group col-md-11 px-5 pb-5 mx-auto">
          <%= f.file_field :image, accept: "image/*", class: "w-100 mb-2" %>
          <%= f.text_field :title, class:"form-control mb-2", placeholder:"タイトル" %>
@@ -30,13 +33,15 @@
          <%= f.text_area :body, class:"form-control mb-2",rows:"3",placeholder:"例:植物の様子や伝えたいことなど"%>
          <%= f.submit '投稿', class:"btn btn-lg btn-block btn-outline-success mt-4 my-sm-0" %>
          </div>
-      <% end %>
+        <% end %>
 
-    <% else %>
+      <% else %>
       <%= render 'public/users/guests' %>
 
-    <% end %>
+     <% end %>
     </div>
   </div>
  </div>
 </div>
+<!--フッター-->
+<%= render 'layouts/footer' %>

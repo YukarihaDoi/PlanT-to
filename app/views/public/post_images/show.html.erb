@@ -1,14 +1,23 @@
+<!--ヘッダー-->
+<%= render 'layouts/header' %>
+<!--投稿詳細-->
  <div class="container mt-5">
-   <div class="row mx-5 mt-5">
+   <div class="row mx-5 my-5">
       <div class="col-md-12">
-
-        <div class="card border-success shadow p-3 mx-auto mt-5" style="width:50rem">
+        <div class="card border-success shadow p-3 mx-auto mt-5">
          <div class='row no-gutters mx-auto'>
 
-           <!--左-->
+           <!--左画像/入力-->
            <div class="col-md-8">
+             <div  class="mb-2">
+               <%= link_to post_images_path,class:"text-info" do %>
+                  <h2>
+                   <i class="fa-solid fa-circle-left"></i>
+                  </h2>
+               <% end %>
+             </div>
              <%= link_to(user_path(@post_image.user), class:"text-dark") do %>
-               <%= image_tag @post_image.user.get_profile_image(100,100),class: "icon rounded-circle" %>
+               <%= image_tag @post_image.user.get_profile_image(100,100),class: "icon rounded-circle ml-5" %>
                <%= @post_image.user.name %>
              <% end %>
               <!--自分の投稿は編集/削除ができる-->
@@ -20,61 +29,57 @@
                   削除
                 <% end %>
               <% end %>
-                 <div class="show-image mt-2">
-                  <%= image_tag @post_image.get_image(700,520) %><br>
+                 <div class="show-image mt-2 ml-5">
+                  <%= image_tag @post_image.get_image(700,520), class: "img-fluid" %><br>
                  </div>
                  <!--ゲストユーザー以外はコメントできる-->
                   <% if current_user.name != "guestuser" %>
                    <%= form_with model: [@post_image, @comment], method: :post, local: true do |f| %>
-                    <div class="form-group mt-2">
+                    <div class="form-group mt-5 col-md-11 ml-4">
                      <%= f.text_area :comment, placeholder: "コメントをここに" ,class: 'form-control comment',size: "12x5" %>
                     </div>
-                     <%= f.submit "投稿",class: "btn btn-outline-success" %>
+                     <%= f.submit "投稿",class: "btn btn-outline-success col-md-4 ml-5" %>
                    <% end %>
                   <% end %>
              </div>
 
-           <!--右-->
-          <div class="col-md-4 ard-body">
+           <!--右文章-->
+          <div class="col-md-4 mt-5 pt-3">
             <div class="card-body">
-
             <p class="font-weight-bold">
               <%= @post_image.title %>
             </p>
+            <p class=" pr-3">
+               ♥<%= @post_image.favorites.count %>
+              <i class="fa-regular fa-message"></i><%= @post_image.comments.count %>
+              </p>
             <p>
               <%= render_with_hashtags(@post_image.body) %>
             </p>
-            <p>
-              ♥<%= @post_image.favorites.count %>
-            </p>
             <!--ゲスト以外はいいねを押すことができる-->
-              <h2 class="text-end favorite_buttons_<%= @post_image.id %>">
+              <h2 class="text-right pr-3 favorite-btn_<%= @post_image.id %>">
                 <%= render "public/favorites/favorite-btn", post_image: @post_image %>
              </h2>
-
-              <h5 class="font-weight-normal">
-                <i class="fa-regular fa-message"></i><%= @post_image.comments.count %>
-              </h5>
-
-          <!--コメント一覧-->
+            <!--コメント一覧-->
             <% @post_image.comments.each do |comment| %>
                <%= image_tag comment.user.get_profile_image(100,100),class: "rounded-circle icon"%>
-               <%= link_to(user_path(comment.user), class:"text-dark") do %>
-                <%= comment.user.name %>
+               <%= link_to(user_path(comment.user), class:"text-dark mb-3") do %>
+                <font size="2"><%= comment.user.name %></font><br>
                <% end %>
-               <%= comment.created_at.strftime('%Y/%m/%d') %><br>
                <%= comment.comment %>
                  <!--コメントしたのが自分のものの場合削除できる-->
                   <% if comment.user == current_user %>
-                     <%= link_to "削除", post_image_comment_path(comment.post_image, comment), method: :delete %>
+                     <%= link_to  post_image_comment_path(comment.post_image, comment), method: :delete  do%>
+                      <font size="2">削除</font><br>
+                     <% end %>
                   <% end %>
+                  <br>
             <% end %>
              </div>
            </div>
 
          </div>
         </div>
-
       </div>
    </div>
  </div>

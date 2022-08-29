@@ -1,16 +1,14 @@
-<!--ヘッター-->
+<!--ヘッダー-->
 <%= render 'layouts/header' %>
-<div class='container mt-5'>
-  <div class='row mx-5 mt-5'>
-  <!--カテゴリ-->
-  <%= render "layouts/side", post_categories: @post_categories, hashtags: @hashtags %>
-    <div class="col-8 offset-1">
-      <div class='row'>
-      <div class="col-3">
-       <table class='table table-bordered'>
+<!--ユーザー詳細-->
+<div class='container-fluid'>
+  <div class='row mx-auto mt-5 justify-content-center'>
+
+      <div class="col-md-2">
+       <table class='table table-bordered bg-light'>
          <tr>
            <td>
-            <%= image_tag @user.get_profile_image(100,100),class: "rounded-circle user" %>
+            <%= image_tag @user.get_profile_image(200,200),class: "rounded-circle user" %>
            </td>
          </tr>
          <tr>
@@ -25,45 +23,58 @@
           </td>
         </tr>
         <tr>
-         <td>会員ステータス</td>
+         <td>会員ステータス:<br>
          <% if @user.is_deleted == false %>
-          <td>有効</td>
+          <span>有効</sapn>
          <% else %>
-          <td>退会</td>
+          <sapn class='text-danger'>利用停止中</sapn>
          <% end %>
+         </td>
         </tr>
        </table>
 
-       <div class='row mx-auto'>
+       <div class='row ml-4'>
          <p>
-          <%= link_to "ユーザー編集", edit_admin_user_path(@user),class:"text-success" %>
+          <%= link_to "Edit", edit_admin_user_path(@user),class:"text-dark", data: { confirm: 'ユーザーのステータスを変更しますか？' } %>
         </p>
        </div>
-
      </div>
-     <div class="col-9">
-      <h5>投稿一覧</h5>
+
+     <div class="col-md-9">
+      <div class="row justify-content-start">
+
       <% if @user.post_images.present? %>
         <!--ある場合-->
+        <div class="image-warp d-flex flex-reverse">
           <% @user.post_images.each do |post_image| %>
-            <div class="index-image">
-             <%= link_to admin_post_image_path(post_image.id) do %>
-               <%= image_tag post_image.get_image(50,50) %>
-             <% end %>
-            </div>
+            <div class="my-4">
+            <div class="card border-success shadow p-3 mx-3" style="width:20rem">
+              <div class= "mx-auto">
+                <div class="index-image col-md-8">
+                   <%= image_tag post_image.get_image(700,520), class: "img-fluid" %>
+                </div>
+            <p class="font-weight-bold card-title pl-3 pt-2 col-md-11">
              <%= link_to admin_post_image_path(post_image.id), class:"text-dark" do %>
-               <p>
                  <%= post_image.title %>
-               </p>
-             <% end %>
+               <% end %>
+            </p>
+             <p class="card-title pl-3 pt-2 col-md-11">
+                  <!--内容,ハッシュタグリンク-->
+                  <%= post_image.body %><br>
+                  <%= post_image.created_at.strftime('%Y/%m/%d') %>
+            </p>
+             </div>
+            </div>
+          </div>
+
           <% end %>
       <% else %>
           <!--ない場合-->
-      　　　<p>投稿はありません</p>
+      <p>投稿はありません</p>
       <% end %>
       </div>
       </div>
-    </div>
+
   </div>
 </div>
 <!--フッター-->

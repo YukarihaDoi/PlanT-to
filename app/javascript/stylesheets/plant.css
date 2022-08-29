@@ -7,7 +7,7 @@
 
 /*全体*/
 body{
- padding-top:30px;/* ヘッダーと同じ高さ */
+ /*padding-top:30px;*/
  background-color: #F5F6F6;
  margin: 0;
 }
@@ -55,21 +55,23 @@ header, nav{
 }
 
 
+/*文字*/
+.category-name{
+  display: inline-block;
+}
 
+.hashtag-name {
+  display: inline-block;
+}
 
 /*top*/
 /*top画像*/
 .top-image img{
-  width: 100%;
+  width:80%;
   height: auto;
   display: block;
 }
-/*logo*/
-.logo-image img{
-  width: 100%;
-  height: auto;
-  display: block;
-}
+
 
 /*一覧*/
 .tag-category{

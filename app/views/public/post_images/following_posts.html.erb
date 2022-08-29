@@ -1,78 +1,86 @@
+<!--ヘッダー-->
+<%= render 'layouts/header' %>
+<!--投稿(いいね)-->
 <div class="container-fluid">
-    <div class="row mx-5 mt-5">
-        <div class="col-md-12">
-          <div class='row mx-3 justify-content-start'>
-
-
-          <div class="btn-group dropdown">
+ <div class="row mx-5 mt-5">
+  <div class="col-md-12 col-sm-12 col-xs-12">
+    
+      <div class='row mx-3 justify-content-start'>
+        <div class="btn-group dropdown">
+          <!--遷移ボタン-->
           <button class="btn dropdown-toggle btn-success" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true"  aria-expanded="false">
-           フォロー投稿
+            フォロー
           </button>
-            <div class="dropdown-menu dropdown-menu-left" x-placement="right-start" style="position: absolute; transform: translate3d(60px, 0px, 0px); top: 0px; left: 0px; will-change: transform;">
-
-              <%= link_to post_images_path, class: 'nav-link text-dark' do %>
-                <p class="font-weight-bold dropdown-item">タイムライン</p>
-              <% end %>
-              <%= link_to popular_post_images_path, class: 'nav-link text-dark' do %>
-                <p class="font-weight-bold dropdown-item">人気順</p>
-              <% end %>
-            </div>
-       </div>
-         <div class='list-unstyled d-flex flex-row'>
-            <li class="pb-2 px-4">
-             <%= link_to following_posts_post_images_path,class:"text-dark" do %>
-              すべて
-             <% end %>
-            </li>|
-            <% @post_categories.each do |category| %>
-            <li class="pb-2 px-4">
-              <%= link_to category.post_category, following_posts_post_images_path(post_category: category.id), class: 'text-dark' %>
-           </li>
+          <!--ボタンの中身-->
+          <div class="dropdown-menu dropdown-menu-left" x-placement="right-start" style="position: absolute; transform: translate3d(60px, 0px, 0px); top: 0px; left: 0px; will-change: transform;">
+            <%= link_to post_images_path, class: 'nav-link text-dark' do %>
+              <p class="font-weight-bold dropdown-item">
+                New
+              </p>
+            <% end %>
+            <%= link_to popular_post_images_path, class: 'nav-link text-dark' do %>
+              <p class="font-weight-bold dropdown-item">
+                人気
+              </p>
             <% end %>
           </div>
-       </div>
-       <p class="ml-3 mt-3">フォローユーザーの投稿を表示</p>
-       <!--ここから一覧-->
-        <div class="image-warp d-flex flex-reverse">
-          <% @post_images.each do |image| %>
-            <div class="my-4">
-              <div class="card border-success shadow p-3 mx-3 "style="width:23rem">
-               <div class= "mx-auto">
-                <div class="mt-1 pt-3 pl-3 mb-2">
-                  <!--アイコン-->
-                  <%= link_to user_path(image.user),class:"text-dark" do %>
-                    <%= image_tag image.user.get_profile_image(130,130),class: "icon rounded-circle" %>
-                    <%= image.user.name %>
-                  <% end %>
-                </div>
+        </div>
+        <!--カテゴリー-->
+        <div class='list-unstyled d-flex flex-row align-items-end'>
+          <li class="pb-2 px-4">
 
-                 <div class= "index-image col-md-11">
-                    <!--写真-->
-                    <%= image_tag image.get_image(700,520)%>
-                  </div>
+            <%= link_to following_posts_post_images_path,class:"text-dark" do %>
+              すべて
+            <% end %>
+          </li>
+            <% @post_categories.each do |category| %>
+              <li class="pb-2 px-4">
+                <%= link_to category.post_category,post_images_path(post_category: category.id), class: 'text-dark' %>
+              </li>
+            <% end %>
+        </div>
+     </div>
+
+       <p class="ml-3 mt-3">フォロー中ユーザーの投稿を表示しています</p>
+          <div class="image-warp d-flex flex-reverse">
+            <% @post_images.each do |image| %>
+              <div class="my-4">
+                <div class="card border-success shadow p-3 mx-3" style="width:23rem">
+                  <div class= "mx-auto">
+                    <div class="mt-1 pt-3 pl-3 mb-2">
+                      <!--アイコン-->
+                      <%= link_to user_path(image.user),class:"text-dark" do %>
+                      <%= image_tag image.user.get_profile_image(130,130),class: "rounded-circle icon" %>
+                      <%= image.user.name %>
+                      <% end %>
+                    </div>
+                    <div class= "index-image col-md-11">
+                      <!--写真-->
+                      <%= image_tag image.get_image(700,520), class: "img-fluid" %>
+                    </div>
                     <p class="font-weight-bold card-title pl-3 pt-2 col-md-11">
-                    <!--タイトル-->
+                      <!--タイトル-->
                       <%= link_to post_image_path(image.id), class:"text-dark" do %>
-                        <%= image.title %>
+                      <%= image.title %>
                       <% end %>
                     </p>
-                    <p class="card-title pl-3 pt-2 col-md-11">
-                    <!--内容,ハッシュタグリンク-->
+                    <p class=" pl-3 pt-2 col-md-11">
+                      <!--内容,ハッシュタグリンク-->
                       <%= render_with_hashtags(image.body) %><br>
                       <%= image.created_at.strftime('%Y/%m/%d') %>
+                      ♥<%= image.favorites.count %>
+                    <i class="fa-regular fa-message"></i><%= image.comments.count %>
                     </p>
-                   <h2 class="text-right pr-3 favorite-btn_<%= image.id %>">
-                    <%= render "public/favorites/favorite-btn",post_image: image %>
-                  </h2>
-                </div>
+                    <h2 class="text-right favorite-btn_<%= image.id %>">
+                      <%= render "public/favorites/favorite-btn", post_image: image %>
+                    </h2>
+                  </div>
                 </div>
               </div>
-          <% end %>
+            <% end %>
           </div>
-       </div>
-      </div>
-
     </div>
   </div>
+</div>
 <!--フッター-->
 <%= render 'layouts/footer' %>

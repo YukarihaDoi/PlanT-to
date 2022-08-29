@@ -11,7 +11,6 @@ class Admin::NewsImagesController < ApplicationController
     if @news_image.save
        redirect_to admin_news_images_path
     else
-       @news_image = NewsImage.new
        render:new
     end
   end
@@ -32,7 +31,6 @@ class Admin::NewsImagesController < ApplicationController
      if @news_image.update(news_image_params)
        redirect_to admin_news_images_path
      else
-       @news_image = NewsImage.find(params[:id])
        render:edit
      end
   end

@@ -26,9 +26,6 @@ class Admin::PostImagesController < ApplicationController
     if @post_image.update(post_image_params)
        redirect_to admin_post_images_path
     else
-      @post_image = PostImage.find(params[:id])
-      @post_categories = PostCategory.all
-      @hashtags = Hashtag.all.to_a.group_by{ |hashtag| hashtag.post_images.count}
       render:edit
     end
   end
