@@ -7,7 +7,8 @@
 #   Character.create(name: 'Luke', movie: movies.first)
 Admin.create!(
   email: 'test@test.com',
-  password: 'test01')
+  password: 'test01'
+  )
 
 NewsImage.create!([{
   news_title: '秋間近！秋の花を探してみませんか？',
@@ -38,7 +39,7 @@ User.create!([{
   email: 'Engei@shoshinsya',
   password: 'engeisyoshinsya',
   name: '園芸初心者',
-  profile_image: ActiveStorage::Blob.create_and_upload!(io:File.open(Rails.root.join("./db/fixtures/images/Leaf.jpg")),filename: 'Leaf.jpg' )
+  profile_image: ActiveStorage::Blob.create_and_upload!(io:File.open(Rails.root.join("./db/fixtures/images/Leaf.jpg")),filename: 'no-image_user.jpg' )
 },
 
 {

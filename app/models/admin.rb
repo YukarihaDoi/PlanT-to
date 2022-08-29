@@ -4,13 +4,14 @@ class Admin < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
   ##画像
-  has_one_attached :news_image
+  has_one_attached :admin_profile_image
+
   # 画像確認/サイズ
-  def get_news_image(width, height)
+  def admin_profile_image(width, height)
     unless news_image.attached?
       # ここの画像直す
-      file_path = Rails.root.join('app/assets/images/no-post_image.jpg')
-      news_image.attach(io: File.open(file_path), filename: 'no-post_image.jpg', content_type: 'image/jpeg')
+      file_path = Rails.root.join('app/assets/images/no-image_user.jpg')
+      news_image.attach(io: File.open(file_path), filename: 'no-image_user.jpg', content_type: 'image/jpeg')
     end
     news_image.variant(resize_to_limit: [width, height]).processed
   end
