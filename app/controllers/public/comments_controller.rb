@@ -11,7 +11,7 @@ class Public::CommentsController < ApplicationController
   def destroy
   comment = Comment.find(params[:id])
   comment.destroy
-    if current_user = comment.user
+    if current_user == comment.user
        redirect_to post_image_path(params[:post_image_id])
     else
        redirect_to admin_post_images_path
