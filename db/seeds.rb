@@ -95,7 +95,7 @@ PostImage.create!([{
   user_id: 3,
   post_category_id: 4,
   title: 'アルバイト募集！',
-  body: '＃花屋 で働きませんか？ #アルバイト',
+  body: '#花屋 で働きませんか？ #アルバイト',
   image: ActiveStorage::Blob.create_and_upload!(io:File.open(Rails.root.join("./app/assets/plants_images/green_necklace.jpg")),filename: 'green_necklace.jpg' )
 },
 {
@@ -105,4 +105,3 @@ PostImage.create!([{
   body: 'おすすめありますか？'
 }
 ])
-

@@ -24,8 +24,8 @@ class User < ApplicationRecord
   # 画像確認/サイズ
   def get_profile_image(width, height)
     unless profile_image.attached?
-      file_path = Rails.root.join('app/assets/images/no_user.jpg')
-      profile_image.attach(io: File.open(file_path), filename: 'no_user.jpg', content_type: 'image/jpeg')
+      file_path = Rails.root.join('app/assets/images/no-image_user.jpg')
+      profile_image.attach(io: File.open(file_path), filename: 'no-image_user.jpg', content_type: 'image/jpeg')
     end
     profile_image.variant(resize_to_limit: [width, height]).processed
   end
@@ -63,7 +63,7 @@ class User < ApplicationRecord
       elsif search == "partial_match"
         User.where('name LIKE ?', '%'+word+'%')
       else
-      
+
       end
   end
   #バリテーション

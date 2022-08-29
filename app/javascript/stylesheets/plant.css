@@ -28,6 +28,7 @@ header{
 	display: flex;
 	flex-wrap: wrap;
 }
+
 /*フォント*/
 header, nav{
   font-family: fangsong;
@@ -55,11 +56,6 @@ header, nav{
 }
 
 
-/*文字*/
-.category-name{
-  display: inline-block;
-}
-
 .hashtag-name {
   display: inline-block;
 }
@@ -72,14 +68,10 @@ header, nav{
   display: block;
 }
 
-
 /*一覧*/
 .tag-category{
  display: inline-block;
 }
-
-
-
 
 
 /*ヘッダー下部分*/

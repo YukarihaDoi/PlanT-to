@@ -9,8 +9,8 @@ class Admin < ApplicationRecord
   def get_news_image(width, height)
     unless news_image.attached?
       # ここの画像直す
-      file_path = Rails.root.join('app/assets/images/exsample.jpg')
-      news_image.attach(io: File.open(file_path), filename: 'exsample.jpg', content_type: 'image/jpeg')
+      file_path = Rails.root.join('app/assets/images/no-post_image.jpg')
+      news_image.attach(io: File.open(file_path), filename: 'no-post_image.jpg', content_type: 'image/jpeg')
     end
     news_image.variant(resize_to_limit: [width, height]).processed
   end
