@@ -72,9 +72,10 @@
             <!--外側-->
             <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton", data-toggle="dropdown">
               <% if user_signed_in? %>
+                <!--会員の場合-->
               　<%= image_tag current_user.get_profile_image(100,100),class: "rounded-circle icon" %>
-              <% elsif admin_signed_in? %>
               <% else %>
+                <!--管理者の場合-->
               　<%= image_tag 'no-image_user.jpeg',width: '30px',height: '30px',class: "rounded-circle icon" %>
               <% end %>
             </button>
