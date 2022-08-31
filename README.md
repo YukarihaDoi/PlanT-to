@@ -30,6 +30,8 @@
 - JSライブラリ：jQuery
 - IDE：Cloud9
 
-### 写真
->実家の庭の写真
->[photoAC](https://www.photo-ac.com/)
+### 素材
+>写真
+実家の庭の写真
+>アイコン
+[iconmono](https://icooon-mono.com/category/animal/page/2/)
