@@ -16,7 +16,10 @@ module FlowerApp
     # These settings can be overridden in specific environments using the files
     # in config/environments, which are processed later.
     #
-    # config.time_zone = "Central Time (US & Canada)"
+    # タイムゾーンを日本語に設定
+    # config.time_zone = "Asia/Tokyo"
+    # デフォルトのロケールを日本に設定
+    config.i18.default_locate = :ja
     # config.eager_load_paths << Rails.root.join("extras")
   end
 end
