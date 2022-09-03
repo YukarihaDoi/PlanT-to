@@ -25,7 +25,7 @@ class Admin::PostImagesController < ApplicationController
   def update
     @post_image = PostImage.find(params[:id])
     if @post_image.update(post_image_params)
-       redirect_to admin_post_images_path, notice: '編集に成功しました'
+       redirect_to admin_post_images_path, notice: '更新に成功しました'
     else
       render:edit
     end
