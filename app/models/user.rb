@@ -3,8 +3,6 @@ class User < ApplicationRecord
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
-  # 会員名
-  validates :name, presence: true, length: { minimum: 2, maximum: 20 }, uniqueness: true
 
   ##アソシエーション
   has_many :post_images, dependent: :destroy
@@ -24,8 +22,8 @@ class User < ApplicationRecord
   # 画像確認/サイズ
   def get_profile_image(width, height)
     unless profile_image.attached?
-      file_path = Rails.root.join('app/assets/images/no-image_user.jpg')
-      profile_image.attach(io: File.open(file_path), filename: 'no-image_user.jpg', content_type: 'image/jpeg')
+      file_path = Rails.root.join('app/assets/images/no-user_image.jpg')
+      profile_image.attach(io: File.open(file_path), filename: 'no-user_image.jpg', content_type: 'image/jpg')
     end
     profile_image.variant(resize_to_limit: [width, height]).processed
   end
@@ -63,9 +61,9 @@ class User < ApplicationRecord
       elsif search == "partial_match"
         User.where('name LIKE ?', '%'+word+'%')
       else
-
+        # 表示しない
       end
   end
   #バリテーション
-    validates :name, presence: true
+    validates :name, presence: true, length: { minimum: 2, maximum: 20 }, uniqueness: true
 end
