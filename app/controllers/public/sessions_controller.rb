@@ -8,8 +8,6 @@ class Public::SessionsController < Devise::SessionsController
      root_path
    end
 
-
-
   protected
   # 利用停止しているかを判断するメソッド
   def user_state
@@ -20,12 +18,12 @@ class Public::SessionsController < Devise::SessionsController
   ## 【処理内容2】 取得したアカウントのパスワードと入力されたパスワードが一致してるかを判別
    if @user.valid_password?(params[:user][:password]) && (@user.is_deleted == true)
     ## 【処理内容3】
-    redirect_to new_user_registration_path
+    redirect_to new_user_registration_path,alert: "利用停止しています"
    else
-    redirect_to post_images_path(current_user)
+    redirect_to user_path(current_user),notice: "ログインしました"
    end
   end
-  
+
   # GET /resource/sign_in
   # def new
   #   super
