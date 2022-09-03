@@ -14,8 +14,18 @@
   </head>
 
   <body>
+    <!--ヘッダー-->
+    <% if signed_in? %>
+      <%= render 'layouts/header' %>
+    <% end %>
+    <!--フラッシュメッセージ-->
     <%= render 'layouts/flash' %>
+    <!--各ページ-->
     <%= yield %>
+    <!--フッター-->
+    <% if signed_in? %>
+      <%= render 'layouts/footer' %>
+    <% end %>
   </body>
 
 </html>
