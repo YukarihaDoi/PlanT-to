@@ -1,4 +1,6 @@
 class Admin::NewsImagesController < ApplicationController
+  
+  before_action :login_check, only: [:index, :show, :edit, :new]
 
   # 新規
   def new
@@ -9,7 +11,7 @@ class Admin::NewsImagesController < ApplicationController
   def create
    @news_image = NewsImage.new(news_image_params)
     if @news_image.save
-       redirect_to admin_news_images_path
+       redirect_to admin_news_images_path, notice: '投稿に成功しました'
     else
        render:new
     end
@@ -29,7 +31,7 @@ class Admin::NewsImagesController < ApplicationController
   def update
     @news_image = NewsImage.find(params[:id])
      if @news_image.update(news_image_params)
-       redirect_to admin_news_images_path
+       redirect_to admin_news_images_path, notice: '更新に成功しました'
      else
        render:edit
      end
@@ -37,7 +39,16 @@ class Admin::NewsImagesController < ApplicationController
 
   private
 
+  # 許可
   def news_image_params
     params.require(:news_image).permit(:news_title, :news_image, :news_body, :admin_id)
   end
+
+  # ログインしているかどうか
+  def login_check
+    unless signed_in?
+    redirect_to root_path
+    end
+  end
+
 end
