@@ -19,7 +19,7 @@ module FlowerApp
     # タイムゾーンを日本語に設定
     # config.time_zone = "Asia/Tokyo"
     # デフォルトのロケールを日本に設定
-    config.i18.default_locate = :ja
+    config.i18n.default_locale = :ja
     # config.eager_load_paths << Rails.root.join("extras")
   end
 end

@@ -24,7 +24,7 @@ class Admin::UsersController < ApplicationController
   def update
     @user = User.find(params[:id])
     if @user.update(user_params)
-      redirect_to admin_users_path
+      redirect_to admin_users_path, notice: '更新に成功しました'
     else
       @user = User.find(params[:id])
       @post_categories = PostCategory.all

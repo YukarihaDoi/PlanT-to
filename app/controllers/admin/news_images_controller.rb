@@ -1,5 +1,5 @@
 class Admin::NewsImagesController < ApplicationController
-  
+
   before_action :login_check, only: [:index, :show, :edit, :new]
 
   # 新規
