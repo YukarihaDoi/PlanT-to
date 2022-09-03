@@ -7,7 +7,8 @@
 #   Character.create(name: 'Luke', movie: movies.first)
 Admin.create!(
   email: 'test@test.com',
-  password: 'test01')
+  password: 'test01'
+  )
 
 NewsImage.create!([{
   news_title: '秋間近！秋の花を探してみませんか？',
@@ -38,7 +39,7 @@ User.create!([{
   email: 'Engei@shoshinsya',
   password: 'engeisyoshinsya',
   name: '園芸初心者',
-  profile_image: ActiveStorage::Blob.create_and_upload!(io:File.open(Rails.root.join("./db/fixtures/images/Leaf.jpg")),filename: 'Leaf.jpg' )
+  profile_image: ActiveStorage::Blob.create_and_upload!(io:File.open(Rails.root.join("./db/fixtures/images/Leaf.jpg")),filename: 'no-image_user.jpg' )
 },
 
 {
@@ -95,7 +96,7 @@ PostImage.create!([{
   user_id: 3,
   post_category_id: 4,
   title: 'アルバイト募集！',
-  body: '＃花屋 で働きませんか？ #アルバイト',
+  body: '#花屋 で働きませんか？ #アルバイト',
   image: ActiveStorage::Blob.create_and_upload!(io:File.open(Rails.root.join("./app/assets/plants_images/green_necklace.jpg")),filename: 'green_necklace.jpg' )
 },
 {
@@ -105,4 +106,3 @@ PostImage.create!([{
   body: 'おすすめありますか？'
 }
 ])
-

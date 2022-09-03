@@ -33,7 +33,6 @@ class Public::UsersController < ApplicationController
   # フォロワー 一覧画面
   def follower
    @user = User.find(params[:id])
-
   end
   # フォロー 一覧画面
   def following

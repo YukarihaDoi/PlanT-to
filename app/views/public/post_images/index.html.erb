@@ -67,7 +67,7 @@
                     <p class=" pl-3 pt-2 col-md-11">
                       <!--内容,ハッシュタグリンク-->
                       <%= render_with_hashtags(image.body) %><br>
-                      <%= image.created_at.strftime('%Y/%m/%d') %>
+                      <%= l image.created_at, format: :short %>
                       ♥<%= image.favorites.count %>
                     <i class="fa-regular fa-message"></i><%= image.comments.count %>
                     </p>
