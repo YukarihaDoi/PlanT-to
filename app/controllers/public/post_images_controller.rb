@@ -12,7 +12,7 @@ before_action :side_view, only: [ :new, :index, :show, :edit, :hashtag, :popular
     @post_image = PostImage.new(post_image_params)
     @post_image.user_id = current_user.id
     if @post_image.save
-       redirect_to post_images_path
+       redirect_to post_images_path, notice: '投稿に成功しました'
     else
       @post_categories = PostCategory.all
       @hashtags = Hashtag.all.to_a.group_by{ |hashtag| hashtag.post_images.count}
@@ -60,7 +60,7 @@ before_action :side_view, only: [ :new, :index, :show, :edit, :hashtag, :popular
   def update
     @post_image = PostImage.find(params[:id])
     if @post_image.update(post_image_params)
-       redirect_to post_image_path(@post_image)
+       redirect_to post_image_path(@post_image), notice: '更新に成功しました'
     else
        @post_categories = PostCategory.all
        @hashtags = Hashtag.all.to_a.group_by{ |hashtag| hashtag.post_images.count}
@@ -72,7 +72,7 @@ before_action :side_view, only: [ :new, :index, :show, :edit, :hashtag, :popular
   def destroy
     @post_image = PostImage.find(params[:id])
     @post_image.destroy
-    redirect_to post_images_path
+    redirect_to post_images_path, notice: '削除に成功しました'
   end
 
   # ハッシュ

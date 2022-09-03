@@ -1,6 +1,7 @@
 class Admin::PostImagesController < ApplicationController
  before_action :authenticate_admin!, only: [:show,:new, :index, :edit, :hashtag]
  before_action :side_view, only: [:index, :show, :edit, :hashtag,:update ]
+ before_action :login_check, only: [:index, :show, :edit, :hashtag]
 
   # 投稿一覧
   def index
@@ -24,7 +25,7 @@ class Admin::PostImagesController < ApplicationController
   def update
     @post_image = PostImage.find(params[:id])
     if @post_image.update(post_image_params)
-       redirect_to admin_post_images_path
+       redirect_to admin_post_images_path, notice: '編集に成功しました'
     else
       render:edit
     end
@@ -59,4 +60,11 @@ class Admin::PostImagesController < ApplicationController
     @post_categories = PostCategory.all
     @hashtags = Hashtag.all.to_a.group_by{ |hashtag| hashtag.post_images.count}
   end
+
+  def login_check
+    unless signed_in?
+    redirect_to root_path
+    end
+  end
+
 end
