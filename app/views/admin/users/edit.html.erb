@@ -12,18 +12,8 @@
         </h2>
        <% end %>
       </div>
-
-        <% if @user.errors.any? %>
-          <ul>
-            <%= @user.errors.count %>件のエラーが発生しました
-             <% @user.errors.full_messages.each do |message| %>
-              <li>
-                <%= message %>
-              </li>
-             <% end %>
-          </ul>
-        <% end %>
-
+      <!--エラーメッセージ-->
+      <%= render 'layouts/error',object: @user %>
       <!--フォーム-->
       <h5 class="ml-4">
         <%= image_tag @user.get_profile_image(200,200),class: "rounded-circle icon" %>

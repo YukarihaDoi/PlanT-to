@@ -12,17 +12,8 @@
         </h2>
      <% end %>
     </div>
-
-         <% if @post_image.errors.any? %>
-           <ul>
-           <%= @post_image.errors.count %>件のエラーが発生しました
-             <% @post_image.errors.full_messages.each do |message| %>
-               <li>
-                 <%= message %>
-               </li>
-             <% end %>
-           </ul>
-         <% end %>
+    　<!--エラーメッセージ-->
+     <%= render 'layouts/error',object: @post_image %>
      <% unless current_user.name == "guestuser" %>
        <!--フォーム-->
         <%= form_with model: @post_image do |f| %>

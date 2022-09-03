@@ -13,16 +13,8 @@
        <% end %>
       </div>
 
-        <% if @news_image.errors.any? %>
-          <ul>
-          <%= @news_image.errors.count %>件のエラーが発生しました
-            <% @news_image.errors.full_messages.each do |message| %>
-              <li>
-                <%= message %>
-              </li>
-            <% end %>
-          </ul>
-        <% end %>
+     <!--エラーメッセージ-->
+     <%= render 'layouts/error',object: @news_image %>
 
    <%= form_with model: @news_image, url: admin_news_image_path ,method: :patch do |f| %>
     <div class="form-group col-md-11 px-5 pb-5 mx-auto">

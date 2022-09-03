@@ -12,18 +12,8 @@
           </h2>
        <% end %>
       </div>
-
-        <% if @post_image.errors.any? %>
-          <ul>
-          <%= @post_image.errors.count %>件のエラーが発生しました
-            <% @post_image.errors.full_messages.each do |message| %>
-              <li>
-                <%= message %>
-              </li>
-            <% end %>
-          </ul>
-        <% end %>
-
+      <!--エラーメッセージ-->
+      <%= render 'layouts/error',object: @post_image %>
        <!--フォーム-->
      <%= form_with model: @post_image ,method: :patch do |f| %>
        <div class="form-group col-md-11 px-5 pb-5 mx-auto">
