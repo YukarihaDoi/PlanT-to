@@ -62,6 +62,7 @@ class PostImage < ApplicationRecord
     end
   end
 
+
   validates :title, presence: true
   validates :body, presence: true
   validates :post_category, presence: true
