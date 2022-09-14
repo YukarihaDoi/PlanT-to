@@ -16,7 +16,6 @@ Rails.application.routes.draw do
   # 管理者
   namespace :admin do
     get '/' => 'homes#top'
-    resources :post_categories, only: [:index, :create, :edit, :update]
     resources :post_images, only: [:show, :index, :edit, :update, :destroy]
     resources :users, only: [:show, :index,:edit,:update]
     resources :news_images, only: [:new,:create, :index, :edit, :update ]
@@ -42,7 +41,6 @@ Rails.application.routes.draw do
     end
     # ハッシュ
     get '/post_images/hashtag/:name' => 'post_images#hashtag'
-    get '/post_images/hashtag' => 'post_images#hashtag'
 
     resources :post_images, only: [:new, :create, :show, :index, :edit, :update, :destroy] do
       resources :comments, only: [:create, :destroy]
