@@ -1,5 +1,3 @@
-<!--ヘッダー-->
-<%= render 'layouts/header' %>
 <!--searchから遷移-->
 
 <div class="container-fluid">
@@ -46,7 +44,6 @@
           <!--投稿で検索-->
          <% if @method == "「投稿」からさがす" %>
             <% if @post_images.present? %>
-              
               <div class="image-warp d-flex flex-reverse">
                 <% @post_images.each do |image| %>
                 <div class="my-4">
@@ -84,7 +81,6 @@
                 </div>
                 <% end %>
               </div>
-            
             <% else %>
             <!--いない場合は非表示-->
             <% end %>
@@ -134,11 +130,7 @@
           <!--いない場合は非表示-->
           <% end %>
         <% end %>
-
       </div>
     </div>
   </div>
 </div>
-
-<!--フッター-->
-<%= render 'layouts/footer' %>

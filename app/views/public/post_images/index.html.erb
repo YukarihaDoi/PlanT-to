@@ -24,7 +24,7 @@
           </div>
         </div>
         <!--カテゴリー-->
-        <div class='list-unstyled d-flex flex-row align-items-end'>
+        <div class="row list-unstyled">
           <li class="pb-2 px-4">
 
             <%= link_to post_images_path,class:"text-dark" do %>
@@ -38,33 +38,32 @@
             <% end %>
         </div>
       </div>
-
         <p class="ml-3 mt-3">新しい投稿順に表示しています</p>
-          <div class="image-warp d-flex flex-reverse">
+          <div class="image-warp">
             <% @post_images.each do |image| %>
               <div class="my-4">
-                <div class="card border-success shadow p-3 mx-3" style="width:23rem">
+                <div class="card border-success shadow p-3 mx-3 col-lg-12 col-md-6 col-xs-6" style="width:280px">
                   <div class= "mx-auto">
-                    <div class="mt-1 pt-3 pl-3 mb-2">
+                    <div class="mt-1 pt-3 mb-2">
                       <!--アイコン-->
                       <%= link_to user_path(image.user),class:"text-dark" do %>
                       <%= image_tag image.user.get_profile_image(130,130),class: "rounded-circle icon" %>
                       <%= image.user.name %>
                       <% end %>
                     </div>
-                    <div class= "index-image col-md-11">
+                    <div class= "index-image">
                       <!--写真-->
                       <%= image_tag image.get_image(700,520), class: "img-fluid" %>
                     </div>
-                    <p class="font-weight-bold card-title pl-3 pt-2 col-md-11">
+                    <p class="font-weight-bold card-title pt-2">
                       <!--タイトル-->
                       <%= link_to post_image_path(image.id), class:"text-dark" do %>
                       <%= image.title %>
                       <% end %>
                     </p>
-                    <p class=" pl-3 pt-2 col-md-11">
-                      <!--内容,ハッシュタグリンク-->
-                      <%= render_with_hashtags(image.body) %><br>
+                    <p class=" pt-2">
+                      <!--内容,文字省略-->
+                      <%= image.body.truncate(14) %><br>
                       <%= l image.created_at, format: :short %>
                       ♥<%= image.favorites.count %>
                     <i class="fa-regular fa-message"></i><%= image.comments.count %>
@@ -76,7 +75,6 @@
                 </div>
               </div>
             <% end %>
-
           </div>
 
        </div>
